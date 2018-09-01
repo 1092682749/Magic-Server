@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ClientInfoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.ClientInfo">
+    <result column="clientid" jdbcType="VARCHAR" property="clientid" />
+    <result column="connected" jdbcType="SMALLINT" property="connected" />
+    <result column="mostsignbits" jdbcType="BIGINT" property="mostsignbits" />
+    <result column="leastsignbits" jdbcType="BIGINT" property="leastsignbits" />
+    <result column="lastconnecteddate" jdbcType="DATE" property="lastconnecteddate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    clientid, connected, mostsignbits, leastsignbits, lastconnecteddate
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.model.ClientInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from clientinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.example.demo.model.ClientInfoExample">
+    delete from clientinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.ClientInfo">
+    insert into clientinfo (clientid, connected, mostsignbits, 
+      leastsignbits, lastconnecteddate)
+    values (#{clientid,jdbcType=VARCHAR}, #{connected,jdbcType=SMALLINT}, #{mostsignbits,jdbcType=BIGINT}, 
+      #{leastsignbits,jdbcType=BIGINT}, #{lastconnecteddate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.ClientInfo">
+    insert into clientinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clientid != null">
+        clientid,
+      </if>
+      <if test="connected != null">
+        connected,
+      </if>
+      <if test="mostsignbits != null">
+        mostsignbits,
+      </if>
+      <if test="leastsignbits != null">
+        leastsignbits,
+      </if>
+      <if test="lastconnecteddate != null">
+        lastconnecteddate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clientid != null">
+        #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="connected != null">
+        #{connected,jdbcType=SMALLINT},
+      </if>
+      <if test="mostsignbits != null">
+        #{mostsignbits,jdbcType=BIGINT},
+      </if>
+      <if test="leastsignbits != null">
+        #{leastsignbits,jdbcType=BIGINT},
+      </if>
+      <if test="lastconnecteddate != null">
+        #{lastconnecteddate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.model.ClientInfoExample" resultType="java.lang.Long">
+    select count(*) from clientinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update clientinfo
+    <set>
+      <if test="record.clientid != null">
+        clientid = #{record.clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.connected != null">
+        connected = #{record.connected,jdbcType=SMALLINT},
+      </if>
+      <if test="record.mostsignbits != null">
+        mostsignbits = #{record.mostsignbits,jdbcType=BIGINT},
+      </if>
+      <if test="record.leastsignbits != null">
+        leastsignbits = #{record.leastsignbits,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastconnecteddate != null">
+        lastconnecteddate = #{record.lastconnecteddate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update clientinfo
+    set clientid = #{record.clientid,jdbcType=VARCHAR},
+      connected = #{record.connected,jdbcType=SMALLINT},
+      mostsignbits = #{record.mostsignbits,jdbcType=BIGINT},
+      leastsignbits = #{record.leastsignbits,jdbcType=BIGINT},
+      lastconnecteddate = #{record.lastconnecteddate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="findClientByclientid" parameterType="string" resultType="com.example.demo.model.ClientInfo">
+    select * from clientinfo where clientid = #{clientid}
+  </select>
+  <insert id="save" parameterType="com.example.demo.model.ClientInfo">
+    insert into clientinfo (clientid, connected, mostsignbits, leastsignbits, lastconnecteddate) values (
+    #{clientid},#{connected},#{mostsignbits},#{leastsignbits},#{lastconnecteddate}
+    )
+  </insert>
+</mapper>

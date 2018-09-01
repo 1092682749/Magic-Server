@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.RedPacketMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.RedPacket">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="send_date" jdbcType="TIMESTAMP" property="sendDate" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="unit_amount" jdbcType="DECIMAL" property="unitAmount" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+
+  <select id="getRedPacket" parameterType="int" resultType="com.example.demo.model.RedPacket">
+    select * from t_red_packet where id = #{id}
+  </select>
+
+  <update id="decreaseRedPacket">
+    update t_red_packet set stock = stock - 1 where id = #{id}
+  </update>
+
+  <select id="getRedPacketForUpData" parameterType="int" resultType="com.example.demo.model.RedPacket">
+    select * from t_red_packet where  id = #{id} for update
+  </select>
+
+  <!-- 通过版本号扣减抢红包 每更新一次，版本增1， 其次增加对版本号的判断 -->
+  <update id="decreaseRedPacketForVersion">
+		update t_red_packet
+		set stock = stock - 1,
+		version = version + 1
+		where id = #{id}
+		and version = #{version}
+	</update>
+</mapper>

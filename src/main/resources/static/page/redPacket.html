@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+柔柔弱弱柔柔弱弱柔柔弱弱让人
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="../html2canvas.js"></script>
+<script>
+    $(document).ready(
+        // function (){
+        //     var max = 30000;
+        //     for (var i = 1; i <= max; i++){
+        //         $.post({
+        //             url:"http://localhost:8080/userRedPacket/grapRedPacketByRedis?redPacketId=5&userId="+i,
+        //             success:function (e) {
+        //                 console.log(e);
+        //             }
+        //         });
+        //     }
+        // }
+    );
+    base();
+    function base (){
+        var div = document.createElement("div");
+        div.setAttribute("id","capture");
+        div.innerText = "divdivasdadadadasd";
+        html2canvas(div).then(function(canvas) {
+            console.log(canvas);
+            return canvas;
+        });
+    }
+
+</script>
