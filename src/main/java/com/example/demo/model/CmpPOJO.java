@@ -1,11 +1,7 @@
 package com.example.demo.model;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
+public class CmpPOJO {
     private Integer id;
-
-    private String name;
 
     public Integer getId() {
         return id;
@@ -15,13 +11,6 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
     @Override
     public int hashCode() {
         return this.id;
@@ -35,8 +24,7 @@ public class User implements Serializable {
         if (obj.getClass() != getClass()){
             return false;
         }
-        User user = (User)obj;
-        return id.equals(user.getId());
+        CmpPOJO cmpPOJO = (CmpPOJO)obj;
+        return id.equals(cmpPOJO.getId());
     }
-
 }

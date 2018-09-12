@@ -2,11 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.server.FirstServer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,6 +44,12 @@ public class FirstController {
     }
     @RequestMapping("/index1")
     public ModelAndView index1(){
+//        System.out.println(discardServerHandler);
         return new ModelAndView("index1");
+    }
+
+    @RequestMapping("/go")
+    public void go(){
+
     }
 }

@@ -35,9 +35,7 @@ public class RedisRedPacketServiceImpl implements RedisRedPacketService {
     @Override
     @Async
     public void saveUserRedPacketByRedis(Integer redPacketId, Double unitAmount) {
-        System.err.println("��ʼ��������");
         Long start = System.currentTimeMillis();
-        // ��ȡ�б��������
         BoundListOperations ops = redisTemplate.boundListOps(PREFIX + redPacketId);
         Long size = ops.size();
         Long times = size % TIME_SIZE == 0 ? size / TIME_SIZE : size / TIME_SIZE + 1;
