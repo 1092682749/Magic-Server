@@ -5,8 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DBTable {
-    public String name() default "";
+public @interface SQLString {
+    int value() default 0;
+    String name() default "";
+    Constraints constraints() default  @Constraints;
 }
