@@ -67,16 +67,16 @@ public class TestSyn {
         //创建两个发红包的用户
         User u1 = new User();
         u1.setId(1);
-        u1.setName("111");
+        u1.setUserame("111");
         User u2 = new User();
         u2.setId(2);
-        u2.setName("222");
+        u2.setUserame("222");
         User u3 = new User();
         u1.setId(1);
-        u1.setName("111");
+        u1.setUserame("111");
         User u4 = new User();
         u2.setId(2);
-        u2.setName("222");
+        u2.setUserame("222");
         //把用户列表添加到抢红包的list
         RobRedPacket redPacket = new RobRedPacket();
         LinkedList<User> users = new LinkedList<>();

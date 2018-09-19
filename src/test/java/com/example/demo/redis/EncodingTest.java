@@ -15,10 +15,10 @@ public class EncodingTest extends DemoApplicationTests {
     @Test
     public void test(){
         User user = new User();
-        user.setName("momo");
+        user.setUserame("momo");
         redisTemplate.opsForValue().set("user",user);
         User ref = (User) redisTemplate.opsForValue().get("user");
-        System.out.println(ref.getName());
+        System.out.println(ref.getUsername());
     }
 
 }

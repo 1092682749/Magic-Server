@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.server.FirstServer;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,5 +52,10 @@ public class FirstController {
     @RequestMapping("/go")
     public void go(){
 
+    }
+    @PreAuthorize("hasRole('user')")
+    @RequestMapping("/admin")
+    public String admin() {
+        return "admin";
     }
 }

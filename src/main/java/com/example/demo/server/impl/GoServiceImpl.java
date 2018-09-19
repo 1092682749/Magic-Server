@@ -20,7 +20,7 @@ public class GoServiceImpl implements GoService {
         User synObject = userList.get(id);
         synchronized (synObject){
             String s = "s";
-            synObject.setName(synObject.getName()+s);
+            synObject.setUserame(synObject.getUsername()+s);
         }
     }
 }
