@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        UserDetails sUser = new SecurityUser(user,authorities);
+        UserDetails sUser = new SecurityUser(user, authorities);
         return sUser;
     }
 }

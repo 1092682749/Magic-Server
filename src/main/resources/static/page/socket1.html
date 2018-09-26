@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button onclick="con()">连接</button>
+<button onclick="sendMsg()">send</button>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/socket.io/2.1.1/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script>
+    var socket;
+    function con(){
+        if (window.WebSocket) {
+            socket = new WebSocket("ws://localhost:8080/");
+            socket.onopen = function(e) {
+                console.log("connect!");
+            };
+            socket.onclose = function (e) {
+                console.log("close!");
+            };
+            socket.onmessage = function (ev) {
+                console.log(ev);
+            };
+        }else {
+            console.log("不支持");
+        }
+    }
+function sendMsg() {
+    if (socket.readyState == WebSocket.OPEN) {
+        socket.send("asdasd");
+    }
+}
+// var socket =  io.connect('ws://localhost:8080');
+//
+// socket.on('connect', function() {
+//     console.log("connect!");
+// });
+</script>

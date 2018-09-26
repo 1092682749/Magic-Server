@@ -30,7 +30,7 @@
         var clientid = 'client1';
         var targetClientId= 'client2';
 
-        var socket =  io.connect('ws://localhost:8081?clientid='+clientid);
+        var socket =  io.connect('ws://localhost:8080?clientid='+clientid);
 
         socket.on('connect', function() {
             output('<span class="connect-msg">Client has connected to the server!</span>');
@@ -81,7 +81,6 @@
 
 <div id="console" class="well">
 </div>
-
 <form class="well form-inline" onsubmit="return false;">
     <input id="msg" class="input-xlarge" type="text" placeholder="Type something..."/>
     <button type="button" onClick="sendMessage()" class="btn" id="send">Send</button>

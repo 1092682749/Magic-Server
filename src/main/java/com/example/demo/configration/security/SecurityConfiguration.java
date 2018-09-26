@@ -58,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                        .roles("USER")
 //                        .build();
         MyUserDetailsService myUserDetailsService = new MyUserDetailsService();
-        System.out.println(myUserDetailsService);
+//        System.out.println(myUserDetailsService);
         return myUserDetailsService;
     }
 }
