@@ -2,6 +2,8 @@ package com.example.demo.configration.security;
 
 import com.example.demo.model.SUser;
 import com.example.demo.model.User;
+import com.example.demo.server.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,16 +13,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class MyUserDetailsService implements UserDetailsService {
+    UserService userService;
+    MyUserDetailsService(UserService userService){
+        this.userService = userService;
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //
-        SUser user = new SUser();
-        user.setUsername("123");
-        user.setPassword("asd");
+        User user = null;
+        try {
+            user = userService.findByUsername(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (user == null) {
             throw new UsernameNotFoundException("UserName " + username + " not found");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+        // 增加权限
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         UserDetails sUser = new SecurityUser(user, authorities);
         return sUser;

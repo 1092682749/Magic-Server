@@ -1,8 +1,5 @@
 package com.example.demo.configration.netty;
 
-import com.example.demo.configration.netty.copy.IHService;
-import com.example.demo.configration.netty.copy.IWSService;
-import com.example.demo.configration.netty.copy.WebSocketServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;

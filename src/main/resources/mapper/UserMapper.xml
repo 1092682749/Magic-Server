@@ -3,10 +3,16 @@
 <mapper namespace="com.example.demo.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.example.demo.model.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
   </resultMap>
-
   <select id="findAll" resultType="com.example.demo.model.User">
     select * from user
   </select>
+  <insert id="save" parameterType="com.example.demo.model.User">
+    insert into user (username, password) values (#{username},#{password})
+  </insert>
+    <select id="findByUsername" parameterType="string" resultType="com.example.demo.model.User">
+        select * from user where username = #{username}
+    </select>
 </mapper>

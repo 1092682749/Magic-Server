@@ -15,7 +15,7 @@ public class EncodingTest extends DemoApplicationTests {
     @Test
     public void test(){
         User user = new User();
-        user.setUserame("momo");
+        user.setUsername("momo");
         redisTemplate.opsForValue().set("user",user);
         User ref = (User) redisTemplate.opsForValue().get("user");
         System.out.println(ref.getUsername());

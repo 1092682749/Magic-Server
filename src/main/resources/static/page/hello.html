@@ -9,5 +9,45 @@
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
+    <div id="box">
+        
+    </div>
+<input id="sendInput" type="text"><button onclick="sendMsg()">send</button>
 </body>
 </html>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script>
+    var username;
+    $.ajax({
+        url: '/ok/getUser',
+        dataType: 'json',
+        success: function (e) {
+            username = e;
+            console.log(e);
+        }
+    });
+    var webSocket;
+    var box = document.getElementById('box');
+    var sendInput = document.getElementById('sendInput');
+    if (window.WebSocket) {
+        webSocket = new WebSocket("ws://localhost:8080");
+        webSocket.onmessage = function (e) {
+            var msg = document.createElement('div');
+            msg.innerText = e.data;
+            box.appendChild(msg);
+            console.log(e);
+        };
+        webSocket.onopen = function (ev) {
+            console.log("connect");
+        };
+    }
+    function sendMsg() {
+        if (webSocket.readyState == webSocket.OPEN) {
+            var msg = sendInput.value;
+            webSocket.send(username+","+msg);
+        } else {
+            alert("连接尚未建立成功");
+        }
+
+    }
+</script>

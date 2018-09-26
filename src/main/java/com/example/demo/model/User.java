@@ -1,20 +1,11 @@
 package com.example.demo.model;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
+public class User {
     private Integer id;
 
     private String username;
+
     private String password;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Integer getId() {
         return id;
@@ -28,24 +19,15 @@ public class User implements Serializable {
         return username;
     }
 
-    public void setUserame(String username) {
+    public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
     }
-    @Override
-    public int hashCode() {
-        return this.id;
+
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this){
-            return true;
-        }
-        if (obj.getClass() != getClass()){
-            return false;
-        }
-        User user = (User)obj;
-        return id.equals(user.getId());
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
-
 }

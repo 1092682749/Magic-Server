@@ -18,7 +18,7 @@ public class CopyHander extends SimpleChannelInboundHandler<Object> {
     // 用于服务器端web套接字打开和关闭握手
     private WebSocketServerHandshaker handshaker;
 
-    private static final String WEB_SOCKET_URL = "ws://localhost:8888/websocket";
+    private static final String WEB_SOCKET_URL = "ws://localhost:8888/";
 
     //客户端与服务端创建连接的时候调用
     @Override

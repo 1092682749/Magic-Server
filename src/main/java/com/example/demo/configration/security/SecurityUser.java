@@ -10,12 +10,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class SecurityUser implements UserDetails {
-    SUser user;
+    User user;
     String username;
     String password;
     Collection<SimpleGrantedAuthority> grantedAuthorityList;
 
-    SecurityUser(SUser user, Collection<SimpleGrantedAuthority> grantedAuthorityList) {
+    SecurityUser(User user, Collection<SimpleGrantedAuthority> grantedAuthorityList) {
         this.user = user;
         this.grantedAuthorityList = grantedAuthorityList;
     }

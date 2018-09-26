@@ -1,5 +1,7 @@
 package com.example.demo.configration.security;
 
+import com.example.demo.server.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)//开启security注解
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    UserService userService;
     @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -36,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/", "/home","/regist","/ok/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -57,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                        .password("password")
 //                        .roles("USER")
 //                        .build();
-        MyUserDetailsService myUserDetailsService = new MyUserDetailsService();
+        MyUserDetailsService myUserDetailsService = new MyUserDetailsService(userService);
 //        System.out.println(myUserDetailsService);
         return myUserDetailsService;
     }
