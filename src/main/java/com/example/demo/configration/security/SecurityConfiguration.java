@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/home","/regist","/ok/**").permitAll()
                 .anyRequest().authenticated()
@@ -49,6 +49,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+        http
+                .sessionManagement()
+                .maximumSessions(1)
+                .expiredUrl("/login");
     }
 
 

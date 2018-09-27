@@ -1,5 +1,7 @@
 package com.example.demo.configration.netty;
 
+import com.example.demo.model.User;
+import com.example.demo.utils.json.JsonToBean;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -60,7 +62,6 @@ public class CopyHander extends SimpleChannelInboundHandler<Object> {
          * 握手成功后，数据就直接从 TCP 通道传输，与 HTTP 无关了。
          * 执行handleHttpRequest方法来处理WebSocket握手请求。
          */
-
         // FullHttpRequest是完整的 HTTP请求，协议头和Form数据是在一起的，不用分开读
         if (msg instanceof FullHttpRequest) {
             handHttpRequest(context, (FullHttpRequest) msg);
@@ -89,7 +90,7 @@ public class CopyHander extends SimpleChannelInboundHandler<Object> {
      * @param frame
      */
     private void handWebsocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame) {
-
+        MsgObject user = (MsgObject) JsonToBean.chagneObject(((TextWebSocketFrame) frame).text(),MsgObject.class);
         //判断是否是关闭websocket的指令
         if (frame instanceof CloseWebSocketFrame) {
             handshaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());

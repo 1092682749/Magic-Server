@@ -9,8 +9,12 @@
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
+<select id="friendSelect">
+    <option value="">请选择好友</option>
+    <option value="all">广播给所有在线用户</option>
+</select>
     <div id="box">
-        
+
     </div>
 <input id="sendInput" type="text"><button onclick="sendMsg()">send</button>
 </body>
@@ -26,11 +30,30 @@
             console.log(e);
         }
     });
+
     var webSocket;
+    var friendList;
+    var friendSelect = document.getElementById('friendSelect');
+    $.ajax({
+        url: '/ok/getFriend',
+        dataType: 'json',
+        success: function (e) {
+            friendList = e;
+            console.log(e);
+            for (var i = 0; i < e.length; i++) {
+                var op = document.createElement('option');
+                op.innerText =  e[i].username;
+                op.value = e[i].username;
+                friendSelect.appendChild(op);
+            }
+        }
+    });
+
+    var ops = document.querySelectorAll("#friendSelect option");
     var box = document.getElementById('box');
     var sendInput = document.getElementById('sendInput');
     if (window.WebSocket) {
-        webSocket = new WebSocket("ws://localhost:8080");
+        webSocket = new WebSocket("ws://192.168.0.232:8080");
         webSocket.onmessage = function (e) {
             var msg = document.createElement('div');
             msg.innerText = e.data;
@@ -42,16 +65,40 @@
         };
     }
     function sendMsg() {
+        checkSession();
+        var flag = checkSession();
+        console.log(flag);
+        if (!flag){
+            window.location.href = "/login";
+            console.log("没有认证");
+            return;
+        } else {
+            console.log(1231123);
+        }
         if (webSocket.readyState == webSocket.OPEN) {
             var msg = sendInput.value;
+            var receivename = friendSelect.value;
             var msgObject = {
                 username: username,
                 msg: msg,
+                receivename: receivename,
             };
             webSocket.send(JSON.stringify(msgObject));
         } else {
             alert("连接尚未建立成功");
         }
 
+    }
+    function checkSession() {
+        var flag = false;
+        $.ajax({
+            url: '/ok/checkSession',
+            async: false,
+            success: function(e) {
+                console.log(typeof e);
+                flag = e;
+            }
+        })
+        return flag;
     }
 </script>

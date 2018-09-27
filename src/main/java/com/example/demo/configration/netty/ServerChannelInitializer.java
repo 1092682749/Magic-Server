@@ -20,8 +20,9 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
         socketChannel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
         socketChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
         socketChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
-        socketChannel.pipeline().addLast(new CopyHander());
+//        socketChannel.pipeline().addLast(new CopyHander());
 //        socketChannel.pipeline().addLast(new WebSocketServerHandler(new IWSService(),new IHService()));
 //        socketChannel.pipeline().addLast(new TimeServerHandler());
+        socketChannel.pipeline().addLast(new ChatHandler());
     }
 }
