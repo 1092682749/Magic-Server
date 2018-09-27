@@ -23,6 +23,8 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userMapper.findByUsername(username);
         if (userList.size() > 1) {
             throw new Exception("用户名不唯一");
+        } else if (userList == null || userList.size() == 0) {
+            throw new Exception("用户不存在");
         }
         return userList.get(0);
     }

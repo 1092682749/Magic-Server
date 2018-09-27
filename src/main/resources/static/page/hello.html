@@ -44,7 +44,11 @@
     function sendMsg() {
         if (webSocket.readyState == webSocket.OPEN) {
             var msg = sendInput.value;
-            webSocket.send(username+","+msg);
+            var msgObject = {
+                username: username,
+                msg: msg,
+            };
+            webSocket.send(JSON.stringify(msgObject));
         } else {
             alert("连接尚未建立成功");
         }
