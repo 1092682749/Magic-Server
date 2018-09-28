@@ -24,7 +24,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     protected void initChannel(SocketChannel socketChannel) {
         // 解码编码
         socketChannel.pipeline().addLast("http-codec", new HttpServerCodec());
-        socketChannel.pipeline().addLast("aggregator", new HttpObjectAggregator(65536));
+        socketChannel.pipeline().addLast("aggregator", new HttpObjectAggregator(655360));
         socketChannel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
         socketChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
         socketChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
