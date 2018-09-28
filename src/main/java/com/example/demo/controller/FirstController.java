@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
+import com.example.demo.server.ChatMsgRecordService;
 import com.example.demo.server.FirstServer;
 import com.example.demo.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import javax.annotation.Resource;
 import javax.annotation.Resources;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("all")
 @Controller
@@ -30,7 +34,8 @@ public class FirstController {
     FirstServer firstServer;
     @Resource
     UserService userService;
-
+    @Resource
+    ChatMsgRecordService chatMsgRecordService;
     @Resource
     RedisTemplate redisTemplate;
 
@@ -100,6 +105,13 @@ public class FirstController {
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("user",user);
         mav.addObject("allUser",allUser);
+        Map<String,Integer> unreadMap = new HashMap<>();
+        for (User u : allUser) {
+           Integer count = chatMsgRecordService.selectCountBySendName(u.getUsername(),user.getUsername());
+
+            unreadMap.put(u.getUsername(),count);
+        }
+        mav.addObject("unreadMap",unreadMap);
         return mav;
     }
 }

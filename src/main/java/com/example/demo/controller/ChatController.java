@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ChatMsg;
+import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
+import com.example.demo.server.ChatMsgRecordService;
 import com.example.demo.server.ChatMsgService;
 import com.example.demo.server.UserService;
 import org.apache.tomcat.util.http.parser.Authorization;
@@ -25,6 +27,8 @@ public class ChatController {
     UserService userService;
     @Resource
     ChatMsgService chatMsgService;
+    @Resource
+    ChatMsgRecordService chatMsgRecordService;
     @RequestMapping("/page")
     public String registPage() {
         return "regist";
@@ -73,5 +77,21 @@ public class ChatController {
         chatMsgList.addAll(chatMsgList1);
         Collections.sort(chatMsgList);
         return chatMsgList;
+    }
+
+    @RequestMapping("/getMsgListByName")
+    public @ResponseBody List<ChatMsgRecord> getMsgListByName(String sendName, String receiveName) throws Exception {
+        List<ChatMsgRecord> chatMsgList = chatMsgRecordService.findByUser(sendName, receiveName);
+        List<ChatMsgRecord> chatMsgList1 = chatMsgRecordService.findByUser(receiveName, sendName);
+        if (chatMsgList1 != null) {
+            chatMsgList.addAll(chatMsgList1);
+        }
+        Collections.sort(chatMsgList);
+        return chatMsgList;
+    }
+
+    @RequestMapping("/already")
+    public @ResponseBody void already(String sendName, String receiveName) {
+        chatMsgRecordService.already(sendName,receiveName);
     }
 }

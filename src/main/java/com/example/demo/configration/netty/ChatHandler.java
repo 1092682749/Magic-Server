@@ -1,7 +1,10 @@
 package com.example.demo.configration.netty;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.model.ChatMsg;
+import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
+import com.example.demo.server.ChatMsgRecordService;
 import com.example.demo.server.ChatMsgService;
 import com.example.demo.server.UserService;
 import com.example.demo.utils.json.JsonToBean;
@@ -25,11 +28,11 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 public class ChatHandler extends ChannelInboundHandlerAdapter {
     String webSocketUrl = "ws://localhost:8080";
     WebSocketServerHandshaker handshaker = null;
-    ChatMsgService chatMsgService = null;
+    ChatMsgRecordService chatMsgRecordService = null;
     UserService userService = null;
-    public ChatHandler(ChatMsgService chatMsgService,UserService userService) {
+    public ChatHandler(ChatMsgRecordService chatMsgRecordService,UserService userService) {
         super();
-        this.chatMsgService = chatMsgService;
+        this.chatMsgRecordService = chatMsgRecordService;
         this.userService = userService;
     }
 
@@ -130,7 +133,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
     }
     public void handleWebSocket(ChannelHandlerContext ctx, MsgObject msg) throws Exception {
         if (msg.getReceivename().equals("") || msg.getReceivename() == null) {
-            ctx.channel().writeAndFlush(new TextWebSocketFrame("您没有指定发送目标，本条消息原物返还"));
+//            ctx.channel().writeAndFlush(new TextWebSocketFrame("您没有指定发送目标，本条消息原物返还"));
         }else if (msg.getReceivename().equals("all")){
             NettyConfig.group.writeAndFlush(new TextWebSocketFrame(msg.getMsg()+" (该消息广播了"+NettyConfig.group.size()+"位用户)"));
         } else {
@@ -139,24 +142,26 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
     }
     public void sendMessageToReceive(ChannelHandlerContext ctx, MsgObject msg) throws Exception {
         Set<User> userSet = ChannelMap.channelMap.keySet();
+        ChatMsgRecord chatMsgRecord = saveMsg(msg);
         for (User ruser : userSet){
             if (ruser.getUsername().equals(msg.getReceivename())) {
-                ChannelMap.channelMap.get(ruser).writeAndFlush(new TextWebSocketFrame(msg.getMsg()));
+                String jsonStr = JSON.toJSONString(chatMsgRecord);
+                ChannelMap.channelMap.get(ruser).writeAndFlush(new TextWebSocketFrame(jsonStr));
             }
         }
-        saveMsg(msg);
+
 //        ctx.channel().writeAndFlush(new TextWebSocketFrame("用户不存在或者不在线"));
     }
-    public void saveMsg(MsgObject msg) throws Exception {
+    public ChatMsgRecord saveMsg(MsgObject msg) throws Exception {
         // 保存记录
-        ChatMsg chatMsg = new ChatMsg();
+        ChatMsgRecord chatMsgRecord = new ChatMsgRecord();
         Date date = new Date();
-        chatMsg.setAddtime(date);
-        chatMsg.setContent(msg.getMsg());
-        User reviceUser = userService.findByUsername(msg.getReceivename());
-        chatMsg.setReviceid(reviceUser.getId());
-        User sendUser = userService.findByUsername(msg.getUsername());
-        chatMsg.setSendid(sendUser.getId());
-        chatMsgService.save(chatMsg);
+        chatMsgRecord.setAddtime(date);
+        chatMsgRecord.setContent(msg.getMsg());
+        chatMsgRecord.setSendname(msg.username);
+        chatMsgRecord.setReceivename(msg.receivename);
+        chatMsgRecord.setType(1);
+        chatMsgRecordService.save(chatMsgRecord);
+        return chatMsgRecord;
     }
 }

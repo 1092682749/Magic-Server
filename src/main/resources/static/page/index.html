@@ -8,7 +8,14 @@
 
     <link rel="stylesheet" type="text/css" href="../font_Icon/iconfont.css">
     <link rel="stylesheet" type="text/css" href="../css/chat.css">
-
+    <style>
+        .vnum{
+            display: inline-block;
+        }
+        .hnum{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <div id="usernameDiv" style="display: none" th:text="${user.username}"></div>
@@ -17,7 +24,7 @@
     <div class="chatBtn">
         <i class="iconfont icon-xiaoxi1"></i>
     </div>
-    <div class="chat-message-num">10</div>
+    <!--<div class="chat-message-num">10</div>-->
     <div class="chatBox" ref="chatBox">
         <div class="chatBox-head">
             <div class="chatBox-head-one">
@@ -37,13 +44,13 @@
         </div>
         <div class="chatBox-info">
             <div class="chatBox-list" ref="chatBoxlist">
-                <div th:each="item:${allUser}" class="chat-list-people" th:if="${user.username != item.username}">
+                <div th:each="item:${allUser}" class="chat-list-people" th:if="${user.username != item.username}" th:id="${item.username}">
                     <div><img src="img/icon01.png" alt="头像"/></div>
                     <div class="chat-name">
                         <p th:text="${item.username}">荷兰金酒</p>
                     </div>
                     <!--未读消息-->
-                    <!--<div class="message-num">20</div>-->
+                    <div class="message-num" th:text="${unreadMap.get(item.username)}" >20</div>
                 </div>
             </div>
             <div class="chatBox-kuang" ref="chatBoxkuang">
@@ -139,6 +146,13 @@
 
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script>
+    var currentName = "";
+    var message_nums = document.getElementsByClassName("message-num");
+    for (var i = 0; i < message_nums.length; i++) {
+        if (parseInt(message_nums[i].innerText) == 0) {
+            message_nums[i].style.display = "none";
+        }
+    }
     var msgObject = {
         username: $("#usernameDiv").text(),
         msg: '',
@@ -146,17 +160,34 @@
     };
     console.log($("#usernameDiv"));
     if (window.WebSocket) {
-        var websocket = new WebSocket("ws://dyzhello.club:8080");
+        var websocket = new WebSocket("ws://localhost:8080");
         websocket.onopen = function (ev) {
             console.log("connect");
-        }
+            websocket.send(JSON.stringify(msgObject));
+        };
         websocket.onclose = function (ev) {
             console.log("close");
         };
         websocket.onmessage = function (ev) {
             ev.content = ev.data;
             ev.addtime = new Date();
-            reviceMsg(ev);
+            // 判断发来消息的用户是不是当前窗口
+            console.log("ppppppppp");
+            console.log(ev);
+            var o = JSON.parse(ev.data);
+            console.log(o.sendname,currentName);
+            if (o.sendname == currentName) {
+                reviceMsg(o);
+
+            } else {
+                console.log("qqqqqq");
+                // 提示逻辑
+                var peopleDom = document.getElementById(o.sendname);
+                var numDom = peopleDom.querySelector(".message-num");
+                numDom.style.display = "inline-block";
+                numDom.innerText = parseInt(numDom.innerText) + 1;
+            }
+
         }
     }
 
@@ -204,10 +235,10 @@
     //打开/关闭聊天框
     $(".chatBtn").click(function () {
         $(".chatBox").toggle(10);
-    })
+    });
     $(".chat-close").click(function () {
         $(".chatBox").toggle(10);
-    })
+    });
     //进聊天页面
     $(".chat-list-people").each(function () {
         $(this).click(function () {
@@ -216,11 +247,17 @@
             $(".chatBox-head-two").toggle();
             $(".chatBox-list").fadeToggle();
             $(".chatBox-kuang").fadeToggle();
-
+            // $().innerText = 0;
+            var numDom = this.querySelector(".message-num");
+            numDom.innerText = "0";
+            numDom.style.display = "none";
+            // console.log($(this).children(".message-num"));
+            already();
             //传名字
             $(".ChatInfoName").text($(this).children(".chat-name").children("p").eq(0).html());
-
+            currentName = $(".ChatInfoName").text();
             msgObject.receivename = $(".ChatInfoName").text();
+
 
             //传头像
             $(".ChatInfoHead>img").attr("src", $(this).children().eq(0).children("img").attr("src"));
@@ -241,6 +278,7 @@
         $(".chatBox-head-two").toggle(1);
         $(".chatBox-list").fadeToggle(1);
         $(".chatBox-kuang").fadeToggle(1);
+        currentName = " ";
     });
 
     //      发送信息
@@ -351,12 +389,12 @@ function wsSend(textContent) {
 function pullMsg(reviceName) {
         var userId = $("#userIdDiv").text();
   $.ajax({
-      url: "/ok/getMsgListById?sendId="+ userId + "&reviceName=" + reviceName,
+      url: "/ok/getMsgListByName?sendName="+ msgObject.username + "&receiveName=" + reviceName,
       async: false,
       success: function (e) {
           console.log(e);
           for (var i = 0; i < e.length; i++) {
-              if (e[i].sendid == userId) {
+              if (e[i].sendname == msgObject.username) {
                   addSendMsg(e[i]);
                   console.log("自己发送");
               } else {
@@ -377,6 +415,14 @@ function addSendMsg(e){
         $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
     });
 }
+
+// 设置对话消息全读
+    function already() {
+        $.ajax({
+            url: "/ok/already?sendName="+msgObject.receivename+"&receiveName="+msgObject.username,
+        })
+
+    }
 </script>
 
 </body>

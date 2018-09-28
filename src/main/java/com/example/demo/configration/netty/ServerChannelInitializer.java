@@ -1,5 +1,6 @@
 package com.example.demo.configration.netty;
 
+import com.example.demo.server.ChatMsgRecordService;
 import com.example.demo.server.ChatMsgService;
 import com.example.demo.server.UserService;
 import io.netty.channel.ChannelInitializer;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Autowired
-    ChatMsgService chatMsgService;
+    ChatMsgRecordService chatMsgRecordService;
     @Autowired
     UserService userService;
     @Override
@@ -30,6 +31,6 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 //        socketChannel.pipeline().addLast(new CopyHander());
 //        socketChannel.pipeline().addLast(new WebSocketServerHandler(new IWSService(),new IHService()));
 //        socketChannel.pipeline().addLast(new TimeServerHandler());
-        socketChannel.pipeline().addLast(new ChatHandler(chatMsgService,userService));
+        socketChannel.pipeline().addLast(new ChatHandler(chatMsgRecordService,userService));
     }
 }
