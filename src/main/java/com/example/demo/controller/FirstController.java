@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.server.FirstServer;
+import com.example.demo.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,8 @@ import java.util.List;
 public class FirstController {
     @Resource
     FirstServer firstServer;
+    @Resource
+    UserService userService;
 
     @Resource
     RedisTemplate redisTemplate;
@@ -86,5 +90,16 @@ public class FirstController {
     @RequestMapping("/copy")
     public String copy() {
         return "copy";
+    }
+
+    @RequestMapping("index")
+    public ModelAndView index() throws Exception {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByUsername(userDetails.getUsername());
+        List<User> allUser = userService.findAll();
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("user",user);
+        mav.addObject("allUser",allUser);
+        return mav;
     }
 }

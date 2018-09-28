@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     UserMapper userMapper;
     @Override
-    public int save(User user) {
+    public int save(User user) throws Exception {
         return userMapper.save(user);
     }
 
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
         if (userList.size() > 1) {
             throw new Exception("用户名不唯一");
         } else if (userList == null || userList.size() == 0) {
-            throw new Exception("用户不存在");
+            return null ;
         }
         return userList.get(0);
     }

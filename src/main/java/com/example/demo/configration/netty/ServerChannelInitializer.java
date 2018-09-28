@@ -1,5 +1,7 @@
 package com.example.demo.configration.netty;
 
+import com.example.demo.server.ChatMsgService;
+import com.example.demo.server.UserService;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
@@ -8,10 +10,15 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.CharsetUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
+    @Autowired
+    ChatMsgService chatMsgService;
+    @Autowired
+    UserService userService;
     @Override
     protected void initChannel(SocketChannel socketChannel) {
         // 解码编码
@@ -23,6 +30,6 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 //        socketChannel.pipeline().addLast(new CopyHander());
 //        socketChannel.pipeline().addLast(new WebSocketServerHandler(new IWSService(),new IHService()));
 //        socketChannel.pipeline().addLast(new TimeServerHandler());
-        socketChannel.pipeline().addLast(new ChatHandler());
+        socketChannel.pipeline().addLast(new ChatHandler(chatMsgService,userService));
     }
 }

@@ -30,4 +30,27 @@ public class User {
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
     }
+
+    @Override
+    public int hashCode() {
+        if (id == null) {
+            id = 0;
+        }
+        if (username == null) {
+            username = "";
+        }
+        return id + username.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        User u = (User) obj;
+        return id.equals(u.id)&&username.equals(u.getUsername());
+    }
 }

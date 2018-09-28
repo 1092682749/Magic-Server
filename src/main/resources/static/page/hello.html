@@ -53,7 +53,7 @@
     var box = document.getElementById('box');
     var sendInput = document.getElementById('sendInput');
     if (window.WebSocket) {
-        webSocket = new WebSocket("ws://192.168.0.232:8080");
+        webSocket = new WebSocket("ws://192.168.0.89:8080");
         webSocket.onmessage = function (e) {
             var msg = document.createElement('div');
             msg.innerText = e.data;

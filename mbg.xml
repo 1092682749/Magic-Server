@@ -34,7 +34,7 @@
         </javaClientGenerator>
         <!--<table tableName="t_employee_task" domainObjectName="EmployeeTask"></table>-->
 <!--<table tableName="user" domainObjectName="User"></table>-->
-        <table tableName="user" domainObjectName="User"></table>
+        <table tableName="chatmsg" domainObjectName="ChatMsg"></table>
         <!--<table tableName="t_user_red_packet" domainObjectName="UserRedPacket"></table>-->
     </context>
 </generatorConfiguration>
