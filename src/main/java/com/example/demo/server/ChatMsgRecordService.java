@@ -10,4 +10,6 @@ public interface ChatMsgRecordService {
     public int save(ChatMsgRecord chatMsgRecord);
     public Integer selectCountBySendName(String sendName, String receiveName);
     void already(String sendName, String receiveName);
+    int deleteRecord(String sendname,String receivename);
+
 }

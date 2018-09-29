@@ -33,4 +33,9 @@ public class ChatMsgRecordServiceImpl implements ChatMsgRecordService {
     public void already(String sendName, String receiveName) {
         chatMsgRecordMapper.already(sendName, receiveName);
     }
+
+    @Override
+    public int deleteRecord(String sendname, String receivename) {
+        return chatMsgRecordMapper.deleteRecord(sendname,receivename);
+    }
 }

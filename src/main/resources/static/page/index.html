@@ -22,17 +22,19 @@
         #recordVoice{
             display: none;
             z-index: 2000;
-            width: 120px;
-            height: 120px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             position: fixed;
             top: 50%;
             left: 0;
+            background-color: #01aee0;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
-<button id="recordVoice">按下发送语音</button>
+<button id="recordVoice">点击录音</button>
 <div id="usernameDiv" style="display: none" th:text="${user.username}"></div>
 <div id="userIdDiv" style="display: none" th:text="${user.id}"></div>
 <div class="chatContainer">
@@ -498,13 +500,24 @@
 
 
     };
+    var clickNum = 0;
+    var isIng = false;
     var recordVoice = document.getElementById('recordVoice');
-    recordVoice.onmousedown = function (ev) {
-        var luyin  = document.getElementById('luyin');
-        luyin.click();
-    };
-    recordVoice.onmouseup = function (ev) {
-         sendVioce();
+    recordVoice.onclick = function (ev) {
+        if (clickNum == 0) {
+            alert("由于服务器性能原因仅仅保存一条语音记录，请见谅");
+            clickNum++;
+        }
+        if (isIng) {
+            sendVioce();
+            isIng = false;
+            recordVoice.innerText = "点击录音";
+        }else {
+            var luyin  = document.getElementById('luyin');
+            luyin.click();
+            recordVoice.innerText = "再次点击发送语音";
+            isIng = true;
+        }
     };
     function sendVioce() {
         var voiceBase = '';

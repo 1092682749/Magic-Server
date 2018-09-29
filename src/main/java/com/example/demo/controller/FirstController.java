@@ -114,4 +114,8 @@ public class FirstController {
         mav.addObject("unreadMap",unreadMap);
         return mav;
     }
+    @RequestMapping("/")
+    public String toIndex(){
+        return "redirect:/index";
+    }
 }

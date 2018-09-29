@@ -36,4 +36,5 @@ public interface ChatMsgRecordMapper {
     List<ChatMsgRecord> selectBySendName(String sendName, String receiveName);
     Integer selectCountBySendName(String sendName, String receiveName);
     void already(String sendName, String receiveName);
+    int deleteRecord(String sendname,String receivename);
 }

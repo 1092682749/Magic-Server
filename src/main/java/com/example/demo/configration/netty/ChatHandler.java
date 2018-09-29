@@ -153,7 +153,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
 //        ctx.channel().writeAndFlush(new TextWebSocketFrame("用户不存在或者不在线"));
     }
     public ChatMsgRecord saveMsg(MsgObject msg) throws Exception {
-        // 保存记录
+        String[] msgs = msg.msg.split("/");
         ChatMsgRecord chatMsgRecord = new ChatMsgRecord();
         Date date = new Date();
         chatMsgRecord.setAddtime(date);
@@ -161,6 +161,9 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
         chatMsgRecord.setSendname(msg.username);
         chatMsgRecord.setReceivename(msg.receivename);
         chatMsgRecord.setType(1);
+        if (msgs[0].equals("data:audio")){
+            chatMsgRecordService.deleteRecord(msg.getUsername(),msg.getReceivename());
+        }
         chatMsgRecordService.save(chatMsgRecord);
         return chatMsgRecord;
     }
