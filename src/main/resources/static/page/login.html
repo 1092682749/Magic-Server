@@ -1,60 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<title>Sign Up Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/login.css">
+    <style>
+        @media all and (max-width: 650px){
+            .cont_forms_active_sign_up,.cont_forms_active_login {
+                z-index: 2;
+                width: 70%;
+                left: 15%;
+            }
+            .cont_form_sign_up{
+                width: 100%;
+            }
+            .cont_info_log_sign_up{
+                width: 88%;
+            }
+            .col_md_login,.col_md_sign_up{
+                float: right;
+                width: 86%;
+            }
+            .cont_ba_opcitiy{
+                width: 100%;
+            }
+            .cont_forms{
+                width: 80%;
+                left: 10%;
+                height: 500px;
+            }
+            .cont_login{
+                width: 100%;
+                left: 0;
+                margin-left: 0;
+            }
+            .cont_back_info{
+                width: 0;
+                display: none;
+            }
+            .cont_img_back_{
+                /*width: 100%;*/
+            }
+
+            .cont_form_login > input{
+                width: 241px;
+            }
+        }
+
+    </style>
 </head>
-<style>
-    .formBox{
-        width: 500px;
-        height: 500px;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        margin: auto;
-        text-align: center;
-    }
-    table{
-        /*width: 100%;*/
-        height: 100%;
-        display: inline-block;
-    }
-    .loginButton{
-        width: 50px;
-        height: 20px;
-        border-radius: 5px;
-        outline: none;
-        background-color: #01aee0;
-        border: none;
-    }
-</style>
+
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<div class="formBox">
-    <form th:action="@{/login}" method="post">
-        <table>
-            <tr>
-                <td>User Name :</td>
-                <td><input type="text" name="username"/></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td> <input type="password" name="password"/></td>
-            </tr>
-        </table>
-        <div><input class="loginButton" type="submit" value="Sign In"/></div>
-    </form>
-    <a href="/regist">没有账号？点击注册</a>
-</div>
 
+<div class="cotn_principal">
+  <div class="cont_centrar">
+    <div class="cont_login">
+        <h3 th:if="${param.error}">
+            用户名或密码错误
+        </h3>
+      <div class="cont_info_log_sign_up">
+        <div class="col_md_login">
+          <div class="cont_ba_opcitiy">
+            <h2>LOGIN</h2>
+            <p>点击登录</p>
+            <button class="btn_login" onClick="cambiar_login()">LOGIN</button>
+          </div>
+        </div>
+        <div class="col_md_sign_up">
+          <div class="cont_ba_opcitiy">
+            <h2>SIGN UP</h2>
+            <p>点击注册</p>
+            <button class="btn_sign_up" onClick="cambiar_sign_up(1)">SIGN UP</button>
+          </div>
+        </div>
+      </div>
+      <div class="cont_back_info">
+        <div class="cont_img_back_grey"> <img src="../imgs/po.jpg" alt="" /> </div>
+      </div>
+      <div class="cont_forms" >
+        <div class="cont_img_back_"> <img src="../imgs/po.jpg" alt="" /> </div>
+        <div class="cont_form_login"> <a href="#" onClick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
+          <h2>LOGIN</h2>
+            <form th:action="@{/login}" method="post">
+                <input type="text" placeholder="username" name="username" id="loginusername"/>
+                <input type="password" placeholder="password" name="password" id="loginpassword" />
+                <button class="btn_login" type="submit" onClick="cambiar_login()">登录</button>
+            </form>
+        </div>
+        <div class="cont_form_sign_up"> <a href="#" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+          <h2>SIGN UP</h2>
 
+                <input type="text" placeholder="Email" />
+                <input type="text" placeholder="User" />
+                <input type="password" name="username" placeholder="Password" id="signinusername" />
+                <input type="password" name="password" placeholder="Confirm Password" id="signinpassword" />
+                <button class="btn_sign_up" onClick="cambiar_sign_up(2)">注册</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="../assets/js/login.js"></script>
+<div style="text-align:center;">
+
+</div>
 </body>
 </html>

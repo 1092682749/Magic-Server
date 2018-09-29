@@ -11,14 +11,13 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/ok")
@@ -35,20 +34,23 @@ public class ChatController {
     }
 
     @RequestMapping("/save")
-    public  ModelAndView save(User user) throws Exception {
+    public @ResponseBody Map<String,Object> save(@RequestBody User user) throws Exception {
         User userFromDB = userService.findByUsername(user.getUsername());
-        ModelAndView mav = new ModelAndView("regist");
+//        ModelAndView mav = new ModelAndView("regist");
+        HashMap<String,Object> msg = new HashMap<>();
         if (userFromDB != null) {
-            mav.addObject("msg","用户已存在");
-            return mav;
+//            mav.addObject("msg","用户已存在");
+            msg.put("msg","用户已存在");
+            return msg;
         }
         int count = userService.save(user);
         if (count < 0) {
             System.out.println("保存失败");
-            mav.addObject("msg","服务器原因保存失败");
-            return mav;
+            msg.put("msg","服务器原因保存失败");
+            return msg;
         }
-        return new ModelAndView("login");
+        msg.put("msg","注册成功");
+        return  msg;
     }
     @RequestMapping("/getUser")
     public @ResponseBody String getUser() {
