@@ -173,12 +173,15 @@ context.onstatechange = function() {
     //获取录音机  
     HZRecorder.get = function (callback, config) {  
          HZRecorder.throwError=config&&config.error||HZRecorder.throwError;
-        if (callback) {  
-            if (navigator.getUserMedia) {  
+         // console.log(callback);
+        if (callback) {
+            // console.log(navigator.getUserMedia);
+            if (navigator.getUserMedia) {
                 navigator.getUserMedia(  
                     { audio: true } //只启用音频  
                     , function (stream) {  
-                        var rec = new HZRecorder(stream, config);  
+                        var rec = new HZRecorder(stream, config);
+                        console.log(rec);
                         callback(rec);  
                     }  
                     , function (error) {  
@@ -205,8 +208,7 @@ context.onstatechange = function() {
             }  
         }  
     };  
-    window.HZRecorder = HZRecorder;  
-  
+    window.HZRecorder = HZRecorder;
 })(window);
 Date.prototype.Format = function (fmt) { //author: meizz 
     var o = {
