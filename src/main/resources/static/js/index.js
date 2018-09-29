@@ -12,7 +12,7 @@ var msgObject = {
 };
 console.log($("#usernameDiv"));
 if (window.WebSocket) {
-    var websocket = new WebSocket("ws://192.168.0.11:8080");
+    var websocket = new WebSocket("ws://dyzhello.club:8080");
     websocket.onopen = function (ev) {
         console.log("connect");
         websocket.send(JSON.stringify(msgObject));
