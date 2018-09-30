@@ -38,10 +38,11 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
         //SSLEngine 此类允许使用ssl安全套接层协议进行安全通信
         SSLEngine engine = sslContext.createSSLEngine();
         engine.setUseClientMode(false);
+        engine.setNeedClientAuth(false);
         // 解码编码
-        socketChannel.pipeline().addFirst("ssl",new SslHandler(engine));
+        socketChannel.pipeline().addFirst(new SslHandler(engine));
 
-        socketChannel.pipeline().addLast(new IdleStateHandler(5, 0, 0, TimeUnit.SECONDS));
+//        socketChannel.pipeline().addLast(new IdleStateHandler(5, 0, 0, TimeUnit.SECONDS));
 //        socketChannel.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
 //        socketChannel.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));  //最大16M
         socketChannel.pipeline().addLast("http-codec", new HttpServerCodec());
