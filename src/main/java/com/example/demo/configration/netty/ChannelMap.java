@@ -8,12 +8,9 @@ import org.springframework.stereotype.Component;
 import io.netty.channel.Channel;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 //@Configuration
 public class ChannelMap {
-    public static final Map<User, Channel> channelMap = new HashMap<>();
-//    @Bean
-//    public static final Map<User, Channel> getChannelMap() {
-//        return new HashMap<>();
-//    }
+    public static final ConcurrentHashMap<User, Channel> channelMap = new ConcurrentHashMap<>();
 }
