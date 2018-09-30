@@ -341,7 +341,7 @@ function sendVioce() {
     read.readAsDataURL(file.blob);
     read.onload = function (ev) {
         // console.log(ev.target.result);
-        // wsSend(ev.target.result);
+        wsSend(ev.target.result);
         voiceBase = ev.target.result;
         var e = {
             content:  ev.target.result,
