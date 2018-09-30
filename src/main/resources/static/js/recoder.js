@@ -147,7 +147,8 @@ context.onstatechange = function() {
         
         this.clear=function(){
             audioData.buffer=[];
-        }
+            console.log(audioData.buffer.length);
+        };
   
         //回放  
         this.play = function (audio,blob) {
