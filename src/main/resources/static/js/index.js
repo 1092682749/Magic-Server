@@ -340,9 +340,7 @@ function sendVioce() {
     var read = new FileReader();
     read.readAsDataURL(file.blob);
     read.onload = function (ev) {
-        console.log(ev.target.result);
-        var kk = document.getElementById('kk');
-        kk.setAttribute('src',ev.target.result);
+        // console.log(ev.target.result);
         // wsSend(ev.target.result);
         voiceBase = ev.target.result;
         var e = {
