@@ -57,6 +57,7 @@ var msg = {};
 var msgId = 1;
 
 function send() {
+    stopRecord();
     console.log("asdadadadsasd");
     if (!recorder) {
         showError("请先录音");
@@ -73,12 +74,9 @@ function send() {
     recorder.clear();
     console.log(data);
     var dur = data.duration / 10;
-
-    var str = "<div class='warper'><div id=" + msgId + " class='voiceItem'>" + dur + "s</div></div>"
-    $(".messages").append(str);
+    // var str = "<div class='warper'><div id=" + msgId + " class='voiceItem'>" + dur + "s</div></div>"
+    // $(".messages").append(str);
     msgId++;
-    HZRecorder.stop();
-    HZRecorder.clear();
     return data;
 }
 
