@@ -253,8 +253,18 @@ function reviceMsg(e) {
 function wsSend(textContent) {
     msgObject.msg = textContent;
     console.log(msgObject);
-    if (websocket.readyState == websocket.OPEN) {
+    if (msgObject.msg.length>1000){
+        var l = msgObject.msg.length;
+        var nodeNum = l/1000;
+        for (var i = 0; i <= nodeNum; i++){
+            msgObject.msg = "DSdyz/" + textContent.substring(i*1000,1000);
+            websocket.send(JSON.stringify(msgObject));
+        }
+        msgObject.msg = "DEdyz/" + textContent.substring(nodeNum*1000,l);
         websocket.send(JSON.stringify(msgObject));
+    }
+    if (websocket.readyState == websocket.OPEN) {
+
     } else {
         alert("连接尚未建立");
     }

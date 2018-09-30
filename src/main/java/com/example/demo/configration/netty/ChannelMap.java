@@ -13,4 +13,5 @@ import java.util.concurrent.ConcurrentHashMap;
 //@Configuration
 public class ChannelMap {
     public static final ConcurrentHashMap<User, Channel> channelMap = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<String, StringBuilder> longFrameMap = new ConcurrentHashMap<>();
 }

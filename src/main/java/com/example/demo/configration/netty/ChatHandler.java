@@ -132,11 +132,17 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
         }
     }
     public void handleWebSocket(ChannelHandlerContext ctx, MsgObject msg) throws Exception {
+
         if (msg.getReceivename().equals("") || msg.getReceivename() == null) {
 //            ctx.channel().writeAndFlush(new TextWebSocketFrame("您没有指定发送目标，本条消息原物返还"));
         }else if (msg.getReceivename().equals("all")){
             NettyConfig.group.writeAndFlush(new TextWebSocketFrame(msg.getMsg()+" (该消息广播了"+NettyConfig.group.size()+"位用户)"));
         } else {
+            String[] DPS = msg.getMsg().split("/");
+            if (DPS[0].equals("DS") || DPS.equals("DE")){
+                // 处理超长frame
+                HandleLongFrame(ctx,msg,DPS);
+            }
             sendMessageToReceive(ctx,msg);
         }
     }
@@ -153,7 +159,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
 //        ctx.channel().writeAndFlush(new TextWebSocketFrame("用户不存在或者不在线"));
     }
     public ChatMsgRecord saveMsg(MsgObject msg) throws Exception {
-        String[] msgs = msg.msg.split("/");
+        String[] msgs = msg.msg.split("dyz/");
         ChatMsgRecord chatMsgRecord = new ChatMsgRecord();
         Date date = new Date();
         chatMsgRecord.setAddtime(date);
@@ -166,5 +172,20 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
         }
         chatMsgRecordService.save(chatMsgRecord);
         return chatMsgRecord;
+    }
+    void HandleLongFrame(ChannelHandlerContext ctx,MsgObject msg,String[] DPS) throws Exception {
+        StringBuilder newMsg = new StringBuilder();
+        for (int i = 1; i < DPS.length; i++) {
+            newMsg.append(DPS[i]);
+        }
+        StringBuilder oldMsg = ChannelMap.longFrameMap.get(msg.getUsername());
+        if (oldMsg == null) {
+            ChannelMap.longFrameMap.put(msg.getUsername(),newMsg);
+        }else if (DPS[0].equals("DS")) {
+            oldMsg.append(newMsg);
+        } else if (DPS[0].equals("DE")) {
+            oldMsg.append(newMsg);
+            sendMessageToReceive(ctx,msg);
+        }
     }
 }
