@@ -77,7 +77,8 @@ function send() {
     var str = "<div class='warper'><div id=" + msgId + " class='voiceItem'>" + dur + "s</div></div>"
     $(".messages").append(str);
     msgId++;
-    startRecording();
+    HZRecorder.stop();
+    HZRecorder.clear();
     return data;
 }
 
