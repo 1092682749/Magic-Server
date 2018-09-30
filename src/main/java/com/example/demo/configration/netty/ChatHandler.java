@@ -185,6 +185,8 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
             oldMsg.append(newMsg);
         } else if (DPS[0].equals("DE")) {
             oldMsg.append(newMsg);
+            msg.setMsg(oldMsg.toString());
+            ChannelMap.longFrameMap.remove(msg.getUsername());
             sendMessageToReceive(ctx,msg);
         }
     }
