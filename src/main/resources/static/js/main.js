@@ -3,11 +3,12 @@ var audio = document.querySelector('audio');
 
 function startRecording() {
     // console.log(recorder);
-    if (recorder) {
-        console.log("zoule");
-        recorder.start();
-        return;
-    }
+    // if (recorder) {
+    //     console.log("zoule");
+    //     recorder.start();
+    //     return;
+    // }
+    recorder = null;
 console.log(HZRecorder);
     HZRecorder.get(function (rec) {
         recorder = rec;
