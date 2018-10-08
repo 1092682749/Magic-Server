@@ -7,6 +7,16 @@ public class User {
 
     private String password;
 
+    private String nickName;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     public Integer getId() {
         return id;
     }

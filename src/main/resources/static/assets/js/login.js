@@ -25,6 +25,7 @@ setTimeout(function(){   document.querySelector('.cont_form_login').style.displa
 if (at == 2) {
     var username = document.getElementById('signinusername').value;
     var password = document.getElementById('signinpassword').value;
+    var nickname = document.getElementById('nickName').value;
     if (username == '' || password == '') {
         alert("用户名和密码不能为空！");
         return;
@@ -35,6 +36,7 @@ if (at == 2) {
     var user = {
         username: username,
         password: password,
+        nickName: nickname
     };
     $.ajax({
         url: '/ok/save',

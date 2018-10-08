@@ -5,12 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickName"></result>
   </resultMap>
   <select id="findAll" resultType="com.example.demo.model.User">
     select * from user
   </select>
   <insert id="save" parameterType="com.example.demo.model.User">
-    insert into user (username, password) values (#{username},#{password})
+    insert into user (username, password,nickname) values (#{username},#{password},#{nickName})
   </insert>
     <select id="findByUsername" parameterType="string" resultType="com.example.demo.model.User">
         select * from user where username = #{username}
