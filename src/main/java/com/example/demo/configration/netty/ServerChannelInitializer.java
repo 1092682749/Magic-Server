@@ -46,7 +46,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 //        socketChannel.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
 //        socketChannel.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));  //最大16M
         socketChannel.pipeline().addLast("http-codec", new HttpServerCodec());
-        socketChannel.pipeline().addLast("aggregator", new HttpObjectAggregator(655360));
+        socketChannel.pipeline().addLast("aggregator", new HttpObjectAggregator(65536));
         socketChannel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
 //        socketChannel.pipeline().addLast(new AcceptorIdleStateTrigger());
         socketChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));

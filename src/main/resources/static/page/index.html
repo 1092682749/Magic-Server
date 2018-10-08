@@ -34,7 +34,7 @@
     </style>
 </head>
 <body>
-<button id="recordVoice">点击录音</button>
+<button id="recordVoice" style="display: none">点击录音</button>
 <div id="usernameDiv" style="display: none" th:text="${user.username}"></div>
 <div id="userIdDiv" style="display: none" th:text="${user.id}"></div>
 <div class="chatContainer">
@@ -103,10 +103,11 @@
                     <!--聊天输入框-->
                     <div class="div-textarea" contenteditable="true"></div>
                     <div>
-                        <button id="chat-biaoqing" class="btn-default-styles">
+                        <button id="chat-biaoqing" class="btn-default-styles" style="display:none;">
                             <i class="iconfont icon-biaoqing"></i>
                         </button>
-                        <label id="chat-tuxiang" title="发送图片" for="inputImage" class="btn-default-styles">
+                        <!- 隐藏/-->
+                        <label id="chat-tuxiang" title="发送图片" for="inputImage" class="btn-default-styles" style="display:none;">
                             <input type="file" onchange="selectImg(this)" accept="image/jpg,image/jpeg,image/png"
                                    name="file" id="inputImage" class="hidden">
                             <i class="iconfont icon-tuxiang"></i>
@@ -114,7 +115,7 @@
                         <button id="chat-fasong" class="btn-default-styles"><i class="iconfont icon-fasong"></i>
                         </button>
                     </div>
-                    <div class="biaoqing-photo">
+                    <div class="biaoqing-photo" style="display: none">
                         <ul>
                             <li><span class="emoji-picker-image" style="background-position: -9px -18px;"></span></li>
                             <li><span class="emoji-picker-image" style="background-position: -40px -18px;"></span></li>

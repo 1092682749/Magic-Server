@@ -59,7 +59,7 @@ public class DemoApplication {
         connector.setScheme("http");
         connector.setPort(80); // http端口
         connector.setSecure(false);
-        connector.setRedirectPort(7443); // application.properties中配置的https端口
+        connector.setRedirectPort(443); // application.properties中配置的https端口
         return connector;
     }
 

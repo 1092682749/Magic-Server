@@ -58,14 +58,14 @@ function screenFuc() {
 
         $(".chatBox-list").css("height", totalHeight - topHeight);
         $(".chatBox-kuang").css("height", totalHeight - topHeight);
-        $(".div-textarea").css("width", winWidth - 106);
+        $(".div-textarea").css("width", '85%');
     } else {
         $(".chatBox-info").css("height", 495);
         $(".chatBox-content").css("height", 448);
         $(".chatBox-content-demo").css("height", 448);
         $(".chatBox-list").css("height", 495);
         $(".chatBox-kuang").css("height", 495);
-        $(".div-textarea").css("width", 260);
+        $(".div-textarea").css("width", '85%');
     }
 }
 (window.onresize = function () {
@@ -95,7 +95,8 @@ $(".chat-close").click(function () {
 $(".chat-list-people").each(function () {
     $(this).click(function () {
         var recordVoice = document.getElementById('recordVoice');
-        recordVoice.style.display = "block";
+        //
+        recordVoice.style.display = "none";
         var n = $(this).index();
         $(".chatBox-head-one").toggle();
         $(".chatBox-head-two").toggle();
@@ -253,18 +254,21 @@ function reviceMsg(e) {
 function wsSend(textContent) {
     msgObject.msg = textContent;
     console.log(msgObject);
-    if (msgObject.msg.length>1000){
-        var l = msgObject.msg.length;
-        var nodeNum = l/1000;
-        for (var i = 0; i <= nodeNum; i++){
-            msgObject.msg = "DSdyz/" + textContent.substring(i*1000,1000);
-            websocket.send(JSON.stringify(msgObject));
-        }
-        msgObject.msg = "DEdyz/" + textContent.substring(nodeNum*1000,l);
-        websocket.send(JSON.stringify(msgObject));
-    }
-    if (websocket.readyState == websocket.OPEN) {
 
+    if (websocket.readyState == websocket.OPEN) {
+        if (msgObject.msg.length>100){
+            var l = msgObject.msg.length;
+            var nodeNum = l/100;
+            for (var i = 0; i <= nodeNum; i++){
+                msgObject.msg = "DSdyz/" + textContent.substring(i*100,100);
+                websocket.send(JSON.stringify(msgObject));
+                console.log("i");
+            }
+            msgObject.msg = "DEdyz/" + textContent.substring(nodeNum*100,l);
+            websocket.send(JSON.stringify(msgObject));
+            return;
+        }
+        websocket.send(JSON.stringify(msgObject));
     } else {
         alert("连接尚未建立");
     }
