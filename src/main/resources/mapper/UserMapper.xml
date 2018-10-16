@@ -8,12 +8,12 @@
     <result column="nickname" jdbcType="VARCHAR" property="nickName"></result>
   </resultMap>
   <select id="findAll" resultType="com.example.demo.model.User">
-    select * from user
+    select * from User
   </select>
   <insert id="save" parameterType="com.example.demo.model.User">
-    insert into user (username, password,nickname) values (#{username},#{password},#{nickName})
+    insert into User (username, password,nickname) values (#{username},#{password},#{nickName})
   </insert>
     <select id="findByUsername" parameterType="string" resultType="com.example.demo.model.User">
-        select * from user where username = #{username}
+        select * from User where username = #{username}
     </select>
 </mapper>

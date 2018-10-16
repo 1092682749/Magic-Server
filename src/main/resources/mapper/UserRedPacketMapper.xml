@@ -3,15 +3,15 @@
 <mapper namespace="com.example.demo.dao.UserRedPacketMapper">
   <resultMap id="BaseResultMap" type="com.example.demo.model.UserRedPacket">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="red_packet_id" jdbcType="INTEGER" property="redPacketId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="redPacketId" jdbcType="INTEGER" property="redPacketId" />
+    <result column="userId" jdbcType="INTEGER" property="userId" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
-    <result column="grab_time" jdbcType="TIMESTAMP" property="grabTime" />
+    <result column="grabTime" jdbcType="TIMESTAMP" property="grabTime" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
 
   <insert id="grapRedPacket" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.demo.model.UserRedPacket">
-    insert into t_user_red_packet(red_packet_id, user_id, amount, grab_time, note)
+    insert into UserRedPacket(red_packet_id, user_id, amount, grab_time, note)
     value (#{redPacketId},#{userId},#{amount},now(),#{note})
   </insert>
 </mapper>

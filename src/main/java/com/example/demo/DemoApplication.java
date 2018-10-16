@@ -6,6 +6,7 @@ import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.apache.tomcat.websocket.server.WsSci;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,6 +24,8 @@ import org.springframework.context.annotation.Bean;
 @MapperScan("com.example.demo.dao")
 //@ServletComponentScan
 public class DemoApplication {
+    @Value("${server.port}")
+    Integer serverPort;
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
@@ -57,9 +60,9 @@ public class DemoApplication {
     private Connector initiateHttpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
-        connector.setPort(80); // http端口
+        connector.setPort(8090); // http端口
         connector.setSecure(false);
-        connector.setRedirectPort(443); // application.properties中配置的https端口
+        connector.setRedirectPort(serverPort); // application.properties中配置的https端口
         return connector;
     }
 

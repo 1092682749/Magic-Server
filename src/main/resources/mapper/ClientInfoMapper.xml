@@ -173,10 +173,10 @@
     </if>
   </update>
   <select id="findClientByclientid" parameterType="string" resultType="com.example.demo.model.ClientInfo">
-    select * from clientinfo where clientid = #{clientid}
+    select * from ClientInfo where clientid = #{clientid}
   </select>
   <insert id="save" parameterType="com.example.demo.model.ClientInfo">
-    insert into clientinfo (clientid, connected, mostsignbits, leastsignbits, lastconnecteddate) values (
+    insert into ClientInfo (clientid, connected, mostsignbits, leastsignbits, lastconnecteddate) values (
     #{clientid},#{connected},#{mostsignbits},#{leastsignbits},#{lastconnecteddate}
     )
   </insert>
