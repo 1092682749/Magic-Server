@@ -199,6 +199,27 @@
             <version>20160810</version>
         </dependency>
         <!--json结束-->
+        <dependency>
+            <groupId>com.dyz</groupId>
+            <artifactId>commons-io-2.4</artifactId>
+            <version>2.4</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/commons-io-2.4.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.dyz</groupId>
+            <artifactId>jai_codec</artifactId>
+            <scope>system</scope>
+            <version>1.1</version>
+            <systemPath>${basedir}/lib/jai_codec.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.dyz</groupId>
+            <artifactId>jai_core</artifactId>
+            <scope>system</scope>
+            <version>1.1</version>
+            <systemPath>${basedir}/lib/jai_core.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

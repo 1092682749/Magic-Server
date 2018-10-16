@@ -268,19 +268,19 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectBySendName" resultType="com.example.demo.model.ChatMsgRecord">
-    select * from ChatMsgRecord where sendname = #{arg0} and receivename = #{arg1}
+    select * from ChatMsgRecord where sendname = #{sendName} and receivename = #{receiveName}
   </select>
     <select id="selectCountBySendName" resultType="int">
-    select count(*) from ChatMsgRecord where sendname = #{arg0} and receivename = #{arg1} and type = 1
+    select count(*) from ChatMsgRecord where sendname = #{sendName} and receivename = #{receiveName} and type = 1
   </select>
     <update id="already">
-        update ChatMsgRecord set type = 2 where sendname = #{arg0} and receivename = #{arg1} and type = 1
+        update ChatMsgRecord set type = 2 where sendname = #{sendName} and receivename = #{receiveName} and type = 1
     </update>
   <insert id="saveRecord" parameterType="com.example.demo.model.ChatMsgRecord">
     insert into ChatMsgRecord (receivename, sendname, type, content, addtime)
     values (#{receivename},#{sendname},#{type},#{content},#{addtime})
   </insert>
   <delete id="deleteRecord">
-  delete from ChatMsgRecord where sendname = #{arg0} and receivename = #{arg1}
+  delete from ChatMsgRecord where sendname = #{sendname} and receivename = #{receivename}
   </delete>
 </mapper>

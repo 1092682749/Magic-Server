@@ -29,8 +29,8 @@ public class DemoApplicationTests {
                 "local value = KEYS[2]\n" +
                 "redis.call(\"hset\",\"user\",name,value)";
         Jedis jedis = new Jedis("localhost",6379);
-        jedis.eval(inS,2,"name","id",user.getUsername(), ""+user.getId());
-        jedis.eval(changeS,2,"name","llllllll");
+//        jedis.eval(inS,2,"name","id",user.getUsername(), ""+user.getId());
+//        jedis.eval(changeS,2,"name","llllllll");
     }
 
 }

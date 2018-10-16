@@ -25,6 +25,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="commons-io-2.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.0.4.RELEASE" level="project" />
@@ -82,7 +83,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:jconsole:1.8.0">
         <CLASSES>
-          <root url="jar://C:/Program Files (x86)/Java/jdk1.8.0_144/lib/jconsole.jar!/" />
+          <root url="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/lib/jconsole.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -91,7 +92,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:tools:1.8.0">
         <CLASSES>
-          <root url="jar://C:/Program Files (x86)/Java/jdk1.8.0_144/lib/tools.jar!/" />
+          <root url="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/lib/tools.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -154,6 +155,32 @@
     <orderEntry type="library" name="Maven: net.sf.ezmorph:ezmorph:1.0.6" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.41" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
-    <orderEntry type="library" name="commons-io-2.4" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: com.dyz:commons-io-2.4:2.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-io-2.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: com.dyz:jai_codec:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jai_codec.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: com.dyz:jai_core:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jai_core.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -14,6 +14,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.CharsetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
@@ -33,8 +34,17 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     }
 
     @Override
-    protected void initChannel(SocketChannel socketChannel) throws Exception {
-        SSLContext sslContext = SslUtil.createSSLContext("JKS",getClass().getClassLoader().getResource("dyzhello.club.jks").getPath(),"109268");
+    protected void initChannel(SocketChannel socketChannel)  {
+        SSLContext sslContext = null;
+        String path = "";
+        try {
+            path = "/dyzhello.club.jks";
+            sslContext = SslUtil.createSSLContext("JKS", path, "109268");
+// sslContext = SslUtil.createSSLContext("JKS",getClass().getClassLoader().getResource("dyzhello.club.jks").getPath(),"109268");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(path);
+        }
         //SSLEngine 此类允许使用ssl安全套接层协议进行安全通信
         SSLEngine engine = sslContext.createSSLEngine();
         engine.setUseClientMode(false);
