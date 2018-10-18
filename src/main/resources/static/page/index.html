@@ -70,7 +70,8 @@
                 <div th:each="item:${allUser}" class="chat-list-people" th:if="${user.username != item.username}" th:id="${item.username}">
                     <div><img src="img/icon01.png" alt="头像"/></div>
                     <div class="chat-name">
-                        <p th:text="${item.nickName}">荷兰金酒</p>
+                        <p th:text="${item.username}" style="display: none">荷兰金酒</p>
+                        <span th:text="${item.nickName}"></span>
                     </div>
                     <!--未读消息-->
                     <div class="message-num" th:text="${unreadMap.get(item.username)}" >20</div>

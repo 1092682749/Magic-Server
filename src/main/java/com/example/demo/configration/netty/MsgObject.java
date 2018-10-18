@@ -1,9 +1,9 @@
 package com.example.demo.configration.netty;
 
 public class MsgObject {
-    String username;
-    String receivename;
-    String msg;
+    public String username;
+    public String receivename;
+    public String msg;
 
     public String getUsername() {
         return username;

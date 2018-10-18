@@ -1,6 +1,9 @@
-package com.example.demo.configration.netty;
+package com.example.demo.configration.netty.webServer;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.configration.netty.ChannelMap;
+import com.example.demo.configration.netty.MsgObject;
+import com.example.demo.configration.netty.NettyConfig;
 import com.example.demo.model.ChatMsg;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
@@ -48,6 +51,8 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("android request");
+        ctx.writeAndFlush("你来了我知道了");
         NettyConfig.group.add(ctx.channel());
     }
 
@@ -58,6 +63,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        System.out.println(msg.getClass());
         if (msg instanceof FullHttpRequest) {
             // 处理http请求
             handleHttp(ctx,msg);
@@ -75,7 +81,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
             user.setUsername(msgObject.getUsername());
             ChannelMap.channelMap.put(user,  ctx.channel());
             handleWebSocket(ctx,msgObject);
-        }else {
+        } else {
             ChannelFuture f = ctx.channel().writeAndFlush("该端口目前仅支持websocket协议\r\n");
             f.addListener(new ChannelFutureListener() {
                 @Override

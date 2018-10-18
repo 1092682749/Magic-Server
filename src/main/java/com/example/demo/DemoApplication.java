@@ -62,7 +62,7 @@ public class DemoApplication {
     private Connector initiateHttpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
-        connector.setPort(80); // http端口
+        connector.setPort(proxyPort); // http端口
         connector.setSecure(false);
         connector.setRedirectPort(serverPort); // application.properties中配置的https端口
         return connector;

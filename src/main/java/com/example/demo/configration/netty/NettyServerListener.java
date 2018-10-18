@@ -1,11 +1,12 @@
 package com.example.demo.configration.netty;
 
+import com.example.demo.configration.netty.androidServer.AndroidNettyServer;
+import com.example.demo.configration.netty.webServer.DiscardServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 @Component
 public class NettyServerListener implements ServletContextListener {
@@ -15,12 +16,15 @@ public class NettyServerListener implements ServletContextListener {
      */
     @Autowired
     private DiscardServer discardServer;
+    @Autowired
+    private AndroidNettyServer androidNettyServer;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        Thread thread = new Thread(new NettyServerThread());
-        // 启动netty服务
-        thread.start();
+        Thread webNetty = new Thread(new NettyServerThread());
+        webNetty.start();
+        Thread androidNetty = new Thread(new AndroidServerThread());
+        androidNetty.start();
     }
 
     @Override
@@ -37,6 +41,17 @@ public class NettyServerListener implements ServletContextListener {
         public void run() {
             try {
                 discardServer.run();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private class AndroidServerThread implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                androidNettyServer.run();
             } catch (Exception e) {
                 e.printStackTrace();
             }

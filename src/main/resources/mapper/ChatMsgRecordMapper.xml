@@ -124,7 +124,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.demo.model.ChatMsgRecord">
-    insert into chatmsgrecord (id, receivename, sendname, 
+    insert into ChatMsgRecord (id, receivename, sendname,
       type, addtime, content
       )
     values (#{id,jdbcType=INTEGER}, #{receivename,jdbcType=VARCHAR}, #{sendname,jdbcType=VARCHAR}, 

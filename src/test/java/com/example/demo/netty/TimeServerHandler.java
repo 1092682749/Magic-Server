@@ -9,8 +9,15 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        ChannelFuture f = ctx.writeAndFlush(new UnixTime());
-        f.addListener(ChannelFutureListener.CLOSE);
+        ChannelFuture f = ctx.writeAndFlush("服务器返回消息");
+        System.out.println("ADD");
+//        f.addListener(ChannelFutureListener.CLOSE);
+    }
+
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        System.out.println(msg.toString());
+        ctx.channel().writeAndFlush("服务器主动消息");
     }
 
     @Override

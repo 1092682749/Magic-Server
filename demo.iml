@@ -182,5 +182,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: org.jboss.marshalling:jboss-marshalling:2.0.5.Final" level="project" />
   </component>
 </module>

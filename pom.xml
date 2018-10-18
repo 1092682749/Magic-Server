@@ -220,6 +220,12 @@
             <version>1.1</version>
             <systemPath>${basedir}/lib/jai_core.jar</systemPath>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jboss.marshalling/jboss-marshalling -->
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling</artifactId>
+            <version>2.0.5.Final</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

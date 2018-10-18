@@ -1,35 +1,25 @@
-package com.example.demo.configration.netty;
+package com.example.demo.configration.netty.androidServer;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
-import io.netty.util.AttributeKey;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Logger;
-
 @Component
-public class DiscardServer {
-    @Value("${netty.server.port}")
-    private int port = 8080;
-//    @Autowired
-//    DiscardServerHandler discardServerHandler;
+public class AndroidNettyServer {
+    @Value("${android.server.port}")
+    int androidPort = 8000;
+
     @Autowired
-    ServerChannelInitializer serverChannelInitializer;
+    private AndroidChannelInitializer androidChannelInitializer;
+    AndroidNettyServer(){
 
-    public DiscardServer() throws Exception {
-
-    }
-
+    };
     public void run() throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -37,18 +27,14 @@ public class DiscardServer {
             ServerBootstrap b = new ServerBootstrap(); // (2)
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class) // (3)
-                    .childHandler(serverChannelInitializer)
+                    .childHandler(androidChannelInitializer)
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
-
-            // Bind and start to accept incoming connections.
-            ChannelFuture f = b.bind(port).sync(); // (7)
-
-            // Wait until the server socket is closed.
-            // In this example, this does not happen, but you can do that to gracefully
-            // shut down your server.
+            ChannelFuture f = b.bind(androidPort).sync(); // (7)
             f.channel().closeFuture().sync();
-        } finally {
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
