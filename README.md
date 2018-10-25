@@ -1,5 +1,5 @@
-# bootAndX
-springboot和各种框架的整合
+# Magic-Server
+基于springboot的各种服务实现
 <a href="#startUse">快速开始</a>
 <h1 id='startUse'>开始使用</h1>
 <p>克隆该项目找到配置文件（src/resources/application.properties）更改为你的本地配置<br/>
