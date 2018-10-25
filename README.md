@@ -1,11 +1,11 @@
 # Magic-Server
 基于springboot的各种服务实现
 <a href="#startUse">快速开始</a>
-<h1 id='startUse'>开始使用</h1>
+<h2 id='startUse'>开始使用</h2>
 <p>克隆该项目找到配置文件（src/resources/application.properties）更改为你的本地配置<br/>
 即可运行
 </p>
-<h1>用户指南</h1>
+<h2>用户指南</h2>
 <ul>
   <li>
     <h3>逆/正向工程</h3>
