@@ -8,3 +8,17 @@
 admin
 </body>
 </html>
+<script>
+    var objj={};
+    function f(index) {
+        objj[index] = "ooo";
+        console.log(objj);
+    }
+
+    f("asdasda");
+    var websocket = new WebSocket("wss://dyzhello.club:9000");
+    // websocket.connect();
+    websocket.onopen = function (ev) {
+        console.log(ev);
+    }
+</script>

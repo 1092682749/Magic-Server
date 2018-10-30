@@ -13,14 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class DiscardServer {
     @Value("${netty.server.port}")
-    private int port = 8080;
+    private int port;
 //    @Autowired
 //    DiscardServerHandler discardServerHandler;
     @Autowired
     ServerChannelInitializer serverChannelInitializer;
 
     public DiscardServer() throws Exception {
-
     }
 
     public void run() throws Exception {

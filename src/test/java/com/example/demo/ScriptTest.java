@@ -12,7 +12,7 @@ public class ScriptTest {
     public static void main(String[] args) throws FileNotFoundException, ScriptException, NoSuchMethodException {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("javascript");
-        URL url = ScriptTest.class.getClassLoader().getResource("static/html2canvas.js");
+        URL url = ScriptTest.class.getClassLoader().getResource("static/js/html2canvas.js");
         System.out.println(url.getPath());
         FileReader reader = new FileReader(url.getPath());
         engine.eval(reader);

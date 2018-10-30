@@ -29,7 +29,7 @@ import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class ChatHandler extends ChannelInboundHandlerAdapter {
-    String webSocketUrl = "wss://dyzhello.club:8080";
+    String webSocketUrl = "wss://dyzhello.club:9000";
     WebSocketServerHandshaker handshaker = null;
     ChatMsgRecordService chatMsgRecordService = null;
     UserService userService = null;
