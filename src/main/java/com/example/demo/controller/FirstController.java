@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -117,5 +118,13 @@ public class FirstController {
     @RequestMapping("/")
     public String toIndex(){
         return "redirect:/index";
+    }
+    @PostMapping("/ok/postUrl")
+    public @ResponseBody User postUrl(){
+        User user = new User();
+        user.setNickName("123");
+        user.setUsername("qwe");
+        user.setPassword("zxc");
+        return user;
     }
 }
