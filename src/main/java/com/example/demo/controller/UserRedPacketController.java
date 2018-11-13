@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/userRedPacket")
+@RequestMapping("/ok/userRedPacket")
 public class UserRedPacketController {
 
     @Autowired

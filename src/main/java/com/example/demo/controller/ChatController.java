@@ -35,9 +35,13 @@ public class ChatController {
 
     @RequestMapping("/save")
     public @ResponseBody Map<String,Object> save(@RequestBody User user) throws Exception {
+        HashMap<String,Object> msg = new HashMap<>();
+        if (user.getUsername().equals("") || user.getPassword().equals("")) {
+            msg.put("msg","用户名和密码不能为空");
+            return msg;
+        }
         User userFromDB = userService.findByUsername(user.getUsername());
 //        ModelAndView mav = new ModelAndView("regist");
-        HashMap<String,Object> msg = new HashMap<>();
         if (userFromDB != null) {
 //            mav.addObject("msg","用户已存在");
             msg.put("msg","用户已存在");

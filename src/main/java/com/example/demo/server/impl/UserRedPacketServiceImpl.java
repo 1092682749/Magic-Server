@@ -32,6 +32,9 @@ public class UserRedPacketServiceImpl implements UserRedPacketService {
     @Autowired
     private RedisRedPacketService redisRedPacketService;
 
+    @Autowired
+    private Jedis jedis;
+
     private static final int FAILED = 0;
 
     //悲观锁实现并发安全
@@ -72,7 +75,6 @@ public class UserRedPacketServiceImpl implements UserRedPacketService {
         Long result = null;
 
 //         Jedis jedis = (Jedis) redisTemplate.getConnectionFactory().getConnection().getNativeConnection();
-           Jedis jedis = new Jedis("localhost",6379);
         try {
             if (sha1 == null) {
                 sha1 = jedis.scriptLoad(script);

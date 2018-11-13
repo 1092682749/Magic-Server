@@ -43,6 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/home","/regist","/ok/**",
                         "/css/**","/js/**","/imgs/**","/assets/**")
                 .permitAll()
+                // 安卓权限放行
+                .antMatchers("/android/**")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

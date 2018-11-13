@@ -12,7 +12,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 public class TimeClient {
     public static void main(String[] args) throws Exception {
         String host = "localhost";
-        int port = 8080;
+        int port = 8000;
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         try {

@@ -120,7 +120,7 @@ public class FirstController {
         return "redirect:/index";
     }
     @PostMapping("/ok/postUrl")
-    public @ResponseBody User postUrl(){
+    public @ResponseBody User postUrl(Integer id){
         User user = new User();
         user.setNickName("123");
         user.setUsername("qwe");

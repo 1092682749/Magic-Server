@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
-@Component
+@WebListener
 public class NettyServerListener implements ServletContextListener {
 
     /**

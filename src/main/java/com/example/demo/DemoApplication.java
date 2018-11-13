@@ -21,8 +21,8 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableCaching
+@ServletComponentScan
 @MapperScan("com.example.demo.dao")
-//@ServletComponentScan
 public class DemoApplication {
     @Value("${server.port}")
     Integer serverPort;

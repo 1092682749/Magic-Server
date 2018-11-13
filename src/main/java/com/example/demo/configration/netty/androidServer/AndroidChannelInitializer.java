@@ -1,5 +1,7 @@
 package com.example.demo.configration.netty.androidServer;
 
+import com.example.demo.server.ChatMsgRecordService;
+import com.example.demo.server.UserService;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -14,6 +16,7 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.KeyManagerFactory;
@@ -25,6 +28,10 @@ import java.security.KeyStore;;
 
 @Component
 public class AndroidChannelInitializer extends ChannelInitializer<SocketChannel> {
+    @Autowired
+    UserService userService;
+    @Autowired
+    ChatMsgRecordService chatMsgRecordService;
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
@@ -52,6 +59,6 @@ public class AndroidChannelInitializer extends ChannelInitializer<SocketChannel>
 //            }
 //        }));
 //        ch.pipeline().addLast(new ObjectEncoder());
-        ch.pipeline().addLast(new AndroidChannelHandler());
+        ch.pipeline().addLast(new AndroidChannelHandler(chatMsgRecordService,userService));
     }
 }

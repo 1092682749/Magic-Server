@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import org.springframework.data.annotation.Transient;
+
 import java.util.Date;
 
 public class ChatMsgRecord implements Comparable<ChatMsgRecord> {
@@ -14,6 +16,18 @@ public class ChatMsgRecord implements Comparable<ChatMsgRecord> {
     private Date addtime;
 
     private String content;
+
+
+    @Transient
+    private String attachmentChannelType;
+
+    public String getAttachmentChannelType() {
+        return attachmentChannelType;
+    }
+
+    public void setAttachmentChannelType(String attachmentChannelType) {
+        this.attachmentChannelType = attachmentChannelType;
+    }
 
     public Integer getId() {
         return id;
@@ -64,11 +78,20 @@ public class ChatMsgRecord implements Comparable<ChatMsgRecord> {
     }
     @Override
     public int compareTo(ChatMsgRecord o) {
-        if (this.addtime.getTime() > o.addtime.getTime()) {
-            return 1;
-        }
-        if (this.addtime.getTime() < o.addtime.getTime()) {
-            return -1;
+        if (this.addtime != null && o.addtime != null){
+            if (this.addtime.getTime() > o.addtime.getTime()) {
+                return 1;
+            }
+            if (this.addtime.getTime() < o.addtime.getTime()) {
+                return -1;
+            }
+        } else if (this.id != null && o.id != null) {
+            if (this.id > o.id) {
+                return 1;
+            }
+            if (this.id < o.id) {
+                return -1;
+            }
         }
         return 0;
     }

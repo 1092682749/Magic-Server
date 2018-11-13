@@ -1,20 +1,30 @@
 package com.example.demo.configration.netty.androidServer;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.configration.netty.ChannelMap;
+import com.example.demo.configration.netty.NettyConfig;
 import com.example.demo.model.ChatMsgRecord;
+import com.example.demo.model.User;
+import com.example.demo.server.ChatMsgRecordService;
+import com.example.demo.server.ChatMsgService;
+import com.example.demo.server.UserService;
 import com.example.demo.utils.json.JsonToBean;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.*;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.util.CharsetUtil;
+
+import java.net.SocketAddress;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
@@ -23,11 +33,15 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 public class AndroidChannelHandler extends ChannelInboundHandlerAdapter {
     String webSocketUrl = "wss://dyzhello.club:8000";
     WebSocketServerHandshaker handshaker = null;
-
+    ChatMsgRecordService chatMsgRecordService = null;
+    UserService userService = null;
     public AndroidChannelHandler() {
         super();
     }
-
+    public AndroidChannelHandler(ChatMsgRecordService chatMsgRecordService, UserService userService) {
+        this.chatMsgRecordService = chatMsgRecordService;
+        this.userService = userService;
+    }
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         super.channelRegistered(ctx);
@@ -46,24 +60,56 @@ public class AndroidChannelHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        super.channelInactive(ctx);
+        NettyConfig.group.remove(ctx.channel());
+        System.out.println("有一个链接被关闭");
+        ConcurrentHashMap<User, Channel> channelMap = ChannelMap.channelMap;
+        Set<Map.Entry<User, Channel>> set = channelMap.entrySet();
+        for (Map.Entry entry : set) {
+            Boolean isQ = ((Channel)entry.getValue()).id().asShortText().equals(ctx.channel().id().asShortText());
+            System.out.println(isQ);
+            if (isQ) {
+                System.out.println("移除了一个android端channel");
+                channelMap.remove(entry.getKey());
+            }
+        }
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("msg from android   " + msg.getClass());
+        System.out.println("msg from android   " + msg.toString());
         ChatMsgRecord chatMsgRecord = (ChatMsgRecord) JsonToBean.chagneObject(msg.toString(),ChatMsgRecord.class);
         System.out.println("消息发送者是====="+chatMsgRecord.getSendname());
         System.out.println("消息是====="+chatMsgRecord.getContent());
-        chatMsgRecord.setReceivename("client1");
-        chatMsgRecord.setSendname("server");
-        chatMsgRecord.setContent("你好我服务器");
-        ctx.writeAndFlush(JSON.toJSONString(chatMsgRecord));
+        User user = userService.findByUsername(chatMsgRecord.getSendname());
+//        if (chatMsgRecord.getSendname().equals("qqq")){
+//            System.out.println("xiang deng =================");
+//        }
+        if (user == null){
+            System.out.println("user null");
+        }
+        user.setAttachmentChannelType("android");
+        ChannelMap.channelMap.put(user,ctx.channel());
+        handleAndroidMsg(ctx,chatMsgRecord);
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         super.channelReadComplete(ctx);
+    }
+    // 处理安卓客户端消息
+    private void handleAndroidMsg(ChannelHandlerContext ctx,ChatMsgRecord chatMsgRecord) {
+        Set<User> users = ChannelMap.channelMap.keySet();
+        chatMsgRecordService.save(chatMsgRecord);
+        for (User user : users){
+            if (user.getUsername().equals(chatMsgRecord.getReceivename())){
+                Channel channel = ChannelMap.channelMap.get(user);
+                if (user.getAttachmentChannelType().equals("android")){
+                    channel.writeAndFlush(JSON.toJSONString(chatMsgRecord));
+                } else {
+                    channel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(chatMsgRecord)));
+                }
+            }
+        }
     }
 
     @Override
@@ -78,7 +124,8 @@ public class AndroidChannelHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        super.exceptionCaught(ctx, cause);
+        System.out.println(cause.getMessage());
+        ctx.close();
     }
     public void handleHttp(ChannelHandlerContext ctx, Object msg) {
         FullHttpRequest request = (FullHttpRequest) msg;

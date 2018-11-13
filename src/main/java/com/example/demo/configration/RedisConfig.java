@@ -14,6 +14,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import redis.clients.jedis.Jedis;
 
 import java.util.concurrent.Executor;
 
@@ -44,5 +45,10 @@ public class RedisConfig extends AsyncConfigurerSupport {
         taskExecutor.setQueueCapacity(200);
         taskExecutor.initialize();
         return taskExecutor;
+    }
+    @Bean
+    public Jedis connectRedis() {
+        Jedis jedis = new Jedis("localhost",6379);
+        return jedis;
     }
 }

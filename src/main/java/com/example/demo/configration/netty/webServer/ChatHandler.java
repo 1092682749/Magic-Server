@@ -19,10 +19,12 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-import java.nio.channels.Channel;
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
@@ -51,14 +53,24 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("android request");
-        ctx.writeAndFlush("你来了我知道了");
+        System.out.println("web request");
         NettyConfig.group.add(ctx.channel());
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("有一个链接被关闭");
         NettyConfig.group.remove(ctx.channel());
+        ConcurrentHashMap<User, Channel> channelMap = ChannelMap.channelMap;
+        Set<Map.Entry<User, Channel>> set = channelMap.entrySet();
+        for (Map.Entry entry : set) {
+            Boolean isQ = ((Channel)entry.getValue()).id().asShortText().equals(ctx.channel().id().asShortText());
+            System.out.println(isQ);
+            if (isQ) {
+                channelMap.remove(entry.getKey());
+                System.out.println("移除了一个web端channel");
+            }
+        }
     }
 
     @Override
@@ -77,8 +89,8 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
                 ctx.channel().write(new PongWebSocketFrame(((PingWebSocketFrame)msg).content().retain()));
             }
             MsgObject msgObject = (MsgObject) JsonToBean.chagneObject(((TextWebSocketFrame) msg).text(),MsgObject.class);
-            User user = new User();
-            user.setUsername(msgObject.getUsername());
+            User user = userService.findByUsername(msgObject.getUsername());
+            user.setAttachmentChannelType("web");
             ChannelMap.channelMap.put(user,  ctx.channel());
             handleWebSocket(ctx,msgObject);
         } else {
@@ -109,7 +121,8 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        super.exceptionCaught(ctx, cause);
+        System.out.println(cause.getMessage());
+        ctx.close();
     }
 
     public void handleHttp(ChannelHandlerContext ctx, Object msg) {
@@ -158,7 +171,12 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
         for (User ruser : userSet){
             if (ruser.getUsername().equals(msg.getReceivename())) {
                 String jsonStr = JSON.toJSONString(chatMsgRecord);
-                ChannelMap.channelMap.get(ruser).writeAndFlush(new TextWebSocketFrame(jsonStr));
+                // 不同客户端需要不同消息类型android是String，web是WebSocketFrame
+                if (ruser.getAttachmentChannelType().equals("android")) {
+                    ChannelMap.channelMap.get(ruser).writeAndFlush(jsonStr);
+                } else {
+                    ChannelMap.channelMap.get(ruser).writeAndFlush(new TextWebSocketFrame(jsonStr));
+                }
             }
         }
 

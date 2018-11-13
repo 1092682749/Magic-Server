@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import org.springframework.data.annotation.Transient;
+
 public class User {
     private Integer id;
 
@@ -8,6 +10,18 @@ public class User {
     private String password;
 
     private String nickName;
+
+
+    @Transient
+    private String attachmentChannelType;
+
+    public String getAttachmentChannelType() {
+        return attachmentChannelType;
+    }
+
+    public void setAttachmentChannelType(String attachmentChannelType) {
+        this.attachmentChannelType = attachmentChannelType;
+    }
 
     public String getNickName() {
         return nickName;

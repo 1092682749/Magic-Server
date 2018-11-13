@@ -62,7 +62,7 @@ public class RedisRedPacketServiceImpl implements RedisRedPacketService {
                 userRedPacket.setUserId(userId);
                 userRedPacket.setAmount(unitAmount);
                 userRedPacket.setGrabTime(new Timestamp(time));
-                userRedPacket.setNote("����� " + redPacketId);
+                userRedPacket.setNote("红包id " + redPacketId);
                 userRedPacketList.add(userRedPacket);
             }
 
@@ -71,7 +71,6 @@ public class RedisRedPacketServiceImpl implements RedisRedPacketService {
 
         redisTemplate.delete(PREFIX + redPacketId);
         Long end = System.currentTimeMillis();
-        System.err.println("用时" + (end - start) + "���룬��" + count + "����¼�����档");
     }
 
     private int executeBatch(List<UserRedPacket> userRedPacketList) {
@@ -98,7 +97,7 @@ public class RedisRedPacketServiceImpl implements RedisRedPacketService {
 
             conn.commit();
         } catch (SQLException e) {
-            throw new RuntimeException("���������ִ�г������");
+            throw new RuntimeException();
         } finally {
             try {
                 if (conn != null && !conn.isClosed()) {

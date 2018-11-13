@@ -12,27 +12,27 @@
 <script src="../js/html2canvas.js"></script>
 <script>
     $(document).ready(
-        // function (){
-        //     var max = 30000;
-        //     for (var i = 1; i <= max; i++){
-        //         $.post({
-        //             url:"http://localhost:8080/userRedPacket/grapRedPacketByRedis?redPacketId=5&userId="+i,
-        //             success:function (e) {
-        //                 console.log(e);
-        //             }
-        //         });
-        //     }
-        // }
+        function (){
+            var max = 1;
+            for (var i = 1; i <= max; i++){
+                $.ajax({
+                    url:"/ok/userRedPacket/grapRedPacketByRedis?redPacketId=5&userId="+i,
+                    success:function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+        }
     );
-    base();
-    function base (){
-        var div = document.createElement("div");
-        div.setAttribute("id","capture");
-        div.innerText = "divdivasdadadadasd";
-        html2canvas(div).then(function(canvas) {
-            console.log(canvas);
-            return canvas;
-        });
-    }
+    // base();
+    // function base (){
+    //     var div = document.createElement("div");
+    //     div.setAttribute("id","capture");
+    //     div.innerText = "divdivasdadadadasd";
+    //     html2canvas(div).then(function(canvas) {
+    //         console.log(canvas);
+    //         return canvas;
+    //     });
+    // }
 
 </script>
