@@ -91,7 +91,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
             MsgObject msgObject = (MsgObject) JsonToBean.chagneObject(((TextWebSocketFrame) msg).text(),MsgObject.class);
             User user = userService.findByUsername(msgObject.getUsername());
             user.setAttachmentChannelType("web");
-            ChannelMap.channelMap.put(user,  ctx.channel());
+            ChannelMap.registerChannel(user, ctx.channel());
             handleWebSocket(ctx,msgObject);
         } else {
             ChannelFuture f = ctx.channel().writeAndFlush("该端口目前仅支持websocket协议\r\n");

@@ -36,6 +36,10 @@ public class ChatController {
     @RequestMapping("/save")
     public @ResponseBody Map<String,Object> save(@RequestBody User user) throws Exception {
         HashMap<String,Object> msg = new HashMap<>();
+        if (user.getUsername().equals("system")) {
+            msg.put("msg", "该用户名不合法");
+        }
+
         if (user.getUsername().equals("") || user.getPassword().equals("")) {
             msg.put("msg","用户名和密码不能为空");
             return msg;

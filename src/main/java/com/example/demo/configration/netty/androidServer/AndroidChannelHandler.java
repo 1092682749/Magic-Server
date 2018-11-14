@@ -88,7 +88,7 @@ public class AndroidChannelHandler extends ChannelInboundHandlerAdapter {
             System.out.println("user null");
         }
         user.setAttachmentChannelType("android");
-        ChannelMap.channelMap.put(user,ctx.channel());
+        ChannelMap.registerChannel(user, ctx.channel());
         handleAndroidMsg(ctx,chatMsgRecord);
     }
 
