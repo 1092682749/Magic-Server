@@ -7,9 +7,8 @@
     <result column="sendname" jdbcType="VARCHAR" property="sendname" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.ChatMsgRecord">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="msgtype" jdbcType="INTEGER" property="msgtype" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,34 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, receivename, sendname, type, addtime
+    id, receivename, sendname, type, addtime, content, msgtype
   </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.model.ChatMsgRecordExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from chatmsgrecord
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.example.demo.model.ChatMsgRecordExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from chatmsgrecord
+    from ChatMsgRecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -105,34 +85,32 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from chatmsgrecord
+    from ChatMsgRecord
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from chatmsgrecord
+    delete from ChatMsgRecord
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.example.demo.model.ChatMsgRecordExample">
-    delete from chatmsgrecord
+    delete from ChatMsgRecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.demo.model.ChatMsgRecord">
-    insert into ChatMsgRecord (id, receivename, sendname,
-      type, addtime, content
-      )
+    insert into ChatMsgRecord (id, receivename, sendname, 
+      type, addtime, content, 
+      msgtype)
     values (#{id,jdbcType=INTEGER}, #{receivename,jdbcType=VARCHAR}, #{sendname,jdbcType=VARCHAR}, 
-      #{type,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{type,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, 
+      #{msgtype,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.model.ChatMsgRecord">
-    insert into chatmsgrecord
+    insert into ChatMsgRecord
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -152,6 +130,9 @@
       <if test="content != null">
         content,
       </if>
+      <if test="msgtype != null">
+        msgtype,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -170,18 +151,21 @@
         #{addtime,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtype != null">
+        #{msgtype,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.example.demo.model.ChatMsgRecordExample" resultType="java.lang.Long">
-    select count(*) from chatmsgrecord
+    select count(*) from ChatMsgRecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update chatmsgrecord
+    update ChatMsgRecord
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -199,38 +183,31 @@
         addtime = #{record.addtime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.content != null">
-        content = #{record.content,jdbcType=LONGVARCHAR},
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgtype != null">
+        msgtype = #{record.msgtype,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update chatmsgrecord
+  <update id="updateByExample" parameterType="map">
+    update ChatMsgRecord
     set id = #{record.id,jdbcType=INTEGER},
       receivename = #{record.receivename,jdbcType=VARCHAR},
       sendname = #{record.sendname,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=INTEGER},
       addtime = #{record.addtime,jdbcType=TIMESTAMP},
-      content = #{record.content,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update chatmsgrecord
-    set id = #{record.id,jdbcType=INTEGER},
-      receivename = #{record.receivename,jdbcType=VARCHAR},
-      sendname = #{record.sendname,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=INTEGER},
-      addtime = #{record.addtime,jdbcType=TIMESTAMP}
+      content = #{record.content,jdbcType=VARCHAR},
+      msgtype = #{record.msgtype,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.ChatMsgRecord">
-    update chatmsgrecord
+    update ChatMsgRecord
     <set>
       <if test="receivename != null">
         receivename = #{receivename,jdbcType=VARCHAR},
@@ -245,26 +222,22 @@
         addtime = #{addtime,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtype != null">
+        msgtype = #{msgtype,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.ChatMsgRecord">
-    update chatmsgrecord
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.ChatMsgRecord">
+    update ChatMsgRecord
     set receivename = #{receivename,jdbcType=VARCHAR},
       sendname = #{sendname,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
       addtime = #{addtime,jdbcType=TIMESTAMP},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.ChatMsgRecord">
-    update chatmsgrecord
-    set receivename = #{receivename,jdbcType=VARCHAR},
-      sendname = #{sendname,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      addtime = #{addtime,jdbcType=TIMESTAMP}
+      content = #{content,jdbcType=VARCHAR},
+      msgtype = #{msgtype,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectBySendName" resultType="com.example.demo.model.ChatMsgRecord">

@@ -14,18 +14,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 //@Configuration
 public class ChannelMap {
+    private static final Logger log = Logger.getLogger(ChannelMap.class.getName());
     public static final ConcurrentHashMap<User, Channel> channelMap = new ConcurrentHashMap<>();
     public static final ConcurrentHashMap<String, StringBuilder> longFrameMap = new ConcurrentHashMap<>();
     public static void registerChannel(User registerUser, Channel channel) {
+        log.info("新注册username：" + registerUser.getUsername());
         Set<User> users = ChannelMap.channelMap.keySet();
         ChatMsgRecord chatMsgRecord = new ChatMsgRecord();
         // 遍历所有已注册的channel
         for (User item : users) {
 //            判断是否合一注册相同
             if (item.getUsername().equals(registerUser.getUsername())) {
+                log.info("旧名字：" + item.getUsername());
+                log.info("新名字：" + registerUser.getUsername());
                 Channel removeChannel = channelMap.get(item);
                 if (removeChannel.remoteAddress().equals(channel.remoteAddress())) {
                     System.out.println("equal对比");

@@ -6,6 +6,7 @@ import com.example.demo.model.User;
 import com.example.demo.server.ChatMsgRecordService;
 import com.example.demo.server.ChatMsgService;
 import com.example.demo.server.UserService;
+import io.netty.handler.codec.base64.Base64Decoder;
 import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
+import java.io.*;
 import java.util.*;
 
 @Controller
@@ -103,5 +106,34 @@ public class ChatController {
     @RequestMapping("/already")
     public @ResponseBody void already(String sendName, String receiveName) {
         chatMsgRecordService.already(sendName,receiveName);
+    }
+    @RequestMapping("/saveVoice")
+    public @ResponseBody ChatMsgRecord saveVoice(@RequestBody ChatMsgRecord chatMsgRecord) throws IOException {
+        System.out.println("saveVoice");
+        String base64 = chatMsgRecord.getContent();
+        byte[] buffer = Base64.getDecoder().decode(base64);
+//        File path = new File("/static/uploads/voice/");
+//        if (!path.exists()) {
+//            path.mkdirs();
+//        }
+//        File cp = new File("classpath:");
+//        System.out.println(path.getAbsolutePath());
+//        System.out.println(cp.getPath());
+        File file = new File("../uploads/voice/" + System.currentTimeMillis() + "androidVoice.mp3");
+        if (!file.exists()){
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        FileOutputStream fos = new FileOutputStream(file);
+        System.out.println(file.getPath());
+        fos.write(buffer);
+        fos.flush();
+        fos.close();
+
+        String url = "https://dyzhello.club/../uploads/voice/" + file.getName();
+        // 语音类型
+        chatMsgRecord.setMsgtype(2);
+        chatMsgRecord.setContent(url);
+        return chatMsgRecord;
     }
 }

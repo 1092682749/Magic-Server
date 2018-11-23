@@ -424,6 +424,136 @@ public class ChatMsgRecordExample {
             addCriterion("addtime not between", value1, value2, "addtime");
             return (Criteria) this;
         }
+
+        public Criteria andContentIsNull() {
+            addCriterion("content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNotNull() {
+            addCriterion("content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentEqualTo(String value) {
+            addCriterion("content =", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotEqualTo(String value) {
+            addCriterion("content <>", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThan(String value) {
+            addCriterion("content >", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThanOrEqualTo(String value) {
+            addCriterion("content >=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThan(String value) {
+            addCriterion("content <", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThanOrEqualTo(String value) {
+            addCriterion("content <=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLike(String value) {
+            addCriterion("content like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotLike(String value) {
+            addCriterion("content not like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIn(List<String> values) {
+            addCriterion("content in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotIn(List<String> values) {
+            addCriterion("content not in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentBetween(String value1, String value2) {
+            addCriterion("content between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotBetween(String value1, String value2) {
+            addCriterion("content not between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeIsNull() {
+            addCriterion("msgtype is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeIsNotNull() {
+            addCriterion("msgtype is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeEqualTo(Integer value) {
+            addCriterion("msgtype =", value, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeNotEqualTo(Integer value) {
+            addCriterion("msgtype <>", value, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeGreaterThan(Integer value) {
+            addCriterion("msgtype >", value, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("msgtype >=", value, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeLessThan(Integer value) {
+            addCriterion("msgtype <", value, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeLessThanOrEqualTo(Integer value) {
+            addCriterion("msgtype <=", value, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeIn(List<Integer> values) {
+            addCriterion("msgtype in", values, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeNotIn(List<Integer> values) {
+            addCriterion("msgtype not in", values, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeBetween(Integer value1, Integer value2) {
+            addCriterion("msgtype between", value1, value2, "msgtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgtypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("msgtype not between", value1, value2, "msgtype");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

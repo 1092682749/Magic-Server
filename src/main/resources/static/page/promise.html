@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    promise = new Promise(function (aaa, reject1) {
+        console.log("caozuokaishi")
+        aaa(1221);
+    reject1(2);
+    });
+    promise.then(function (value) {
+        console.log(value);
+    }).catch(function (reason) {
+        console.log(reason);
+    });
+    promise.catch(function (reason) {
+        console.log(reason);
+    });
+</script>

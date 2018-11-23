@@ -127,4 +127,8 @@ public class FirstController {
         user.setPassword("zxc");
         return user;
     }
+    @RequestMapping("/ok/toTetBase")
+    public String toTetBase(){
+        return "testBase";
+    }
 }

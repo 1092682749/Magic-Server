@@ -12,8 +12,8 @@
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://dyzhello.club:3306/testredis?serverTimezone=UTC"
-                        userId="123"
-                        password="123">
+                        userId="root"
+                        password="dyz">
         </jdbcConnection>
 
         <javaTypeResolver >
@@ -34,7 +34,7 @@
         </javaClientGenerator>
         <!--<table tableName="t_employee_task" domainObjectName="EmployeeTask"></table>-->
 <!--<table tableName="user" domainObjectName="User"></table>-->
-        <table tableName="chatmsgrecord" domainObjectName="ChatMsgRecord"></table>
+        <table tableName="ChatMsgRecord" domainObjectName="ChatMsgRecord"></table>
         <!--<table tableName="t_user_red_packet" domainObjectName="UserRedPacket"></table>-->
     </context>
 </generatorConfiguration>

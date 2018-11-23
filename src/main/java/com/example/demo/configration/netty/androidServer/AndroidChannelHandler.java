@@ -1,6 +1,8 @@
 package com.example.demo.configration.netty.androidServer;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.configration.netty.ChannelMap;
 import com.example.demo.configration.netty.NettyConfig;
 import com.example.demo.model.ChatMsgRecord;
@@ -77,7 +79,13 @@ public class AndroidChannelHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("msg from android   " + msg.toString());
-        ChatMsgRecord chatMsgRecord = (ChatMsgRecord) JsonToBean.chagneObject(msg.toString(),ChatMsgRecord.class);
+        String requestStr = msg.toString();
+        String[] ss =  requestStr.split("}\\{");
+        // 如果注册请求和正常消息同时到达，放弃注册请求
+        if (ss.length > 1) {
+            requestStr = "{" + ss[1];
+        }
+        ChatMsgRecord chatMsgRecord = (ChatMsgRecord) JsonToBean.chagneObject(requestStr,ChatMsgRecord.class);
         System.out.println("消息发送者是====="+chatMsgRecord.getSendname());
         System.out.println("消息是====="+chatMsgRecord.getContent());
         User user = userService.findByUsername(chatMsgRecord.getSendname());

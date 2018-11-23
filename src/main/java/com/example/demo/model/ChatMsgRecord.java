@@ -17,17 +17,7 @@ public class ChatMsgRecord implements Comparable<ChatMsgRecord> {
 
     private String content;
 
-
-    @Transient
-    private String attachmentChannelType;
-
-    public String getAttachmentChannelType() {
-        return attachmentChannelType;
-    }
-
-    public void setAttachmentChannelType(String attachmentChannelType) {
-        this.attachmentChannelType = attachmentChannelType;
-    }
+    private Integer msgtype;
 
     public Integer getId() {
         return id;
@@ -76,6 +66,27 @@ public class ChatMsgRecord implements Comparable<ChatMsgRecord> {
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
+
+    public Integer getMsgtype() {
+        return msgtype;
+    }
+
+    public void setMsgtype(Integer msgtype) {
+        this.msgtype = msgtype;
+    }
+
+    @Transient
+    private String attachmentChannelType;
+
+    public String getAttachmentChannelType() {
+        return attachmentChannelType;
+    }
+
+    public void setAttachmentChannelType(String attachmentChannelType) {
+        this.attachmentChannelType = attachmentChannelType;
+    }
+
+
     @Override
     public int compareTo(ChatMsgRecord o) {
         if (this.addtime != null && o.addtime != null){
@@ -95,4 +106,5 @@ public class ChatMsgRecord implements Comparable<ChatMsgRecord> {
         }
         return 0;
     }
+
 }

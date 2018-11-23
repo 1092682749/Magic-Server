@@ -1,8 +1,8 @@
 package com.example.demo.configration;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
+
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
@@ -13,5 +13,16 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/hello").setViewName("hello");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/regist").setViewName("regist");
+    }
+    //解决跨域问题
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        registry.addResourceHandler("/uploads/**").addResourceLocations("file:../uploads/");
+        registry.addResourceHandler("/static/uploads/**").addResourceLocations("/static/uploads/");
     }
 }

@@ -5,9 +5,12 @@ import org.apache.log4j.net.SocketServer;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 import java.util.Map;
 
 public class OSocket {
+    public static final String CRLF="\r\n";
+    public static final String BLANK=" ";
     public void server() throws IOException {
         ServerSocket socketServer = new ServerSocket(9000);
         while(true) {
@@ -33,10 +36,13 @@ public class OSocket {
                 try {
                     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                    String msg = in.readLine();
-                    System.out.println(msg);
-                    out.write("服务器把你的消息还给了你"+ msg);
-                    out.flush();
+                    String line = null;
+                    while ((line = in.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                    Response response = new Response(socket.getOutputStream());
+//                    response.println("<html><body>我是手写tomcat</body></html?");
+                    response.pushToClient(200);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {

@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/home","/regist","/ok/**",
-                        "/css/**","/js/**","/imgs/**","/assets/**")
+                        "/css/**","/js/**","/imgs/**","/assets/**", "/uploads/**")
                 .permitAll()
                 // 安卓权限放行
                 .antMatchers("/android/**")
