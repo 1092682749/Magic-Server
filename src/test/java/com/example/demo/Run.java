@@ -1,11 +1,13 @@
 package com.example.demo;
 
+import java.util.Date;
+
 public class Run {
     static String os;
     public void m() {
-        class Mc {
+        class Mc extends Date {
             Mc() {
-                System.out.println("MC!");
+                System.out.println("MC!" + super.getClass());
             }
         }
         new Mc();
@@ -16,10 +18,19 @@ public class Run {
         String[] ss = s.split("}");
         System.out.println(ss[1]);
         new Run().m();
+        System.out.println(zi());
     }
     public class Inner {
         Inner() {
             os = "asd";
+        }
+    }
+    static public int zi() {
+        int x = 1;
+        try {
+            return x;
+        }finally {
+            ++x;
         }
     }
 }
