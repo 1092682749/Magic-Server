@@ -136,4 +136,11 @@ public class ChatController {
         chatMsgRecord.setContent(url);
         return chatMsgRecord;
     }
+    @RequestMapping("/saceMsg")
+    public void saveMsg() {
+        ChatMsgRecord chatMsgRecord = new ChatMsgRecord();
+        chatMsgRecord.setSendname("123");
+        chatMsgRecord.setContent("tttttt");
+        chatMsgRecordService.save(chatMsgRecord);
+    }
 }

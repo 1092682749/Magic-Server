@@ -5,6 +5,7 @@ import com.example.demo.model.ChatMsg;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.server.ChatMsgRecordService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,8 +21,12 @@ public class ChatMsgRecordServiceImpl implements ChatMsgRecordService {
     }
 
     @Override
+    @Transactional
     public int save(ChatMsgRecord chatMsgRecord) {
-        return chatMsgRecordMapper.insert(chatMsgRecord);
+        int code = chatMsgRecordMapper.insert(chatMsgRecord);
+//        if ("1".equals("2"))
+//        throw new RuntimeException();
+        return code;
     }
 
     @Override

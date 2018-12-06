@@ -241,7 +241,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectBySendName" resultType="com.example.demo.model.ChatMsgRecord">
-    select * from ChatMsgRecord where sendname = #{sendName} and receivename = #{receiveName}
+    select * from ChatMsgRecord where sendname = #{sendName} and receivename = #{receiveName} order by id desc limit 20
   </select>
     <select id="selectCountBySendName" resultType="int">
     select count(*) from ChatMsgRecord where sendname = #{sendName} and receivename = #{receiveName} and type = 1
