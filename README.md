@@ -2,7 +2,7 @@
 基于springboot的各种服务实现
 <a href="#startUse">快速开始</a>
 <h2 id='startUse'>开始使用</h2>
-<p>下载redis<a href='http://www.redis.net.cn/'>redis中文网</a></p>
+<p>下载redis <a href='http://www.redis.net.cn/'>redis中文网</a></p>
 <p>克隆该项目找到配置文件（src/resources/application.properties）更改为你的本地配置<br/>
 即可运行
 </p>
