@@ -131,4 +131,8 @@ public class FirstController {
     public String toTetBase(){
         return "testBase";
     }
+    @RequestMapping("/user/test")
+    public void userTEst() {
+        System.out.println("有权限");
+    }
 }

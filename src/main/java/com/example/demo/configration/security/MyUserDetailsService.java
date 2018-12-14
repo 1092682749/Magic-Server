@@ -30,8 +30,10 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("UserName " + username + " not found");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-        // 增加权限
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        // 增加角色
+        user.getUserRoleList().forEach(userRole -> {
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole().getRolename()));
+        });
         org.springframework.security.core.userdetails.User securityUser = new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities);
         return securityUser;
     }

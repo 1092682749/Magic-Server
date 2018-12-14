@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 @EnableWebSecurity
@@ -43,6 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/home","/regist","/ok/**",
                         "/css/**","/js/**","/imgs/**","/assets/**", "/uploads/**")
                 .permitAll()
+//                .antMatchers("/user/**")
+//                .hasRole("qq")
                 // 安卓权限放行
                 .antMatchers("/android/**")
                 .permitAll()
@@ -72,6 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                        .build();
         MyUserDetailsService myUserDetailsService = new MyUserDetailsService(userService);
 //        System.out.println(myUserDetailsService);
+//        ExpressionUrlAuthorizationConfigurer.AuthorizedUrl
         return myUserDetailsService;
     }
 }

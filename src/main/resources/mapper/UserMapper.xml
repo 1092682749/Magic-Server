@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.model.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickName"></result>
-  </resultMap>
-  <select id="findAll" resultType="com.example.demo.model.User">
+    <resultMap id="BaseResultMap" type="com.example.demo.model.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickName"/>
+    </resultMap>
+    <resultMap id="ComplexMap" type="com.example.demo.model.User">
+        <id column="u_id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickName"/>
+        <collection fetchType="lazy" property="userRoleList" ofType="com.example.demo.model.UserRole" column="u_id">
+            <id column="ur_id" property="id" jdbcType="INTEGER"/>
+            <result column="ur_uid" property="uid" jdbcType="INTEGER"/>
+            <result column="ur_rid" property="rid" jdbcType="INTEGER"/>
+            <association property="role" javaType="com.example.demo.model.Role" column="ur_rid">
+                <id column="r_id" property="id" jdbcType="INTEGER"/>
+                <result column="roleName" property="rolename" jdbcType="VARCHAR"/>
+                <collection column="r_id" property="rolePermissionList" ofType="com.example.demo.model.RolePermission">
+                    <id column="rp_id" property="id" jdbcType="INTEGER"/>
+                    <result column="rp_rid" property="rid" jdbcType="INTEGER"/>
+                    <result column="rp_pid" property="pid" jdbcType="INTEGER"/>
+                    <association property="permission" column="rp_pid" javaType="com.example.demo.model.Permission">
+                        <id column="p_id" property="id" javaType="INTEGER"/>
+                        <result column="permission" property="permission"/>
+                    </association>
+                </collection>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="findAll" resultType="com.example.demo.model.User">
     select * from User
   </select>
-  <insert id="save" parameterType="com.example.demo.model.User">
+    <insert id="save" parameterType="com.example.demo.model.User">
     insert into User (username, password,nickname) values (#{username},#{password},#{nickName})
   </insert>
-    <select id="findByUsername" parameterType="string" resultType="com.example.demo.model.User">
-        select * from User where username = #{username}
+    <!--  -->
+    <select id="findByUsername" parameterType="string" resultMap="ComplexMap">
+        select u.id as u_id, u.password, u.nickName, u.username,
+        ur.id as ur_id, ur.rid as ur_rid, ur.uid as ur_uid,
+        r.id as r_id, r.roleName,
+        rp.id as rp_id, rp.rid as rp_rid, rp.pid as rp_pid,
+        p.id as p_id, p.permission
+        from User u left join user_role ur on u.id = ur.uid
+        left join Role r on ur.id = r.id
+        left join role_permission rp on r.id = rp.rid
+        left join Permission p on rp.pid = p.id
+        where username = #{username}
     </select>
 </mapper>

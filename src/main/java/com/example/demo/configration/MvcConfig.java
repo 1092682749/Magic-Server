@@ -1,5 +1,6 @@
 package com.example.demo.configration;
 
+import com.example.demo.configration.security.MyRolePermissionInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -24,5 +25,10 @@ public class MvcConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/uploads/**").addResourceLocations("file:../uploads/");
         registry.addResourceHandler("/static/uploads/**").addResourceLocations("/static/uploads/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new MyRolePermissionInterceptor()).addPathPatterns("/user/**");
     }
 }

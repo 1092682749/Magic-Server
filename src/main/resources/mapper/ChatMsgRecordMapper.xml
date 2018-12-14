@@ -244,7 +244,7 @@
     select * from ChatMsgRecord where sendname = #{sendName} and receivename = #{receiveName} order by id desc limit 20
   </select>
     <select id="selectCountBySendName" resultType="int">
-    select count(*) from ChatMsgRecord where sendname = #{sendName} and receivename = #{receiveName} and type = 1
+    select count(*) from ChatMsgRecord where sendname = #{arg0} and receivename = #{arg1} and type = 1
   </select>
     <update id="already">
         update ChatMsgRecord set type = 2 where sendname = #{sendName} and receivename = #{receiveName} and type = 1

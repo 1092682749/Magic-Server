@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import org.springframework.data.annotation.Transient;
 
+import java.util.List;
+
 public class User {
     private Integer id;
 
@@ -11,6 +13,15 @@ public class User {
 
     private String nickName;
 
+    private List<UserRole> userRoleList;
+
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
+    }
+
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
+    }
 
     @Transient
     private String attachmentChannelType;

@@ -4,6 +4,7 @@ import com.example.demo.dao.ChatMsgRecordMapper;
 import com.example.demo.model.ChatMsg;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.server.ChatMsgRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

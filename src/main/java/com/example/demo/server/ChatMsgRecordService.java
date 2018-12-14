@@ -11,5 +11,4 @@ public interface ChatMsgRecordService {
     public Integer selectCountBySendName(String sendName, String receiveName);
     void already(String sendName, String receiveName);
     int deleteRecord(String sendname,String receivename);
-
 }
