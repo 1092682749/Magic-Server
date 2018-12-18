@@ -35,23 +35,23 @@ public class Application {
      * 配置一个TomcatEmbeddedServletContainerFactory bean
      * @return
      */
-    @Bean
-    public TomcatServletWebServerFactory servletContainer() {
-
-        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
-            @Override
-            protected void postProcessContext(Context context) {
-                SecurityConstraint securityConstraint = new SecurityConstraint();
-                securityConstraint.setUserConstraint("CONFIDENTIAL");
-                SecurityCollection collection = new SecurityCollection();
-                collection.addPattern("/*");
-                securityConstraint.addCollection(collection);
-                context.addConstraint(securityConstraint);
-            }
-        };
-        tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
-        return tomcat;
-    }
+//    @Bean
+//    public TomcatServletWebServerFactory servletContainer() {
+//
+//        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
+//            @Override
+//            protected void postProcessContext(Context context) {
+//                SecurityConstraint securityConstraint = new SecurityConstraint();
+//                securityConstraint.setUserConstraint("CONFIDENTIAL");
+//                SecurityCollection collection = new SecurityCollection();
+//                collection.addPattern("/*");
+//                securityConstraint.addCollection(collection);
+//                context.addConstraint(securityConstraint);
+//            }
+//        };
+//        tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
+//        return tomcat;
+//    }
 
     /**
      * 让我们的应用支持HTTP是个好想法，但是需要重定向到HTTPS，
@@ -59,14 +59,14 @@ public class Application {
      * 所以要以编程的方式配置HTTP connector，然后重定向到HTTPS connector
      * @return Connector
      */
-    private Connector initiateHttpConnector() {
-        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setScheme("http");
-        connector.setPort(proxyPort); // http端口
-        connector.setSecure(false);
-        connector.setRedirectPort(serverPort); // application.properties中配置的https端口
-        return connector;
-    }
+//    private Connector initiateHttpConnector() {
+//        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+//        connector.setScheme("http");
+//        connector.setPort(proxyPort); // http端口
+//        connector.setSecure(false);
+//        connector.setRedirectPort(serverPort); // application.properties中配置的https端口
+//        return connector;
+//    }
 
     /**
      * 创建wss协议接口
