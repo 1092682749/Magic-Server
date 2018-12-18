@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.RedPacketMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.model.RedPacket">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="userId" jdbcType="INTEGER" property="userId" />
-    <result column="amount" jdbcType="DECIMAL" property="amount" />
-    <result column="sendDate" jdbcType="TIMESTAMP" property="sendDate" />
-    <result column="total" jdbcType="INTEGER" property="total" />
-    <result column="unitAmount" jdbcType="DECIMAL" property="unitAmount" />
-    <result column="stock" jdbcType="INTEGER" property="stock" />
-    <result column="version" jdbcType="INTEGER" property="version" />
-    <result column="note" jdbcType="VARCHAR" property="note" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.example.demo.model.RedPacket">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="sendDate" jdbcType="TIMESTAMP" property="sendDate"/>
+        <result column="total" jdbcType="INTEGER" property="total"/>
+        <result column="unitAmount" jdbcType="DECIMAL" property="unitAmount"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="receiveName" jdbcType="VARCHAR" property="receiveName"/>
+    </resultMap>
 
-  <select id="getRedPacket" parameterType="int" resultType="com.example.demo.model.RedPacket">
+    <select id="getRedPacket" parameterType="int" resultType="com.example.demo.model.RedPacket">
     select * from RedPacket where id = #{id}
   </select>
 
-  <update id="decreaseRedPacket">
+    <update id="decreaseRedPacket">
     update RedPacket set stock = stock - 1 where id = #{id}
   </update>
 
-  <select id="getRedPacketForUpData" parameterType="int" resultType="com.example.demo.model.RedPacket">
+    <select id="getRedPacketForUpData" parameterType="int" resultType="com.example.demo.model.RedPacket">
     select * from RedPacket where  id = #{id} for update
   </select>
 
-  <!-- 通过版本号扣减抢红包 每更新一次，版本增1， 其次增加对版本号的判断 -->
-  <update id="decreaseRedPacketForVersion">
+    <!-- 通过版本号扣减抢红包 每更新一次，版本增1， 其次增加对版本号的判断 -->
+    <update id="decreaseRedPacketForVersion">
 		update RedPacket
 		set stock = stock - 1,
 		version = version + 1
 		where id = #{id}
 		and version = #{version}
 	</update>
+    <insert id="save">
+        insert into RedPacket (userId, amount, sendDate, total, unitAmount, stock, version, note, serialVersionUID)
+        values (#{userId},#{amount},#{sendDate},#{total},#{unitAmount},#{stock},#{version},#{note},#{serialVersionUID})
+    </insert>
 </mapper>

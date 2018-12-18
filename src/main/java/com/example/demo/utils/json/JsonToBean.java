@@ -6,8 +6,8 @@ import com.example.demo.model.User;
 import org.junit.jupiter.api.Test;
 
 public class JsonToBean {
-    public static Object chagneObject(String JsonStr, Class<?> clazz){
+    public static Object chagneObject(String JsonStr, Class<?> clazz) {
         JSONObject jsonObject = JSONObject.parseObject(JsonStr);
-         return jsonObject.toJavaObject(clazz);
+        return jsonObject.toJavaObject(clazz);
     }
 }

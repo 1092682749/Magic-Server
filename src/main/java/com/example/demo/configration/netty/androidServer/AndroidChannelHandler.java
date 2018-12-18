@@ -135,6 +135,7 @@ public class AndroidChannelHandler extends ChannelInboundHandlerAdapter {
         System.out.println(cause.getMessage());
         ctx.close();
     }
+    @SuppressWarnings("Duplicates")
     public void handleHttp(ChannelHandlerContext ctx, Object msg) {
         FullHttpRequest request = (FullHttpRequest) msg;
         if (request.headers().get("Upgrade") != null){

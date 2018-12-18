@@ -15,4 +15,6 @@ public interface RedPacketMapper {
 
     public int decreaseRedPacketForVersion(@Param("id") Integer id, @Param("version") Integer version);
 
+    public int save(RedPacket redPacket);
+
 }

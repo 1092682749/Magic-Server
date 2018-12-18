@@ -26,4 +26,9 @@ public class RedPacketServiceImpl implements RedPacketService {
     public int decreaseRedPacket(Integer id) {
         return redPacketMapper.decreaseRedPacket(id);
     }
+
+    @Override
+    public int save(RedPacket redPacket) {
+        return redPacketMapper.save(redPacket);
+    }
 }

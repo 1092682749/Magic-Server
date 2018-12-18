@@ -7,4 +7,6 @@ public interface RedPacketService {
     public RedPacket getRedPacket(Integer id);
 
     public int decreaseRedPacket(Integer id);
+
+    public int save(RedPacket redPacket);
 }

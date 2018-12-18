@@ -12,6 +12,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.jboss.marshalling.MarshallerFactory;
 import org.jboss.marshalling.Marshalling;
 import org.jboss.marshalling.MarshallingConfiguration;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
@@ -71,6 +73,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 //        socketChannel.pipeline().addLast(new CopyHander());
 //        socketChannel.pipeline().addLast(new WebSocketServerHandler(new IWSService(),new IHService()));
 //        socketChannel.pipeline().addLast(new TimeServerHandler());
+        socketChannel.pipeline().addLast(new IdleStateHandler(10,0,0, TimeUnit.SECONDS));
         socketChannel.pipeline().addLast(new ChatHandler(chatMsgRecordService,userService));
     }
 }

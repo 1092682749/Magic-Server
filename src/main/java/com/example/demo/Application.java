@@ -23,13 +23,13 @@ import org.springframework.context.annotation.Bean;
 @EnableCaching
 @ServletComponentScan
 @MapperScan("com.example.demo.dao")
-public class DemoApplication {
+public class Application {
     @Value("${server.port}")
     Integer serverPort;
     @Value("${proxy.port}")
     Integer proxyPort;
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
     /**
      * 配置一个TomcatEmbeddedServletContainerFactory bean

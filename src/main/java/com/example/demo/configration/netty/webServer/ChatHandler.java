@@ -18,6 +18,8 @@ import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.*;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
@@ -25,6 +27,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
@@ -34,6 +37,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
     String webSocketUrl = "wss://dyzhello.club:9000";
     WebSocketServerHandshaker handshaker = null;
     ChatMsgRecordService chatMsgRecordService = null;
+    final Logger log = Logger.getLogger(ChatHandler.class.getName());
     UserService userService = null;
     public ChatHandler(ChatMsgRecordService chatMsgRecordService,UserService userService) {
         super();
@@ -111,6 +115,13 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
+            if (idleStateEvent.state()== IdleState.READER_IDLE) {
+                log.info("十秒未接收消息断开连接");
+//                ctx.close();
+            }
+        }
         super.userEventTriggered(ctx, evt);
     }
 
@@ -124,7 +135,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
         System.out.println(cause.getMessage());
         ctx.close();
     }
-
+    @SuppressWarnings("Duplicates")
     public void handleHttp(ChannelHandlerContext ctx, Object msg) {
         FullHttpRequest request = (FullHttpRequest) msg;
         if (request.headers().get("Upgrade") != null){
@@ -214,4 +225,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
             sendMessageToReceive(ctx,msg);
         }
     }
+
+//    public void userEventTriggered(ChannelHandlerContext ctx, Object evt)
+
 }

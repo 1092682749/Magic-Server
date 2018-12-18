@@ -22,6 +22,16 @@ public class RedPacket {
 
     private String note;
 
+    private String receiveName;
+
+    public String getReceiveName() {
+        return receiveName;
+    }
+
+    public void setReceiveName(String receiveName) {
+        this.receiveName = receiveName;
+    }
+
     private static final long serialVersionUID = -1049397724701962381L;
 
     public Integer getId() {

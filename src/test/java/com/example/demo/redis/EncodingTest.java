@@ -1,6 +1,6 @@
 package com.example.demo.redis;
 
-import com.example.demo.DemoApplication;
+
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.model.User;
 
@@ -33,9 +33,10 @@ public class EncodingTest extends DemoApplicationTests {
 //    }
     @Test
     public void test() {
-        Jedis jedis = new Jedis("localhost", 6379, 1000000);
-//        jedis.auth("dyz");
+        Jedis jedis = new Jedis("dyzhello.club", 9999, 100000);
+        jedis.auth("dyz");
 //        new java.lang.Thread(new Thread2(jedis)).start();
+        jedis.set("testConnection", "succeed");
         System.out.println("Connection to server sucessfully");
         //查看服务是否运行
 //        System.out.println("Server is running: " + jedis.ping());

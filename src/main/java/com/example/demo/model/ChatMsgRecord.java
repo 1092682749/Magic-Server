@@ -5,6 +5,10 @@ import org.springframework.data.annotation.Transient;
 import java.util.Date;
 
 public class ChatMsgRecord implements Comparable<ChatMsgRecord> {
+    public static final int TYPE_TEXT = 1;
+    public static final int TYPE_VOICE = 2;
+    public static final int TYPE_PICTURE = 3;
+    public static final int TYPE_RED_PACK = 4;
     private Integer id;
 
     private String receivename;
