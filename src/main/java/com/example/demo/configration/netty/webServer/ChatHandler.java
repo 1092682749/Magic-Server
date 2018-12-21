@@ -4,11 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.configration.netty.ChannelMap;
 import com.example.demo.configration.netty.MsgObject;
 import com.example.demo.configration.netty.NettyConfig;
-import com.example.demo.model.ChatMsg;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
 import com.example.demo.server.ChatMsgRecordService;
-import com.example.demo.server.ChatMsgService;
 import com.example.demo.server.UserService;
 import com.example.demo.utils.json.JsonToBean;
 import io.netty.buffer.ByteBuf;
@@ -118,7 +116,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
             if (idleStateEvent.state()== IdleState.READER_IDLE) {
-                log.info("十秒未接收消息断开连接");
+//                log.info("十秒未接收消息断开连接");
 //                ctx.close();
             }
         }
@@ -145,6 +143,7 @@ public class ChatHandler extends ChannelInboundHandlerAdapter {
                 handshaker.handshake(ctx.channel(),request);
             }
         } else {
+
             // 处理普通http请求
             FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK);
             response.headers().set(CONTENT_TYPE, "application/json; charset=UTF-8");

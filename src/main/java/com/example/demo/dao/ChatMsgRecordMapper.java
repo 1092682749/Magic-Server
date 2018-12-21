@@ -33,8 +33,8 @@ public interface ChatMsgRecordMapper {
     int updateByPrimaryKeyWithBLOBs(ChatMsgRecord record);
 
     int updateByPrimaryKey(ChatMsgRecord record);
-    List<ChatMsgRecord> selectBySendName(String sendName, String receiveName);
-    Integer selectCountBySendName(String sendName, String receiveName);
-    void already(String sendName, String receiveName);
-    int deleteRecord(String sendname,String receivename);
+    List<ChatMsgRecord> selectBySendName(@Param("sendName") String sendName, @Param("receiveName") String receiveName);
+    Integer selectCountBySendName(@Param("sendName")String sendName,@Param("receiveName") String receiveName);
+    void already(@Param("sendName")String sendName, @Param("receiveName")String receiveName);
+    int deleteRecord(@Param("sendName")String sendname,@Param("receiveName")String receivename);
 }

@@ -1,12 +1,15 @@
 package com.example.demo.configration;
 
+import com.example.demo.configration.CustomAnnotationHandler.AnnotationHandlerInterceptor;
 import com.example.demo.configration.security.MyRolePermissionInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-
+    @Autowired
+    AnnotationHandlerInterceptor annotationHandlerInterceptor;
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/home").setViewName("home");
@@ -30,5 +33,6 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MyRolePermissionInterceptor()).addPathPatterns("/user/**");
+        registry.addInterceptor(annotationHandlerInterceptor).addPathPatterns("/ok/**");
     }
 }

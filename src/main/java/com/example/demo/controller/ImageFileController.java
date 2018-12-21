@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.utils.ResponseResult;
+import com.example.demo.utils.annotation.TestProxy;
+import org.aspectj.lang.annotation.After;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import java.util.Base64;
 
 @Controller
 public class ImageFileController {
+
     @RequestMapping("/android/uploadImage")
     public @ResponseBody
     ResponseResult uploadImage(@RequestBody ChatMsgRecord record) throws IOException {
@@ -29,7 +32,13 @@ public class ImageFileController {
         bos.write(Base64.getDecoder().decode(record.getContent()));
         bos.flush();
         bos.close();
-        record.setContent("../uploads/images" + file.getName());
+        record.setContent("../uploads/images/" + file.getName());
         return new ResponseResult(record);
+    }
+    @TestProxy("qq")
+    @RequestMapping("/ok/proxy")
+    public @ResponseBody String proxy() {
+        System.out.println("proxy");
+        return "asd";
     }
 }

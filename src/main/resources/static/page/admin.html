@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body onload="chaneNum()">
 admin
+<form name="form1"></form>
+    <input name="num" value="0">
 </body>
 </html>
 <script>
-    var objj={};
-    function f(index) {
-        objj[index] = "ooo";
-        console.log(objj);
+    chaneNum()
+    function chaneNum() {
+        form1.num.value = eval(form1.num.value) + 10;
+        var myTimeOut = setTimeout("chaneNum()", 2000);
+        if (eval(form1.num.value) >= 50) {
+            clearTimeout(myTimeOut)
+        }
     }
 
-    f("asdasda");
-    var websocket = new WebSocket("wss://dyzhello.club:9000");
-    // websocket.connect();
-    websocket.onopen = function (ev) {
-        console.log(ev);
-    }
+    // var objj={};
+    // function f(index) {
+    //     objj[index] = "ooo";
+    //     console.log(objj);
+    // }
+    //
+    // f("asdasda");
+    // var websocket = new WebSocket("wss://dyzhello.club:9000");
+    // // websocket.connect();
+    // websocket.onopen = function (ev) {
+    //     console.log(ev);
+    // }
 </script>
