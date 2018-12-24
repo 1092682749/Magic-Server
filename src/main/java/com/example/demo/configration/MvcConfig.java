@@ -33,6 +33,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MyRolePermissionInterceptor()).addPathPatterns("/user/**");
-        registry.addInterceptor(annotationHandlerInterceptor).addPathPatterns("/ok/**");
+        // 权限注解拦截，暂不需要
+//        registry.addInterceptor(annotationHandlerInterceptor).addPathPatterns("/ok/**");
     }
 }
