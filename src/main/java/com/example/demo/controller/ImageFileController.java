@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.misc.BASE64Decoder;
 
 import java.io.*;
 import java.util.Base64;
@@ -28,7 +29,18 @@ public class ImageFileController {
         }
         FileOutputStream fos = new FileOutputStream(file);
         BufferedOutputStream bos = new BufferedOutputStream(fos);
-        bos.write(Base64.getDecoder().decode(record.getContent()));
+        String[] strs = record.getContent().split(";");
+        // 网页base64数据处理
+        if (strs[0]!= null && record.getContent().split(";")[0].equals("data:image/jpeg")) {
+            String src = record.getContent().substring(27);
+            BASE64Decoder decoder = new BASE64Decoder();
+            System.out.println(decoder.decodeBuffer(record.getContent()));
+            byte[] b = decoder.decodeBuffer(record.getContent().split(",")[1]);
+            bos.write(b);
+        } else {
+            // android数据
+            bos.write(Base64.getDecoder().decode(record.getContent()));
+        }
         bos.flush();
         bos.close();
         record.setContent("../uploads/images/" + file.getName());

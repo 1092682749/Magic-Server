@@ -37,6 +37,6 @@
         <!--<table tableName="Permission" domainObjectName="Permission"></table>-->
         <!--<table tableName="user_role" domainObjectName="UserRole"></table>-->
         <!--<table tableName="Role" domainObjectName="Role"></table>-->
-        <table tableName="role_permission" domainObjectName="RolePermission"></table>
+        <table tableName="article" domainObjectName="Article"></table>
     </context>
 </generatorConfiguration>

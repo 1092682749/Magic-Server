@@ -13,6 +13,8 @@ import redis.clients.jedis.Jedis;
 
 import javax.xml.ws.Action;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -146,6 +148,15 @@ public class EncodingTest extends DemoApplicationTests {
                 }
             } while (!isSuccess && count < 10);
         }
+    }
+    @Test
+    public void testMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("one", "one");
+        redisTemplate.opsForValue().set("map", map);
+        Map<String, String> m = (Map<String, String>) redisTemplate.opsForValue().get("map");
+        System.out.println(m.get("one"));
+        redisTemplate.delete("map");
     }
 }
 

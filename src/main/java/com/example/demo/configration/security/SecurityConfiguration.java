@@ -45,6 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/home","/regist","/ok/**",
                         "/css/**","/js/**","/imgs/**","/assets/**", "/uploads/**")
                 .permitAll()
+                .antMatchers("/articleList/**")
+                .permitAll()
 //                .antMatchers("/user/**")
 //                .hasRole("qq")
                 // 安卓权限放行

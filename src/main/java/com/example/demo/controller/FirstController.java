@@ -117,7 +117,7 @@ public class FirstController {
     }
     @RequestMapping("/")
     public String toIndex(){
-        return "redirect:/index";
+        return "redirect:/articleList";
     }
     @PostMapping("/ok/postUrl")
     public @ResponseBody User postUrl(Integer id){

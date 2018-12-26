@@ -1,7 +1,6 @@
 package com.example.demo.configration.CustomAnnotationHandler;
 
 import com.example.demo.utils.annotation.TestProxy;
-import sun.jvm.hotspot.utilities.soql.InvocableCallable;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
