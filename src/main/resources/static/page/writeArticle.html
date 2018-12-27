@@ -22,7 +22,7 @@
     <!--<meta name="keywords" content="opensource rich wysiwyg text editor jquery bootstrap execCommand html5" />-->
     <!--<meta name="description" content="This tiny jQuery Bootstrap WYSIWYG plugin turns any DIV into a HTML5 rich text editor" />-->
     <!--<link rel="apple-touch-icon" href="//mindmup.s3.amazonaws.com/lib/img/apple-touch-icon.png" />-->
-    <!--<link rel="shortcut icon" href="http://mindmup.s3.amazonaws.com/lib/img/favicon.ico" >-->
+    <!--<link rel="shortcut icon" href="https://mindmup.s3.amazonaws.com/lib/img/favicon.ico" >-->
     <link rel="shortcut icon" href="../assets/articleList/images/favicon.png"/>
 
 
@@ -40,17 +40,17 @@
     <link rel='stylesheet' id='custom-css-css' href='../assets/articleList/css/custom5152.html?ver=1.0' type='text/css'
           media='all'/>
     <link href="../css/prettify.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css"
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css"
           rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css"
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css"
           rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <script>
-        var IMG_URL = "https://localhost/"
+        var IMG_URL = "https://dyzhello.club/"
     </script>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/jquery.hotkeys.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
     <script src="../js/prettify.js"></script>
     <link href="../css/write_index.css" rel="stylesheet">
     <script src="../js/bootstrap-wysiwyg.js"></script>
@@ -75,7 +75,7 @@
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li><a href="/articleList">Home</a></li>
+                        <li><a href="/articleList">首页</a></li>
                         <li><a href="/index">聊天中心</a></li>
                         <!--<li><a href="home-categories-articles.html">Home 3</a></li>-->
                         <!--<li class="current-menu-item"><a href="articles-list.html">Articles List</a></li>-->
@@ -88,13 +88,13 @@
                         <!--<li><a href="index-2.html">Default Skin</a></li>-->
                         <!--</ul>-->
                         <!--</li>-->
-                        <li><a href="#">More</a>
-                            <ul class="sub-menu">
-                                <li><a href="full-width.html">Full Width</a></li>
-                                <li><a href="elements.html">Elements</a></li>
-                                <li><a href="page.html">Sample Page</a></li>
-                            </ul>
-                        </li>
+                        <!--<li><a href="/writeArticle">首页</a>-->
+                            <!--<ul class="sub-menu">-->
+                                <!--<li><a href="full-width.html">Full Width</a></li>-->
+                                <!--<li><a href="elements.html">Elements</a></li>-->
+                                <!--<li><a href="page.html">Sample Page</a></li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
                         <!--<li><a href="contact.html">Contact</a></li>-->
                     </ul>
                 </div>
@@ -306,7 +306,7 @@
     if (d.getElementById(id)) return;
     js = d.createElement(s);
     js.id = id;
-    js.src = "http://connect.facebook.net/en_GB/all.js#xfbml=1";
+    js.src = "https://connect.facebook.net/en_GB/all.js#xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
@@ -316,7 +316,7 @@
     if (!d.getElementById(id)) {
         js = d.createElement(s);
         js.id = id;
-        js.src = "http://platform.twitter.com/widgets.js";
+        js.src = "https://platform.twitter.com/widgets.js";
         fjs.parentNode.insertBefore(js, fjs);
     }
 }(document, "script", "twitter-wjs");</script>
@@ -338,7 +338,7 @@
         console.log(article);
         $.ajax(
             {
-                url: IMG_URL + '/ok/uploadArticle',
+                url: IMG_URL + 'ok/uploadArticle',
                 data: JSON.stringify(article),
                 contentType: 'application/json',
                 type: 'post',

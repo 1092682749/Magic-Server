@@ -127,10 +127,10 @@
     <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.27.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.27.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.27.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-api:5.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-api:5.4.0-M1" level="project" />
     <orderEntry type="library" name="Maven: org.apiguardian:apiguardian-api:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.opentest4j:opentest4j:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.4.0-M1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-thymeleaf:2.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf-spring5:3.0.9.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:3.0.9.RELEASE" level="project" />
@@ -186,5 +186,9 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: org.jboss.marshalling:jboss-marshalling:2.0.5.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper-spring-boot-starter:1.2.5" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.5" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:5.1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:1.0" level="project" />
   </component>
 </module>

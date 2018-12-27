@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.Size;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -27,18 +29,23 @@ public class ArticleController {
     }
 
     @RequestMapping("articleList")
-    public ModelAndView list(@RequestParam(defaultValue = "0") Integer pageNum) {
+    public ModelAndView list(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "") String condition) {
         PageHelper.startPage(pageNum, 5);
-        List<Article> articleList = articleService.findAll();
+        List<Article> articleList = articleService.findArticleByCondition(condition);
         PageInfo pageInfo = new PageInfo(articleList, 3);
         ModelAndView mav = new ModelAndView("articlesList");
         mav.addObject("pageInfo", pageInfo);
         return mav;
     }
-
+    @RequestMapping("/writeArticle")
+    public ModelAndView writeArticle() {
+        return new ModelAndView("writeArticle");
+    }
     @RequestMapping("/ok/uploadArticle")
     public @ResponseBody
     ResponseResult uploadArticle(@RequestBody Article article) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS");
+        article.setAddtime(sdf.format(new Date()));
         if (articleService.save(article) > 0) {
             return new ResponseResult("保存成功");
         }
