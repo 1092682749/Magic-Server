@@ -411,7 +411,10 @@
   <insert id="save" parameterType="com.example.demo.model.Article">
     insert into article (acontent, atitle, brief) values (#{acontent}, #{atitle}, #{brief})
   </insert>
-  <select id="findMatch" parameterType="String">
-    select * from article where concat('%', #{condition}, '%')
+  <select id="findMatch" parameterType="string" resultType="com.example.demo.model.Article">
+    select * from article where atitle like concat('%', #{condition}, '%')
+  </select>
+  <select id="findById" parameterType="int" resultType="com.example.demo.model.Article">
+    select * from article where aid = #{id}
   </select>
 </mapper>

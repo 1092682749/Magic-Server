@@ -16,15 +16,17 @@
 
     function con() {
         if (window.WebSocket) {
-            socket = new WebSocket("ws://localhost:9000/");
+            socket = new WebSocket("ws://localhost:8080/");
             socket.onopen = function (e) {
                 console.log("connect!");
+                socket.send("ok" + '\n');
             };
             socket.onclose = function (e) {
                 console.log("close!");
             };
             socket.onmessage = function (ev) {
                 console.log(ev);
+                socket.send("还给你\n");
             };
         } else {
             console.log("不支持");

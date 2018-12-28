@@ -9,4 +9,5 @@ public interface ArticleService {
     public int save(Article article);
     List<Article> findMatch(String condition);
     List<Article> findArticleByCondition(String condition);
+    Article findById(Integer id);
 }

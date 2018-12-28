@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>阅读</title>
+    <style>
+        #articleBox{
+            /*text-align: center;*/
+            position: relative;
+            top: 55px;
+            width: 100%;
+            padding: 16px 100px;
+            box-sizing: border-box;
+        }
+    </style>
+    <link rel="shortcut icon" href="../assets/articleList/images/favicon.png"/>
+
+
+    <!-- Style Sheet-->
+    <link rel="stylesheet" href="style.css"/>
+    <link rel='stylesheet' id='bootstrap-css-css' href='../assets/articleList/css/bootstrap5152.css?ver=1.0'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='../assets/articleList/css/responsive5152.css?ver=1.0'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='pretty-photo-css-css'
+          href='../assets/articleList/js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='../assets/articleList/css/main5152.css?ver=1.0' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='custom-css-css' href='../assets/articleList/css/custom5152.html?ver=1.0' type='text/css'
+          media='all'/>
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../assets/articleList/js/html5.js"></script></script>
+    <![endif]-->
+</head>
+<body>
+<!-- Start of Header -->
+<div class="header-wrapper">
+    <header>
+        <div class="container">
+
+
+            <div class="logo-container">
+                <!-- Website Logo -->
+                <a href="/articleList" title="Knowledge Base Theme">
+                    <img src="../assets/articleList/images/logo.png" alt="Knowledge Base Theme">
+                </a>
+                <span class="tag-line">踩坑日记</span>
+            </div>
+
+
+            <!-- Start of Main Navigation -->
+            <nav class="main-nav">
+                <div class="menu-top-menu-container">
+                    <ul id="menu-top-menu" class="clearfix">
+                        <li><a href="/articleList">首页</a></li>
+                        <li><a href="/index">聊天中心</a></li>
+                        <!--<li><a href="home-categories-articles.html">Home 3</a></li>-->
+                        <!--<li class="current-menu-item"><a href="articles-list.html">Articles List</a></li>-->
+                        <!--<li><a href="faq.html">FAQs</a></li>-->
+                        <!--<li><a href="#">Skins</a>-->
+                        <!--<ul class="sub-menu">-->
+                        <!--<li><a href="blue-skin.html">Blue Skin</a></li>-->
+                        <!--<li><a href="green-skin.html">Green Skin</a></li>-->
+                        <!--<li><a href="red-skin.html">Red Skin</a></li>-->
+                        <!--<li><a href="index-2.html">Default Skin</a></li>-->
+                        <!--</ul>-->
+                        <!--</li>-->
+                        <li><a href="/writeArticle">写教程</a>
+                            <!--<ul class="sub-menu">-->
+                            <!--<li><a href="full-width.html">Full Width</a></li>-->
+                            <!--<li><a href="elements.html">Elements</a></li>-->
+                            <!--<li><a href="page.html">Sample Page</a></li>-->
+                            <!--</ul>-->
+                        </li>
+                        <!--<li><a href="contact.html">Contact</a></li>-->
+                    </ul>
+                </div>
+            </nav>
+            <!-- End of Main Navigation -->
+
+        </div>
+    </header>
+</div>
+<!-- End of Header -->
+<div id="articleBox">
+    <h3 id="title"></h3>
+    <div id="content"></div>
+</div>
+</body>
+</html>
+<script type='text/javascript' src='/static/assets/articleList/js/jquery-1.8.3.min.js'></script>
+
+<script>
+    var article = document.getElementById('articleBox');
+    var title = document.getElementById('title');
+    var content = document.getElementById('content');
+    var id = getUrlParam('id');
+    getArticle();
+    function getArticle() {
+        $.ajax({
+            url: '/ok/getArticle',
+            type: 'get',
+            data: {id: id},
+            dataType: 'json',
+            success: function (e) {
+                console.log(e);
+                // article.innerHTML = e;
+                title.innerHTML = e.atitle;
+                content.innerHTML = e.acontent;
+            }
+        })
+    }
+
+    //获取url中的参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+</script>

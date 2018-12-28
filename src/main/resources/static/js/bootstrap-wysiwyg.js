@@ -14,7 +14,7 @@
 			};
 			var url = '';
 			$.ajax({
-				url: 'https://localhost/android/uploadImage',
+				url: IMG_URL + 'android/uploadImage',
 				data: JSON.stringify(o),
 				dataType: 'json',
 				type: 'post',

@@ -12,7 +12,7 @@ public class OSocket {
     public static final String CRLF="\r\n";
     public static final String BLANK=" ";
     public void server() throws IOException {
-        ServerSocket socketServer = new ServerSocket(9000);
+        ServerSocket socketServer = new ServerSocket(8080);
         while(true) {
             Socket socket = socketServer.accept();
             System.out.println("connect");

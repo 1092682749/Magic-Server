@@ -51,4 +51,9 @@ public class ArticleController {
         }
         return new ResponseResult("保存失败");
     }
+    @RequestMapping("/ok/getArticle")
+    public @ResponseBody Article getArticle(Integer id) {
+        Article article = articleService.findById(id);
+        return article;
+    }
 }

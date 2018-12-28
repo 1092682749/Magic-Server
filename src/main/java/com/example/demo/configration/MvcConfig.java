@@ -4,6 +4,7 @@ import com.example.demo.configration.CustomAnnotationHandler.AnnotationHandlerIn
 import com.example.demo.configration.security.MyRolePermissionInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
@@ -27,7 +28,8 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         registry.addResourceHandler("/uploads/**").addResourceLocations("file:../uploads/");
-        registry.addResourceHandler("/static/uploads/**").addResourceLocations("/static/uploads/");
+        registry.addResourceHandler("/static/assets/**").addResourceLocations("classpath:/static/assets/");
+        registry.addResourceHandler("/static/page/**").addResourceLocations("classpath:/static/page/");
     }
 
     @Override

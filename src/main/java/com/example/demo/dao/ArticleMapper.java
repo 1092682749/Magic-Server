@@ -38,4 +38,5 @@ public interface ArticleMapper {
     List<Article> findAll();
     int save(Article article);
     List<Article> findMatch(String condition);
+    Article findById(Integer id);
 }
