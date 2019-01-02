@@ -101,8 +101,12 @@
     var id = getUrlParam('id');
     getArticle();
     function getArticle() {
+        var url = '/ok/getArticle';
+        if (getUrlParam('notify') == '1') {
+            url = '/ok/getNotifyById';
+        }
         $.ajax({
-            url: '/ok/getArticle',
+            url: url,
             type: 'get',
             data: {id: id},
             dataType: 'json',

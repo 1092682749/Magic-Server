@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ArticleNotifyMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.ArticleNotify">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="atitle" jdbcType="VARCHAR" property="atitle" />
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+    <result column="readnumber" jdbcType="INTEGER" property="readnumber" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="isbanner" jdbcType="INTEGER" property="isbanner" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="source_from" jdbcType="VARCHAR" property="sourceFrom" />
+    <result column="coverimg" jdbcType="LONGVARCHAR" property="coverimg" />
+    <result column="brief" jdbcType="LONGVARCHAR" property="brief" />
+    <result column="acontent" jdbcType="LONGVARCHAR" property="acontent" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.ArticleNotifyWithBLOBs">
+    <result column="coverimg" jdbcType="LONGVARCHAR" property="coverimg" />
+    <result column="brief" jdbcType="LONGVARCHAR" property="brief" />
+    <result column="acontent" jdbcType="LONGVARCHAR" property="acontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, atitle, addtime, readnumber, state, isbanner, uid, author, source_from
+  </sql>
+  <sql id="Blob_Column_List">
+    coverimg, brief, acontent
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.model.ArticleNotifyExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article_notify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.example.demo.model.ArticleNotifyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from article_notify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article_notify
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article_notify
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.model.ArticleNotifyExample">
+    delete from article_notify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.ArticleNotifyWithBLOBs">
+    insert into article_notify (id, atitle, addtime, 
+      readnumber, state, isbanner, 
+      uid, author, source_from, 
+      coverimg, brief, acontent
+      )
+    values (#{id,jdbcType=INTEGER}, #{atitle,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR}, 
+      #{readnumber,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{isbanner,jdbcType=INTEGER}, 
+      #{uid,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{sourceFrom,jdbcType=VARCHAR}, 
+      #{coverimg,jdbcType=LONGVARCHAR}, #{brief,jdbcType=LONGVARCHAR}, #{acontent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.ArticleNotifyWithBLOBs">
+    insert into article_notify
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="atitle != null">
+        atitle,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="readnumber != null">
+        readnumber,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="isbanner != null">
+        isbanner,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="sourceFrom != null">
+        source_from,
+      </if>
+      <if test="coverimg != null">
+        coverimg,
+      </if>
+      <if test="brief != null">
+        brief,
+      </if>
+      <if test="acontent != null">
+        acontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="atitle != null">
+        #{atitle,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="readnumber != null">
+        #{readnumber,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="isbanner != null">
+        #{isbanner,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceFrom != null">
+        #{sourceFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="coverimg != null">
+        #{coverimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="brief != null">
+        #{brief,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="acontent != null">
+        #{acontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.model.ArticleNotifyExample" resultType="java.lang.Long">
+    select count(*) from article_notify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update article_notify
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.atitle != null">
+        atitle = #{record.atitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null">
+        addtime = #{record.addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readnumber != null">
+        readnumber = #{record.readnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.isbanner != null">
+        isbanner = #{record.isbanner,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceFrom != null">
+        source_from = #{record.sourceFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverimg != null">
+        coverimg = #{record.coverimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.brief != null">
+        brief = #{record.brief,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.acontent != null">
+        acontent = #{record.acontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update article_notify
+    set id = #{record.id,jdbcType=INTEGER},
+      atitle = #{record.atitle,jdbcType=VARCHAR},
+      addtime = #{record.addtime,jdbcType=VARCHAR},
+      readnumber = #{record.readnumber,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      isbanner = #{record.isbanner,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      source_from = #{record.sourceFrom,jdbcType=VARCHAR},
+      coverimg = #{record.coverimg,jdbcType=LONGVARCHAR},
+      brief = #{record.brief,jdbcType=LONGVARCHAR},
+      acontent = #{record.acontent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update article_notify
+    set id = #{record.id,jdbcType=INTEGER},
+      atitle = #{record.atitle,jdbcType=VARCHAR},
+      addtime = #{record.addtime,jdbcType=VARCHAR},
+      readnumber = #{record.readnumber,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      isbanner = #{record.isbanner,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      source_from = #{record.sourceFrom,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.ArticleNotifyWithBLOBs">
+    update article_notify
+    <set>
+      <if test="atitle != null">
+        atitle = #{atitle,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="readnumber != null">
+        readnumber = #{readnumber,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="isbanner != null">
+        isbanner = #{isbanner,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceFrom != null">
+        source_from = #{sourceFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="coverimg != null">
+        coverimg = #{coverimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="brief != null">
+        brief = #{brief,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="acontent != null">
+        acontent = #{acontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.ArticleNotifyWithBLOBs">
+    update article_notify
+    set atitle = #{atitle,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      readnumber = #{readnumber,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      isbanner = #{isbanner,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      source_from = #{sourceFrom,jdbcType=VARCHAR},
+      coverimg = #{coverimg,jdbcType=LONGVARCHAR},
+      brief = #{brief,jdbcType=LONGVARCHAR},
+      acontent = #{acontent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.ArticleNotify">
+    update article_notify
+    set atitle = #{atitle,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      readnumber = #{readnumber,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      isbanner = #{isbanner,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      source_from = #{sourceFrom,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findNotify" resultType="com.example.demo.model.ArticleNotify">
+    select * from article_notify
+  </select>
+  <insert id="save" parameterType="com.example.demo.model.ArticleNotify">
+    insert into article_notify (atitle, acontent, addtime, brief) values (#{atitle}, #{acontent}, #{addtime}, #{brief})
+  </insert>
+  <select id="findById" parameterType="int" resultType="com.example.demo.model.ArticleNotify">
+    select * from article_notify where id = #{id}
+  </select>
+</mapper>

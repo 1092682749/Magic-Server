@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Article;
+import com.example.demo.server.ArticleNotifyService;
 import com.example.demo.server.ArticleService;
 import com.example.demo.utils.ResponseResult;
 import com.github.pagehelper.PageHelper;
@@ -23,6 +24,8 @@ import java.util.List;
 public class ArticleController {
     @Autowired
     ArticleService articleService;
+    @Autowired
+    ArticleNotifyService articleNotifyService;
 
     public String articleList() {
         return "articlesList";
@@ -34,6 +37,7 @@ public class ArticleController {
         List<Article> articleList = articleService.findArticleByCondition(condition);
         PageInfo pageInfo = new PageInfo(articleList, 3);
         ModelAndView mav = new ModelAndView("articlesList");
+        mav.addObject("notifyList", articleNotifyService.findNotify());
         mav.addObject("pageInfo", pageInfo);
         return mav;
     }

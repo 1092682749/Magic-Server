@@ -19,7 +19,7 @@
             socket = new WebSocket("ws://localhost:8080/");
             socket.onopen = function (e) {
                 console.log("connect!");
-                socket.send("ok" + '\n');
+                socket.send("ok" + '\n \r \0 \r\n');
             };
             socket.onclose = function (e) {
                 console.log("close!");

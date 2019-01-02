@@ -13,11 +13,13 @@ public class ReadRequest {
     public static String RL = "\r\n";
     public static BufferedReader reader;
     public static BufferedWriter writer;
+    public static Socket socket;
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         // 监听8080
         ServerSocket serverSocket = new ServerSocket(8080);
         Socket socket = serverSocket.accept(); // 等待连接
+        ReadRequest.socket = socket;
 //        获取输入输出流
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -80,13 +82,19 @@ public class ReadRequest {
                 @Override
                 public void run() {
                     char[] bytes = new char[1024];
+                    try {
+                        InputStream in = socket.getInputStream();
                     while (true) {
                         try {
-                            int i = reader.read(bytes, 0, bytes.length);
-                            System.out.println(i);
+                            System.out.println(in.read());
+//                            int i = reader.read(bytes, 0, bytes.length);
+//                            System.out.println(i);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }.start();
