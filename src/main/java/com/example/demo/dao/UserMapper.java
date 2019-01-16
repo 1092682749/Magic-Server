@@ -32,4 +32,5 @@ public interface UserMapper {
     int save(User user);
 
     List<User> findByUsername(String username);
+    User findById(Integer id);
 }

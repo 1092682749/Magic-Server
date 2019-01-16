@@ -8,4 +8,5 @@ public interface UserService {
     public int save(User user) throws Exception;
     public User findByUsername(String username) throws Exception;
     public List<User> findAll();
+    User findById(Integer id);
 }

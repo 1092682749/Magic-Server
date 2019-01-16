@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ReviewMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.model.Review">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="aid" jdbcType="INTEGER" property="aid"/>
+        <result column="from_user_id" jdbcType="INTEGER" property="fromUserId"/>
+        <result column="to_user_id" jdbcType="INTEGER" property="toUserId"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="addtime" jdbcType="TIMESTAMP" property="addtime"/>
+        <result column="from_user_name" jdbcType="VARCHAR" property="fromUserName"/>
+        <result column="to_user_name" jdbcType="VARCHAR" property="toUserName"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.Review">
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, aid, from_user_id, to_user_id, level, addtime
+  </sql>
+    <sql id="Blob_Column_List">
+    content
+  </sql>
+    <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.model.ReviewExample"
+            resultMap="ResultMapWithBLOBs">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from review
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" parameterType="com.example.demo.model.ReviewExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from review
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from review
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from review
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.example.demo.model.ReviewExample">
+        delete from review
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.example.demo.model.Review">
+    insert into review (id, aid, from_user_id, 
+      to_user_id,from_user_name, to_user_name, level, addtime,
+      content)
+    values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{fromUserId,jdbcType=INTEGER}, 
+      #{toUserId,jdbcType=INTEGER},#{fromUserName, jdbcType=VARCHAR},#{toUserName, jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP},
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.example.demo.model.Review">
+        insert into review
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="aid != null">
+                aid,
+            </if>
+            <if test="fromUserId != null">
+                from_user_id,
+            </if>
+            <if test="toUserId != null">
+                to_user_id,
+            </if>
+            <if test="fromUserName != null">
+                from_user_name,
+            </if>
+            <if test="toUserName != null">
+                to_user_name,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="addtime != null">
+                addtime,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="aid != null">
+                #{aid,jdbcType=INTEGER},
+            </if>
+            <if test="fromUserId != null">
+                #{fromUserId,jdbcType=INTEGER},
+            </if>
+            <if test="toUserId != null">
+                #{toUserId,jdbcType=INTEGER},
+            </if>
+            <if test="fromUserName != null">
+                #{fromUserName, jdbcType=VARCHAR}
+            </if>
+            <if test="toUserName != null">
+                #{toUserName, jdbcType=VARCHAR}
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+            <if test="addtime != null">
+                #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.example.demo.model.ReviewExample" resultType="java.lang.Long">
+        select count(*) from review
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update review
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.aid != null">
+                aid = #{record.aid,jdbcType=INTEGER},
+            </if>
+            <if test="record.fromUserId != null">
+                from_user_id = #{record.fromUserId,jdbcType=INTEGER},
+            </if>
+            <if test="record.toUserId != null">
+                to_user_id = #{record.toUserId,jdbcType=INTEGER},
+            </if>
+            <if test="record.level != null">
+                level = #{record.level,jdbcType=INTEGER},
+            </if>
+            <if test="record.addtime != null">
+                addtime = #{record.addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.content != null">
+                content = #{record.content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update review
+        set id = #{record.id,jdbcType=INTEGER},
+        aid = #{record.aid,jdbcType=INTEGER},
+        from_user_id = #{record.fromUserId,jdbcType=INTEGER},
+        to_user_id = #{record.toUserId,jdbcType=INTEGER},
+        level = #{record.level,jdbcType=INTEGER},
+        addtime = #{record.addtime,jdbcType=TIMESTAMP},
+        content = #{record.content,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update review
+        set id = #{record.id,jdbcType=INTEGER},
+        aid = #{record.aid,jdbcType=INTEGER},
+        from_user_id = #{record.fromUserId,jdbcType=INTEGER},
+        to_user_id = #{record.toUserId,jdbcType=INTEGER},
+        level = #{record.level,jdbcType=INTEGER},
+        addtime = #{record.addtime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Review">
+        update review
+        <set>
+            <if test="aid != null">
+                aid = #{aid,jdbcType=INTEGER},
+            </if>
+            <if test="fromUserId != null">
+                from_user_id = #{fromUserId,jdbcType=INTEGER},
+            </if>
+            <if test="toUserId != null">
+                to_user_id = #{toUserId,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="addtime != null">
+                addtime = #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.Review">
+    update review
+    set aid = #{aid,jdbcType=INTEGER},
+      from_user_id = #{fromUserId,jdbcType=INTEGER},
+      to_user_id = #{toUserId,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Review">
+    update review
+    set aid = #{aid,jdbcType=INTEGER},
+      from_user_id = #{fromUserId,jdbcType=INTEGER},
+      to_user_id = #{toUserId,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="findById" parameterType="int" resultMap="BaseResultMap">
+    select * from review where aid = #{aid} and level = 1
+  </select>
+    <select id="findSecondLevel" parameterType="int" resultMap="BaseResultMap">
+        select * from review where id in (select child_id from review_and_review where parent_id = #{parent_id})
+    </select>
+</mapper>

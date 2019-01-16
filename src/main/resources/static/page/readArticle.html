@@ -12,7 +12,24 @@
             padding: 16px 100px;
             box-sizing: border-box;
         }
+        .first-review {
+            padding: 10px;
+            border-bottom: 1px dotted black;
+            text-align: left;
+            text-align: left;
+            margin: 0 50px 30px 50px;
+        }
+        .nameSpan {
+            color: #0d90d1;
+        }
+        #reviewInput {
+            width: 80%;
+        }
+        .review-timeSpan {
+            float: right;
+        }
     </style>
+
     <link rel="shortcut icon" href="../assets/articleList/images/favicon.png"/>
 
 
@@ -30,7 +47,9 @@
     <link rel='stylesheet' id='custom-css-css' href='../assets/articleList/css/custom5152.html?ver=1.0' type='text/css'
           media='all'/>
 
-
+    <link rel="stylesheet" href="../BOOTSTRAP/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../BOOTSTRAP/css/bootstrap-theme.min.css">
+    <script src="../BOOTSTRAP/js/bootstrap.js"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="../assets/articleList/js/html5.js"></script></script>
@@ -90,6 +109,25 @@
     <h3 id="title"></h3>
     <div id="content"></div>
 </div>
+<!--review-->
+<div id="reviewBox" style="text-align: center;margin-top: 120px">
+    <textarea id="reviewInput" cols="200" rows="3" style="border-radius: 5px;outline: none;resize: none" placeholder="发表您的评论"></textarea>
+    <button type="button" class="btn btn-info" onclick="publishReview()">发表评论</button>
+    <div class="first-review">
+        <div>
+            <span class="nameSpan">1：</span>
+            <span class="reviewSpan">emmmmmmm</span>
+            <span class="review-timeSpan">时间：18:09</span>
+        </div>
+        <div class="second-review">
+            <span class="nameSpan">2</span>
+            回复
+            <span class="nameSpan">1</span>：
+            <span class="reviewSpan">??????</span>
+            <span class="review-timeSpan">时间：18:20</span>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 <script type='text/javascript' src='/static/assets/articleList/js/jquery-1.8.3.min.js'></script>
@@ -112,9 +150,13 @@
             dataType: 'json',
             success: function (e) {
                 console.log(e);
+                for (let r of e.data.reviewList) {
+                    console.log(r);
+                    createFirstReview(r)
+                }
                 // article.innerHTML = e;
-                title.innerHTML = e.atitle;
-                content.innerHTML = e.acontent;
+                title.innerHTML = e.data.article.atitle;
+                content.innerHTML = e.data.article.acontent;
             }
         })
     }
@@ -124,5 +166,35 @@
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
         var r = window.location.search.substr(1).match(reg);  //匹配目标参数
         if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+    createFirstReview();
+    // 创建一级回复
+    function createFirstReview(review) {
+       var firstReview = document.createElement('div');
+       firstReview.setAttribute("class", "first-review");
+       // 添加一级评论
+       $(firstReview).append("<div>\n" +
+           "            <span class=\"nameSpan\">"+review.fromUserName+":</span>\n" +
+           "            <span class=\"reviewSpan\">"+review.content+"</span>\n" +
+           "            <span class=\"review-timeSpan\">"+review.addtime+"</span>\n" +
+           "        </div>");
+       // 添加二级评论
+        for (let secondLevl of review.reviews) {
+            $(firstReview).append(
+                "<div class=\"second-review\">\n" +
+                "            <span class=\"nameSpan\">"+secondLevl.fromUserName+":</span>\n" +
+                "            回复\n" +
+                "            <span class=\"nameSpan\">"+secondLevl.toUserName+"</span>：\n" +
+                "            <span class=\"reviewSpan\">"+secondLevl.content+"</span>\n" +
+                "            <span class=\"review-timeSpan\">"+secondLevl.addtime+"</span>\n" +
+                "        </div>"
+            );
+        }
+        var reviewBox = document.getElementById('reviewBox');
+        reviewBox.appendChild(firstReview);
+    }
+    function publicshReview() {
+        var reviewInput = document.getElementById('reviewInput');
+
     }
 </script>

@@ -50,4 +50,7 @@
         left join Permission p on rp.pid = p.id
         where username = #{username}
     </select>
+    <select id="findById" parameterType="int" resultType="com.example.demo.model.User">
+        select * from User where id = #{id}
+    </select>
 </mapper>

@@ -29,8 +29,9 @@ public class ResponseResult {
         return message;
     }
 
-    public void setMessage(String message) {
+    public ResponseResult setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     public Object getData() {
