@@ -30,6 +30,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/uploads/**").addResourceLocations("file:../uploads/");
         registry.addResourceHandler("/static/assets/**").addResourceLocations("classpath:/static/assets/");
         registry.addResourceHandler("/static/page/**").addResourceLocations("classpath:/static/page/");
+        registry.addResourceHandler("/static/BOOTSTRAP/**").addResourceLocations("classpath:/static/BOOTSTRAP/");
     }
 
     @Override

@@ -10,6 +10,7 @@
         <result column="addtime" jdbcType="TIMESTAMP" property="addtime"/>
         <result column="from_user_name" jdbcType="VARCHAR" property="fromUserName"/>
         <result column="to_user_name" jdbcType="VARCHAR" property="toUserName"/>
+        <result column="to_review_id" jdbcType="INTEGER" property="toReviewId"/>
     </resultMap>
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.Review">
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
@@ -132,10 +133,10 @@
     <insert id="insert" parameterType="com.example.demo.model.Review">
     insert into review (id, aid, from_user_id, 
       to_user_id,from_user_name, to_user_name, level, addtime,
-      content)
+      content, to_review_id)
     values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{fromUserId,jdbcType=INTEGER}, 
       #{toUserId,jdbcType=INTEGER},#{fromUserName, jdbcType=VARCHAR},#{toUserName, jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP},
-      #{content,jdbcType=LONGVARCHAR})
+      #{content,jdbcType=LONGVARCHAR}, #{toReviewId,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="com.example.demo.model.Review">
         insert into review
@@ -304,7 +305,8 @@
     <select id="findById" parameterType="int" resultMap="BaseResultMap">
     select * from review where aid = #{aid} and level = 1
   </select>
+    <!--select * from review where id in (select child_id from review_and_review where parent_id = #{parent_id})-->
     <select id="findSecondLevel" parameterType="int" resultMap="BaseResultMap">
-        select * from review where id in (select child_id from review_and_review where parent_id = #{parent_id})
+        select * from review where level = 2 and to_review_id = #{parent_id}
     </select>
 </mapper>

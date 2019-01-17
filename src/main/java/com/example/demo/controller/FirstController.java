@@ -14,10 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -134,5 +131,18 @@ public class FirstController {
     @RequestMapping("/user/test")
     public void userTEst() {
         System.out.println("有权限");
+    }
+    @RequestMapping("/ok/isLogin")
+    public @ResponseBody Boolean isLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object o = authentication.getPrincipal();
+        Boolean b = false;
+        if (o instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) o;
+            if (userDetails.getUsername() != null) {
+                b = true;
+            }
+        }
+        return b;
     }
 }

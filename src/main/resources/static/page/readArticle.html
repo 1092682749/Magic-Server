@@ -28,13 +28,16 @@
         .review-timeSpan {
             float: right;
         }
+        .reviewSpan {
+            cursor: pointer;
+        }
     </style>
 
     <link rel="shortcut icon" href="../assets/articleList/images/favicon.png"/>
 
 
     <!-- Style Sheet-->
-    <link rel="stylesheet" href="style.css"/>
+    <!--<link rel="stylesheet" href="../assets/css/style.css"/>-->
     <link rel='stylesheet' id='bootstrap-css-css' href='../assets/articleList/css/bootstrap5152.css?ver=1.0'
           type='text/css' media='all'/>
     <link rel='stylesheet' id='responsive-css-css' href='../assets/articleList/css/responsive5152.css?ver=1.0'
@@ -44,11 +47,10 @@
           media='all'/>
     <link rel='stylesheet' id='main-css-css' href='../assets/articleList/css/main5152.css?ver=1.0' type='text/css'
           media='all'/>
-    <link rel='stylesheet' id='custom-css-css' href='../assets/articleList/css/custom5152.html?ver=1.0' type='text/css'
-          media='all'/>
 
     <link rel="stylesheet" href="../BOOTSTRAP/css/bootstrap.min.css">
     <link rel="stylesheet" href="../BOOTSTRAP/css/bootstrap-theme.min.css">
+    <script type='text/javascript' src='/static/assets/js/jquery-3.3.1.min.js'></script>
     <script src="../BOOTSTRAP/js/bootstrap.js"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -113,30 +115,51 @@
 <div id="reviewBox" style="text-align: center;margin-top: 120px">
     <textarea id="reviewInput" cols="200" rows="3" style="border-radius: 5px;outline: none;resize: none" placeholder="发表您的评论"></textarea>
     <button type="button" class="btn btn-info" onclick="publishReview()">发表评论</button>
-    <div class="first-review">
-        <div>
-            <span class="nameSpan">1：</span>
-            <span class="reviewSpan">emmmmmmm</span>
-            <span class="review-timeSpan">时间：18:09</span>
-        </div>
-        <div class="second-review">
-            <span class="nameSpan">2</span>
-            回复
-            <span class="nameSpan">1</span>：
-            <span class="reviewSpan">??????</span>
-            <span class="review-timeSpan">时间：18:20</span>
-        </div>
-    </div>
+    <!--<div class="first-review">-->
+        <!--<div>-->
+            <!--<span class="nameSpan">1：</span>-->
+            <!--<span class="reviewSpan">emmmmmmm</span>-->
+            <!--<span class="review-timeSpan">时间：18:09</span>-->
+        <!--</div>-->
+        <!--<div class="second-review">-->
+            <!--<span class="nameSpan">2</span>-->
+            <!--回复-->
+            <!--</span>-->
+            <!--<span class="nameSpan">1</span>：-->
+            <!--<span class="reviewSpan">??????</span>-->
+            <!--<span class="review-timeSpan">时间：18:20</span>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
+<!--模态框-->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" style="    position: fixed;margin: auto;top: 100px;">
+    <div class="modal-dialog" role="document" style="width: 100%;height: 100%;margin: 0;">
+        <div class="modal-content" style="height: 100%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer" style="    position: absolute;width: 100%;bottom: 0;">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 </body>
 </html>
-<script type='text/javascript' src='/static/assets/articleList/js/jquery-1.8.3.min.js'></script>
 
 <script>
     var article = document.getElementById('articleBox');
     var title = document.getElementById('title');
     var content = document.getElementById('content');
     var id = getUrlParam('id');
+    let toUserId = 0;
+    let toReviewId = '';
     getArticle();
     function getArticle() {
         var url = '/ok/getArticle';
@@ -167,7 +190,6 @@
         var r = window.location.search.substr(1).match(reg);  //匹配目标参数
         if (r != null) return unescape(r[2]); return null; //返回参数值
     }
-    createFirstReview();
     // 创建一级回复
     function createFirstReview(review) {
        var firstReview = document.createElement('div');
@@ -175,8 +197,8 @@
        // 添加一级评论
        $(firstReview).append("<div>\n" +
            "            <span class=\"nameSpan\">"+review.fromUserName+":</span>\n" +
-           "            <span class=\"reviewSpan\">"+review.content+"</span>\n" +
-           "            <span class=\"review-timeSpan\">"+review.addtime+"</span>\n" +
+           "            <span name='"+review.fromUserName+"' onclick='sayToUser(this)' value='"+review.fromUserId+"' id='"+review.id+"' class=\"reviewSpan\">"+review.content+"</span>\n" +
+           "            <span class=\"review-timeSpan\">"+transitionTime(review.addtime)+"</span>\n" +
            "        </div>");
        // 添加二级评论
         for (let secondLevl of review.reviews) {
@@ -185,16 +207,75 @@
                 "            <span class=\"nameSpan\">"+secondLevl.fromUserName+":</span>\n" +
                 "            回复\n" +
                 "            <span class=\"nameSpan\">"+secondLevl.toUserName+"</span>：\n" +
-                "            <span class=\"reviewSpan\">"+secondLevl.content+"</span>\n" +
-                "            <span class=\"review-timeSpan\">"+secondLevl.addtime+"</span>\n" +
+                "            <span name='"+secondLevl.toUserName+"' onclick='sayToUser(this)' value='"+secondLevl.fromUserId+"' id='"+secondLevl.id+"' class=\"reviewSpan\">"+secondLevl.content+"</span>\n" +
+                "            <span class=\"review-timeSpan\">"+transitionTime(secondLevl.addtime)+"</span>\n" +
                 "        </div>"
             );
         }
         var reviewBox = document.getElementById('reviewBox');
         reviewBox.appendChild(firstReview);
     }
-    function publicshReview() {
-        var reviewInput = document.getElementById('reviewInput');
+    var reviewInput = document.getElementById('reviewInput');
 
+    function publishReview() {
+        $.ajax({
+            url: '/ok/isLogin',
+            success: function (e) {
+                console.log(e);
+                if (!e) {
+                    $('.modal-body').html('您还没有登录，请登录');
+                    $("#myModal").modal();
+                    $('#myModal').on('hidden.bs.modal', (e) => {
+                        window.location.href = "/login";
+                    });
+                }
+            }
+        });
+        let content = '';
+        let arrContent = reviewInput.value.split('#:');
+        if (arrContent.length > 1) {
+            content = arrContent[1];
+        } else {
+            content = reviewInput.value;
+        }
+        const data = {
+            aid: id,
+            toUserId: toUserId,
+            content: content,
+            toReviewId: toReviewId,
+        };
+        console.log(data);
+        $.ajax({
+            url: '/publishReview',
+            dataType: 'json',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (e) {
+                console.log(e);
+                if(e['code'] == 200) {
+                    $('.modal-body').html("评论成功");
+                    $("#myModal").modal();
+                    window.location.reload();
+                    reviewInput.value = '';
+                } else {
+                    $('.modal-body').html(e['message']);
+                    $("#myModal").modal();
+                }
+            }
+        });
+
+    }
+    function sayToUser(e) {
+        console.log(e.getAttribute("value"));
+        toUserId =  e.getAttribute("value");
+        toReviewId = e.getAttribute('id');
+        let name = e.getAttribute('name');
+        reviewInput.value = "#回复" + name + "#:";
+        reviewInput.focus();
+    }
+    function transitionTime(str) {
+        let date = new Date(str);
+        return date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDay() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
     }
 </script>

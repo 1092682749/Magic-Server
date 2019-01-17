@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 public class Review {
-    public static Integer LEVEL_TO_ARTICLE = 0;
-    public static Integer LEVEL_TO_USER = 1;
+    public static Integer LEVEL_TO_ARTICLE = 1;
+    public static Integer LEVEL_TO_USER = 2;
     private Integer id;
 
     private Integer aid;
@@ -26,6 +26,16 @@ public class Review {
     private String fromUserName;
 
     private String toUserName;
+
+    private Integer toReviewId;
+
+    public Integer getToReviewId() {
+        return toReviewId;
+    }
+
+    public void setToReviewId(Integer toReviewId) {
+        this.toReviewId = toReviewId;
+    }
 
     public String getFromUserName() {
         return fromUserName;

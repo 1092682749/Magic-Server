@@ -11,6 +11,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.hibernate.validator.constraints.EAN;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,11 +80,18 @@ public class ArticleController {
         return new ResponseResult(map);
     }
     @RequestMapping("/publishReview")
-    public @ResponseBody ResponseResult publishReview(@RequestBody Review review) {
+    public @ResponseBody ResponseResult publishReview(@RequestBody Review review) throws Exception {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer id = userService.findByUsername(user.getUsername()).getId();
+        review.setFromUserId(id);
         review.setAddtime(new Date());
         review.setLevel(review.getToUserId() == 0 ? Review.LEVEL_TO_ARTICLE : Review.LEVEL_TO_USER);
         review.setFromUserName(userService.findById(review.getFromUserId()).getNickName());
-        review.setToUserName(userService.findById(review.getToUserId()).getNickName());
+        if (!(review.getToUserId() == 0)) {
+            review.setToUserName(userService.findById(review.getToUserId()).getNickName());
+        } else {
+            
+        }
         if (0 < reviewService.save(review)) {
 
             return new ResponseResult().setMessage("评论成功");

@@ -1,6 +1,5 @@
 package com.example.aio.nio;
 
-import com.sun.tools.classfile.Opcode;
 
 import java.io.IOException;
 import  java.net.InetSocketAddress;

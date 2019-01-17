@@ -11,13 +11,18 @@ admin
 </body>
 </html>
 <script>
-    chaneNum()
-    function chaneNum() {
-        form1.num.value = eval(form1.num.value) + 10;
-        var myTimeOut = setTimeout("chaneNum()", 2000);
-        if (eval(form1.num.value) >= 50) {
-            clearTimeout(myTimeOut)
-        }
+    // chaneNum()
+    // function chaneNum() {
+    //     form1.num.value = eval(form1.num.value) + 10;
+    //     var myTimeOut = setTimeout("chaneNum()", 2000);
+    //     if (eval(form1.num.value) >= 50) {
+    //         clearTimeout(myTimeOut)
+    //     }
+    // }
+    time();
+    function time() {
+        var date = new Date('2019-01-17T02:52:25.000+0000');
+        console.log(date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDay() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
     }
 
     // var objj={};
