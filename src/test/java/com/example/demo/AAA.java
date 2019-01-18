@@ -29,8 +29,8 @@ public  class AAA {
         System.out.println(i03==i04);
         System.out.println(i02==i04);
 //        System.out.println(compute(1920,1080,5));
-//        ServerSocket server = new ServerSocket(8080);
-//        Socket socket = server.accept();
+//        ServerSocket service = new ServerSocket(8080);
+//        Socket socket = service.accept();
 //        InputStream in = socket.getInputStream();
 //        BufferedInputStream bin = new BufferedInputStream(in);
 //        byte[] bytes = new byte[1024];

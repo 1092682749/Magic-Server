@@ -1,19 +1,13 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserMapper;
-import com.example.demo.model.RedisIO;
 import com.example.demo.model.User;
-import com.example.demo.server.FirstServer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
+import com.example.demo.service.FirstServer;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 @Service
 //@SuppressWarnings("all")

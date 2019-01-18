@@ -1,6 +1,7 @@
-package com.example.demo.server;
+package com.example.demo.service;
 
 import com.example.demo.model.Article;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,4 +11,7 @@ public interface ArticleService {
     List<Article> findMatch(String condition);
     List<Article> findArticleByCondition(String condition);
     Article findById(Integer id);
+    List<Article> findPass();
+    List<Article> findByAdminCondition(Article article);
+    int changeAuditState(Integer state, Integer aid);
 }

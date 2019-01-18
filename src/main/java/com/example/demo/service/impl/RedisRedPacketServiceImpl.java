@@ -1,4 +1,4 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.example.demo.model.UserRedPacket;
-import com.example.demo.server.RedisRedPacketService;
+import com.example.demo.service.RedisRedPacketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;

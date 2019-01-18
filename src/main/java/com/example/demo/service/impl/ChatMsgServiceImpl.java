@@ -1,8 +1,8 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.ChatMsgMapper;
 import com.example.demo.model.ChatMsg;
-import com.example.demo.server.ChatMsgService;
+import com.example.demo.service.ChatMsgService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

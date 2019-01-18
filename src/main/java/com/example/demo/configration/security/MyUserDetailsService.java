@@ -1,9 +1,7 @@
 package com.example.demo.configration.security;
 
-import com.example.demo.model.SUser;
 import com.example.demo.model.User;
-import com.example.demo.server.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.UserService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

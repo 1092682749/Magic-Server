@@ -1,12 +1,11 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.ArticleMapper;
 import com.example.demo.model.Article;
-import com.example.demo.server.ArticleService;
+import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> findArticleByCondition(String condition) {
         List<Article> articles;
         if ("".equals(condition)) {
-            articles = articleMapper.findAll();
+            articles = articleMapper.findPass();
         } else {
             articles = articleMapper.findMatch(condition);
         }
@@ -42,5 +41,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article findById(Integer id) {
         return articleMapper.findById(id);
+    }
+
+    @Override
+    public List<Article> findPass() {
+        return articleMapper.findPass();
+    }
+
+    @Override
+    public List<Article> findByAdminCondition(Article article) {
+        return articleMapper.findByAdminCondition(article);
+    }
+
+    @Override
+    public int changeAuditState(Integer state, Integer aid) {
+        return articleMapper.changeAuditState(state, aid);
     }
 }

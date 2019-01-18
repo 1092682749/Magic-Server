@@ -1,8 +1,7 @@
 package com.example.demo.configration.netty.webServer;
 
-import com.example.demo.configration.netty.webServer.ChatHandler;
-import com.example.demo.server.ChatMsgRecordService;
-import com.example.demo.server.UserService;
+import com.example.demo.service.ChatMsgRecordService;
+import com.example.demo.service.UserService;
 import com.example.demo.utils.SslUtil;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;

@@ -1,6 +1,5 @@
-package com.example.demo.server;
+package com.example.demo.service;
 
-import com.example.demo.model.ChatMsg;
 import com.example.demo.model.ChatMsgRecord;
 
 import java.util.List;

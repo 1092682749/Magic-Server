@@ -39,7 +39,7 @@ public class EncodingTest extends DemoApplicationTests {
         jedis.auth("dyz");
 //        new java.lang.Thread(new Thread2(jedis)).start();
         jedis.set("testConnection", "succeed");
-        System.out.println("Connection to server sucessfully");
+        System.out.println("Connection to service sucessfully");
         //查看服务是否运行
 //        System.out.println("Server is running: " + jedis.ping());
     }

@@ -3,6 +3,9 @@ package com.example.demo.model;
 import java.util.List;
 
 public class Article {
+    public static Integer WAIT_AUDIT = 1;
+    public static Integer PASS = 2;
+    public static Integer NO_PASS = 3;
     private Integer aid;
 
     private String atitle;

@@ -331,7 +331,7 @@ $.fn.ajaxSubmit = function(options) {
 			return doc;
 		}
 		
-		// Rails CSRF hack (thanks to Yvan BARTHƒLEMY)
+		// Rails CSRF hack (thanks to Yvan BARTHï¿½LEMY)
 		var csrf_token = $('meta[name=csrf-token]').attr('content');
 		var csrf_param = $('meta[name=csrf-param]').attr('content');
 		if (csrf_param && csrf_token) {
@@ -366,7 +366,7 @@ $.fn.ajaxSubmit = function(options) {
 				timeoutHandle = setTimeout(function() { timedOut = true; cb(CLIENT_TIMEOUT_ABORT); }, s.timeout);
 			}
 			
-			// look for server aborts
+			// look for service aborts
 			function checkState() {
 				try {
 					var state = getDoc(io).readyState;
@@ -438,7 +438,7 @@ $.fn.ajaxSubmit = function(options) {
 				return;
 			}
 			else if (e == SERVER_ABORT && xhr) {
-				xhr.abort('server abort');
+				xhr.abort('service abort');
 				return;
 			}
 
@@ -465,7 +465,7 @@ $.fn.ajaxSubmit = function(options) {
 						setTimeout(cb, 250);
 						return;
 					}
-					// let this fall through because server response could be an empty document
+					// let this fall through because service response could be an empty document
 					//log('Could not access iframe DOM after mutiple tries.');
 					//throw 'DOMException: not available';
 				}

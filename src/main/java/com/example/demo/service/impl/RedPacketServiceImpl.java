@@ -1,8 +1,8 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.RedPacketMapper;
 import com.example.demo.model.RedPacket;
-import com.example.demo.server.RedPacketService;
+import com.example.demo.service.RedPacketService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;

@@ -39,4 +39,7 @@ public interface ArticleMapper {
     int save(Article article);
     List<Article> findMatch(String condition);
     Article findById(Integer id);
+    List<Article> findPass();
+    List<Article> findByAdminCondition(Article article);
+    int changeAuditState(@Param("state") Integer state, @Param("aid")Integer aid);
 }

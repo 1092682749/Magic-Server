@@ -1,15 +1,12 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.RedPacketMapper;
 import com.example.demo.dao.UserRedPacketMapper;
 import com.example.demo.model.RedPacket;
 import com.example.demo.model.UserRedPacket;
-import com.example.demo.server.RedisRedPacketService;
-import com.example.demo.server.UserRedPacketService;
+import com.example.demo.service.RedisRedPacketService;
+import com.example.demo.service.UserRedPacketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

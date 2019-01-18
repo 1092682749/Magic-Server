@@ -1,6 +1,4 @@
-package com.example.demo.server;
-
-import com.example.demo.model.UserRedPacket;
+package com.example.demo.service;
 
 public interface UserRedPacketService {
     public int grapRedPacket(Integer redPacketId,Integer userId);

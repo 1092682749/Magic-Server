@@ -11,7 +11,7 @@ import java.net.Socket;
 public class ServerSSLTest {
     static String keystorePath = "server_ks.jks";
     static String trustKeystorePath = "clientTrust_ks.jks";
-    static String keystorePassword = "server";
+    static String keystorePassword = "service";
     public static void main(String args[]) throws Exception{
         //System.setProperty("javax.net.debug", "ssl,handshake");
         System.out.println(ServerSSLTest.class.getClassLoader().getResource(keystorePath).getPath());

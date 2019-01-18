@@ -1,4 +1,4 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 public class InterfaceExtractorProcessor {
 }

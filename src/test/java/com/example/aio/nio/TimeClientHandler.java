@@ -94,7 +94,7 @@ public class TimeClientHandler implements Runnable {
         writeBuffer.flip();
         socketChannel.write(writeBuffer);
         if (!writeBuffer.hasRemaining()){
-            System.out.println("Send order 2 server succeed.");
+            System.out.println("Send order 2 service succeed.");
         }
     }
 }

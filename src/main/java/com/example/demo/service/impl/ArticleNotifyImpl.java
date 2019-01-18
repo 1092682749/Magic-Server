@@ -1,8 +1,8 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.ArticleNotifyMapper;
 import com.example.demo.model.ArticleNotify;
-import com.example.demo.server.ArticleNotifyService;
+import com.example.demo.service.ArticleNotifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,15 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
-import com.example.demo.server.ChatMsgRecordService;
-import com.example.demo.server.FirstServer;
-import com.example.demo.server.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.ChatMsgRecordService;
+import com.example.demo.service.FirstServer;
+import com.example.demo.service.UserService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;

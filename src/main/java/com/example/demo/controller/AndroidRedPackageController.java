@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.configration.netty.ChannelMap;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.RedPacket;
-import com.example.demo.server.RedPacketService;
+import com.example.demo.service.RedPacketService;
 import com.example.demo.utils.ResponseResult;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.beans.factory.annotation.Autowired;

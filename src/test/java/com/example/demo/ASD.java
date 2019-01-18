@@ -1,7 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.model.User;
-import com.example.demo.server.UserService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

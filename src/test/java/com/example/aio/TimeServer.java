@@ -28,7 +28,7 @@ public class TimeServer {
             e.printStackTrace();
         }finally {
             if (socket != null){
-                System.out.println("server close");
+                System.out.println("service close");
                 try {
                     socket.close();
                 } catch (IOException e) {

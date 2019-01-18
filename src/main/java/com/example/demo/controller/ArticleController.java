@@ -2,14 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Article;
 import com.example.demo.model.Review;
-import com.example.demo.server.ArticleNotifyService;
-import com.example.demo.server.ArticleService;
-import com.example.demo.server.ReviewService;
-import com.example.demo.server.UserService;
+import com.example.demo.service.ArticleNotifyService;
+import com.example.demo.service.ArticleService;
+import com.example.demo.service.ReviewService;
+import com.example.demo.service.UserService;
 import com.example.demo.utils.ResponseResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.hibernate.validator.constraints.EAN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -90,7 +88,7 @@ public class ArticleController {
         if (!(review.getToUserId() == 0)) {
             review.setToUserName(userService.findById(review.getToUserId()).getNickName());
         } else {
-            
+
         }
         if (0 < reviewService.save(review)) {
 

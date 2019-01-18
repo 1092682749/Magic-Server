@@ -6,8 +6,8 @@ import com.example.demo.configration.netty.MsgObject;
 import com.example.demo.configration.netty.NettyConfig;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
-import com.example.demo.server.ChatMsgRecordService;
-import com.example.demo.server.UserService;
+import com.example.demo.service.ChatMsgRecordService;
+import com.example.demo.service.UserService;
 import com.example.demo.utils.json.JsonToBean;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -19,7 +19,6 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.Date;
 import java.util.Map;

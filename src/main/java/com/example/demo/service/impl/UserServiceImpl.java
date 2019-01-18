@@ -1,9 +1,8 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserMapper;
 import com.example.demo.model.User;
-import com.example.demo.server.UserService;
-import org.apache.catalina.LifecycleState;
+import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,12 +1,11 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserMapper;
 import com.example.demo.model.User;
-import com.example.demo.server.GoService;
+import com.example.demo.service.GoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
 import java.util.List;
 
 @Service

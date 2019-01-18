@@ -23,7 +23,7 @@ public class MultiplierTimeServer implements Runnable {
             serverChannel.configureBlocking(false);
             serverChannel.socket().bind(new InetSocketAddress("localhost",port));
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
-            System.out.println("Time server open port :" + port);
+            System.out.println("Time service open port :" + port);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -80,7 +80,7 @@ public class MultiplierTimeServer implements Runnable {
                     byte[] bytes = new byte[readBuffer.remaining()];
                     readBuffer.get(bytes);
                     String body = new String(bytes,"utf-8");
-                    System.out.println("server receive is " + body);
+                    System.out.println("service receive is " + body);
                     String currentTime =
                             "QUERY TIME ORDER".equals(body)
                                     ?

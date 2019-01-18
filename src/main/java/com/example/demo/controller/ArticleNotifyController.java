@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ArticleNotify;
-import com.example.demo.server.ArticleNotifyService;
+import com.example.demo.service.ArticleNotifyService;
 import com.example.demo.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

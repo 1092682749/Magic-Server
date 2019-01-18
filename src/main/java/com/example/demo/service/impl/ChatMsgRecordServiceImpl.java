@@ -1,10 +1,8 @@
-package com.example.demo.server.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.dao.ChatMsgRecordMapper;
-import com.example.demo.model.ChatMsg;
 import com.example.demo.model.ChatMsgRecord;
-import com.example.demo.server.ChatMsgRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.ChatMsgRecordService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,20 +1,16 @@
 package com.example.demo.configration.netty.androidServer;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.example.demo.configration.netty.ChannelMap;
 import com.example.demo.configration.netty.NettyConfig;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
-import com.example.demo.server.ChatMsgRecordService;
-import com.example.demo.server.ChatMsgService;
-import com.example.demo.server.UserService;
+import com.example.demo.service.ChatMsgRecordService;
+import com.example.demo.service.UserService;
 import com.example.demo.utils.json.JsonToBean;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
-import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
@@ -23,7 +19,6 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.util.CharsetUtil;
 
-import java.net.SocketAddress;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,7 +1,6 @@
-package com.example.demo.server;
+package com.example.demo.service;
 
 import com.example.demo.model.Review;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
