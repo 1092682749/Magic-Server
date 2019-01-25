@@ -10,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public  class AAA {
+    private String id;
     static String a = "";
     AAA(int a, int b){
         System.out.println("我是第二个包");

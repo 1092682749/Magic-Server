@@ -30,8 +30,8 @@
           media='all'/>
     <link rel='stylesheet' id='main-css-css' href='../assets/articleList/css/main5152.css?ver=1.0' type='text/css'
           media='all'/>
-    <link rel='stylesheet' id='custom-css-css' href='../assets/articleList/css/custom5152.html?ver=1.0' type='text/css'
-          media='all'/>
+    <!--<link rel='stylesheet' id='custom-css-css' href='../assets/articleList/css/custom5152.html?ver=1.0' type='text/css'-->
+          <!--media='all'/>-->
 
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -297,19 +297,31 @@
 <script th:inline="javascript">
     // document.getElementById('')
     var pageInfo = [[${pageInfo}]];
-    this.creatnavigation();
+    console.log(pageInfo.lastPage);
+    creatnavigation();
     function creatnavigation() {
         var lastPageA = document.getElementById('lastPage');
-        for (var i = 1; i <= pageInfo.lastPage; i++) {
-            var a = document.createElement('a');
-            var condition = $('#s').val();
-            lastPageA.parentElement.insertBefore(a, lastPageA);
-            a.innerHTML = i + '';
-            a.setAttribute('href', '/articleList?pageNum=' + i + "&condition=" + condition);
-            a.classList.add('btn');
-            if (i = pageInfo.pageNum) {
-                a.classList.add('active');
-            }
+        // for (var i = 1; i <= pageInfo.lastPage; i++) {
+        //     var a = document.createElement('a');
+        //     var condition = $('#s').val();
+        //     lastPageA.parentElement.insertBefore(a, lastPageA);
+        //     a.innerHTML = i + '';
+        //     a.setAttribute('href', '/articleList?pageNum=' + i + "&condition=" + condition);
+        //     a.classList.add('btn');
+        //     if (i = pageInfo.pageNum) {
+        //         a.classList.add('active');
+        //     }
+        // }
+        for (let i of pageInfo.navigatepageNums) {
+                var a = document.createElement('a');
+                var condition = $('#s').val();
+                lastPageA.parentElement.insertBefore(a, lastPageA);
+                a.innerHTML = i + '';
+                a.setAttribute('href', '/articleList?pageNum=' + i + "&condition=" + condition);
+                a.classList.add('btn');
+                if (i == pageInfo.pageNum) {
+                    a.classList.add('active');
+                }
         }
     }
     console.log(pageInfo);

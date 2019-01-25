@@ -415,13 +415,13 @@
     insert into article (acontent, atitle, brief) values (#{acontent}, #{atitle}, #{brief})
   </insert>
   <select id="findMatch" parameterType="string" resultType="com.example.demo.model.Article">
-    select * from article where atitle like concat('%', #{condition}, '%') and state = 2
+    select atitle, brief from article where atitle like concat('%', #{condition}, '%') and state = 2
   </select>
   <select id="findById" parameterType="int" resultType="com.example.demo.model.Article">
     select * from article where aid = #{id}
   </select>
   <select id="findByAdminCondition" parameterType="com.example.demo.model.Article" resultType="com.example.demo.model.Article">
-     select * from article where 1 = 1
+     select atitle, brief from article where 1 = 1
     <trim>
       <if test="atitle != null and atitle != ''">
          and atitle like #{atitle}
