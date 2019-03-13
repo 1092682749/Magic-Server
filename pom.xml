@@ -236,6 +236,13 @@
             <version>1.1</version>
             <systemPath>${basedir}/lib/jai_core.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>com.dyz</groupId>
+            <artifactId>httpclient-4.3.1.wso2v1</artifactId>
+            <version>1.1</version>
+            <systemPath>${basedir}/lib/httpclient-4.3.1.wso2v1.jar</systemPath>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.jboss.marshalling/jboss-marshalling -->
         <dependency>
             <groupId>org.jboss.marshalling</groupId>
@@ -254,7 +261,6 @@
             <artifactId>druid</artifactId>
             <version>1.1.10</version>
         </dependency>
-
 
     </dependencies>
     <build>
