@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.utils.ResponseResult;
 import com.example.demo.utils.annotation.TestProxy;
+import com.example.demo.utils.uploadFile.UploadFileWriteAndSave;
+import com.example.demo.utils.uploadFile.UploadPOJO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,5 +53,14 @@ public class ImageFileController {
     public @ResponseBody String proxy() {
         System.out.println("proxy");
         return "asd";
+    }
+    @RequestMapping("/ok/uploadPDF")
+    public @ResponseBody ResponseResult upload(@RequestBody UploadPOJO file) throws IOException {
+        String path = UploadFileWriteAndSave.uploadPDF(file);
+        ResponseResult responseResult = new ResponseResult();
+        if (path != null) {
+            responseResult.setData(path);
+        }
+        return responseResult;
     }
 }
