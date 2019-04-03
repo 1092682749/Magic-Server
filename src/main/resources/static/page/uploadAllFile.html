@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="file" id="file">
+    <input type="text" placeholder="文件名" id="fileName">
+    <select id="fileType">
+        <option value="pdf">pdf</option>
+    </select>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    var fileInput = document.getElementById('file');
+    var filenameinput = document.getElementById('fileName');
+    var fileTypeInput = document.getElementById('fileType');
+    fileInput.onchange = function (ev) {
+        var reader = new FileReader();
+        reader.readAsDataURL(fileInput.files[0]);
+        reader.onload = function (ev1) {
+            console.log(ev1);
+            console.log(reader);
+            var data = reader.result;
+            var fileName = filenameinput.value;
+            var fileType = fileTypeInput.value;
+            var file = {
+                data: data,
+                fileName: fileName,
+                fileType: fileType
+            };
+            console.log(file);
+            $.ajax(
+                {
+                    type: 'post',
+                    url: '/ok/all/uploadPDF',
+                    contentType: 'application/json',
+                    data: JSON.stringify(file),
+                    success: function (e) {
+                        console.log("success");
+                    }
+                }
+            )
+        }
+    }
+</script>

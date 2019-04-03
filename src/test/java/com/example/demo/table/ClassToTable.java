@@ -45,11 +45,11 @@ public class ClassToTable {
         }
     }
     public static void main(String[] args) throws Exception {
-//        String sql = create(.class);
+        // String sql = create(.class);
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection("jdbc:mysql://dyzhello.club:3306/testredis?useUnicode=true&characterEncoding=utf-8","root","dyz");
         Statement st = conn.createStatement();
-//        st.execute(sql);
+        // st.execute(sql);
         System.out.println("success!");
     }
 }
