@@ -2,16 +2,20 @@ package com.example.demo.configration.netty;
 
 import com.example.demo.configration.netty.androidServer.AndroidNettyServer;
 import com.example.demo.configration.netty.webServer.DiscardServer;
+import com.example.demo.configration.p2p.P2PServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @WebListener
 public class NettyServerListener implements ServletContextListener {
-
+    static public ExecutorService threadPool = Executors.newCachedThreadPool();
     /**
      * 注入NettyServer
      */
@@ -19,13 +23,19 @@ public class NettyServerListener implements ServletContextListener {
     private DiscardServer discardServer;
     @Autowired
     private AndroidNettyServer androidNettyServer;
+    @Autowired
+    private P2PServer p2PServer;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+
         Thread webNetty = new Thread(new NettyServerThread());
         webNetty.start();
         Thread androidNetty = new Thread(new AndroidServerThread());
         androidNetty.start();
+        Thread p2pThread = new Thread(p2PServer);
+        System.out.println("====================");
+        p2pThread.start();
     }
 
     @Override

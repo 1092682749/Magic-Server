@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.Date;
 
 public class HTTPServer {
@@ -16,11 +17,15 @@ public class HTTPServer {
             while (true) {
                 Socket socket = serverSocket.accept();
                 InputStream is = socket.getInputStream();
-                is.read(new byte[2048]);
+                byte[] reqByte = new byte[10240];
+                is.read(reqByte);
+                String requestStr = new String(reqByte, "utf-8");
+                System.out.println(requestStr);
+
                 //is.close();
                 OutputStream os = socket.getOutputStream();
 
-                os.write("HTTP/1.1 200 OK\r\n".getBytes());
+                os.write("HTTP/1.1 401 OK\r\n".getBytes());
                 os.write("Content-Type:text/html;charset=utf-8\r\n".getBytes());
                 os.write("Content-Length:38\r\n".getBytes());
                 os.write("Server:gybs\r\n".getBytes());
