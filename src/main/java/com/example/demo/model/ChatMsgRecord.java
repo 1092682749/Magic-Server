@@ -9,6 +9,7 @@ public class ChatMsgRecord implements Comparable<ChatMsgRecord> {
     public static final int TYPE_VOICE = 2;
     public static final int TYPE_PICTURE = 3;
     public static final int TYPE_RED_PACK = 4;
+    public static final int TYPE_HEART_BEAT = 5;
     private Integer id;
 
     private String receivename;

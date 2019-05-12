@@ -41,7 +41,7 @@ public class P2PServer implements Runnable {
                     PeerInfo peerInfo = userList.get(peerMessage.getDestinationName());
 
                     if (peerInfo == null) {
-                        String response = "该用户不在线，或不存在该用户\r\n";
+                        String response = "noUser";
                         PeerResponseMessage responseMessage = new PeerResponseMessage();
                         responseMessage.setMsg(response);
                         String responseJson = JSON.toJSONString(responseMessage);
@@ -56,6 +56,7 @@ public class P2PServer implements Runnable {
                         String responseJson = JSON.toJSONString(responseMessage);
                         // 把目的主机的ip和端口返回
                         serverDataSocket.send(new DatagramPacket(responseJson.getBytes(), responseJson.length(), datagramPacket.getSocketAddress()));
+                        System.out.println("告诉" + peerMessage.getName() + "目标ip");
                         // 告诉目的主机有链接需要，请目的主机发送数据包
 
                         PeerResponseMessage assistResponse = new PeerResponseMessage();
@@ -64,6 +65,7 @@ public class P2PServer implements Runnable {
                         assistResponse.setMsg("assistInfo");
                         String assistJson = JSON.toJSONString(assistResponse);
                         serverDataSocket.send(new DatagramPacket(assistJson.getBytes(), assistJson.length(), new InetSocketAddress(peerInfo.getNatIP(), peerInfo.getPort())));
+                        System.out.println("告诉" + peerInfo.getName() + "协助打洞");
                     }
                 } else {
                     // 注册主机信息

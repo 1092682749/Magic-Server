@@ -1,5 +1,6 @@
 package com.example.demo.configration.netty.webServer;
 
+import com.example.demo.configration.netty.HeartBeatHandler;
 import com.example.demo.service.ChatMsgRecordService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.SslUtil;
@@ -30,6 +31,8 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     ChatMsgRecordService chatMsgRecordService;
     @Autowired
     UserService userService;
+    @Autowired
+    HeartBeatHandler heartBeatHandler;
     Boolean startTls = true;
     public ServerChannelInitializer() throws Exception {
     }
@@ -71,8 +74,8 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 //        socketChannel.pipeline().addLast(new AcceptorIdleStateTrigger());
 //        socketChannel.pipeline().addLast(new CopyHander());
 //        socketChannel.pipeline().addLast(new WebSocketServerHandler(new IWSService(),new IHService()));
-//        socketChannel.pipeline().addLast(new TimeServerHandler());
-        socketChannel.pipeline().addLast(new IdleStateHandler(10,0,0, TimeUnit.SECONDS));
+//        socketChannel.pipeline().addLast(new TimeServerHandler());//       socketChannel.pipeline().addLast(new IdleStateHandler(10,0,0, TimeUnit.SECONDS));
+        socketChannel.pipeline().addLast(heartBeatHandler);
         socketChannel.pipeline().addLast(new ChatHandler(chatMsgRecordService,userService));
     }
 }

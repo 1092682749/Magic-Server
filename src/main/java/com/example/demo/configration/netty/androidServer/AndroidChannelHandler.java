@@ -73,6 +73,7 @@ public class AndroidChannelHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+
         System.out.println("msg from android   " + msg.toString());
         String requestStr = msg.toString();
         String[] ss =  requestStr.split("}\\{");
@@ -92,6 +93,7 @@ public class AndroidChannelHandler extends ChannelInboundHandlerAdapter {
         }
         user.setAttachmentChannelType("android");
         ChannelMap.registerChannel(user, ctx.channel());
+
         handleAndroidMsg(ctx,chatMsgRecord);
     }
 

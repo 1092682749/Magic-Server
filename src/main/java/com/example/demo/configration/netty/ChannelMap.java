@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import io.netty.channel.Channel;
@@ -16,8 +18,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
-//@Configuration
+@Component
 public class ChannelMap {
+    @Autowired
+    static RedisTemplate<String, Object> redisTemplate;
     private static final Logger log = Logger.getLogger(ChannelMap.class.getName());
     public static final ConcurrentHashMap<User, Channel> channelMap = new ConcurrentHashMap<>();
     public static final ConcurrentHashMap<String, StringBuilder> longFrameMap = new ConcurrentHashMap<>();
@@ -57,5 +61,7 @@ public class ChannelMap {
             }
         }
         channelMap.put(registerUser, channel);
+
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.demo.configration.netty.androidServer;
 
+import com.example.demo.configration.netty.HeartBeatHandler;
 import com.example.demo.service.ChatMsgRecordService;
 import com.example.demo.service.UserService;
 import io.netty.channel.ChannelInitializer;
@@ -22,6 +23,8 @@ public class AndroidChannelInitializer extends ChannelInitializer<SocketChannel>
     UserService userService;
     @Autowired
     ChatMsgRecordService chatMsgRecordService;
+    @Autowired
+    HeartBeatHandler heartBeatHandler;
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
@@ -48,7 +51,8 @@ public class AndroidChannelInitializer extends ChannelInitializer<SocketChannel>
 //                return Class.forName(s);
 //            }
 //        }));
-//        ch.pipeline().addLast(new ObjectEncoder());
+//        ch.pipeline().addLast(new ObjectEncoder();
+        ch.pipeline().addLast(heartBeatHandler);
         ch.pipeline().addLast(new AndroidChannelHandler(chatMsgRecordService,userService));
     }
 }

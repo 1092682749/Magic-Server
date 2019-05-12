@@ -12,10 +12,24 @@ var msgObject = {
 };
 console.log($("#usernameDiv"));
 if (window.WebSocket) {
+    var alive = 0;
     var websocket = new WebSocket("wss://dyzhello.club:9000");
+    // 打开链接之后开始心跳数据的发送
+
     websocket.onopen = function (ev) {
         console.log("connect");
+        alive = 1;
         websocket.send(JSON.stringify(msgObject));
+        setInterval(function(){
+            console.log("heart");
+            websocket.send(JSON.stringify({content: 'nccHeart'}));
+            alive--;
+            // 检查时间
+            if (alive < 0) {
+                console.log('链接已被重置');
+                websocket.connect();
+            }
+        }, 10000);
     };
     websocket.onclose = function (ev) {
         console.log("close");
@@ -26,7 +40,14 @@ if (window.WebSocket) {
         // 判断发来消息的用户是不是当前窗口
         console.log("ppppppppp");
         console.log(ev);
+        console.log(ev);
         var o = JSON.parse(ev.data);
+        console.log(o.type)
+        // type等于5为心跳包
+        if (o.type == 5) {
+            alive = 1;
+            return;
+        }
         console.log(o.sendname,currentName);
         if (o.sendname == currentName) {
             reviceMsg(o);

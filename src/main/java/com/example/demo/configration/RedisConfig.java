@@ -25,8 +25,8 @@ import java.util.concurrent.Executor;
 public class RedisConfig extends AsyncConfigurerSupport {
 
     @Bean
-    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory){
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<String,String>();
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory){
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String,Object>();
 
         redisTemplate.setConnectionFactory(factory);
         // key序列化方式;（不然会出现乱码;）
@@ -36,8 +36,8 @@ public class RedisConfig extends AsyncConfigurerSupport {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();// Long类型不可以会出现异常信息;
         redisTemplate.setKeySerializer(redisSerializer);
         redisTemplate.setHashKeySerializer(redisSerializer);
-//        redisTemplate.setValueSerializer(jdkSerializationRedisSerializer);
-//        redisTemplate.setHashValueSerializer(jdkSerializationRedisSerializer);
+        redisTemplate.setValueSerializer(jdkSerializationRedisSerializer);
+        redisTemplate.setHashValueSerializer(jdkSerializationRedisSerializer);
         redisTemplate.setEnableTransactionSupport(true);
         return redisTemplate;
     }
@@ -53,11 +53,8 @@ public class RedisConfig extends AsyncConfigurerSupport {
     }
     @Bean
     public Jedis connectRedis() {
-        Jedis jedis = new Jedis("localhost",6379);
+        Jedis jedis = new Jedis("dyzhello.club",9999);
         float f = 1;
         return jedis;
-
-
-
     }
 }

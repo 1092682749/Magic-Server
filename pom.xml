@@ -63,7 +63,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.0</version>
+            <version>1.1.10</version>
         </dependency>
         <!--mybatis-plus-->
         <!--<dependency>-->
@@ -236,11 +236,19 @@
             <version>1.1</version>
             <systemPath>${basedir}/lib/jai_core.jar</systemPath>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.dyz</groupId>-->
+            <!--<artifactId>httpclient-4.3.1.wso2v1</artifactId>-->
+            <!--<version>1.1</version>-->
+            <!--<systemPath>${basedir}/lib/httpclient-4.3.1.wso2v1.jar</systemPath>-->
+        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.wso2.apache.httpcomponents/httpclient -->
+
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
-            <groupId>com.dyz</groupId>
-            <artifactId>httpclient-4.3.1.wso2v1</artifactId>
-            <version>1.1</version>
-            <systemPath>${basedir}/lib/httpclient-4.3.1.wso2v1.jar</systemPath>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.jboss.marshalling/jboss-marshalling -->
