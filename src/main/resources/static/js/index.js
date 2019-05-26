@@ -15,11 +15,11 @@ if (window.WebSocket) {
     var alive = 0;
     var websocket = new WebSocket("wss://dyzhello.club:9000");
     // 打开链接之后开始心跳数据的发送
-
     websocket.onopen = function (ev) {
         console.log("connect");
         alive = 1;
         websocket.send(JSON.stringify(msgObject));
+        // 定时发送心跳
         setInterval(function(){
             console.log("heart");
             websocket.send(JSON.stringify({content: 'nccHeart'}));
@@ -385,4 +385,25 @@ function sendVioce() {
         };
         addSendMsg(e);
     };
+}
+// 添加好友部分
+$('#post-friend-btn').click(function (e) {
+    let addFriendName = $('#addusername')[0].value;
+    console.log($('#addusername')[0].value);
+    $.ajax({
+        url: '/addfriend',
+        data: {destinationName: addFriendName},
+        dataType: 'json',
+        success: function (e) {
+            console.log("返回信息："+e);
+            alert(e.data.msg);
+        }
+    });
+    $('#addFriendModal').modal('hide');
+});
+$('#addFriendModal').on('hide.bs.modal', function (e) {
+
+});
+function addFriend() {
+    
 }

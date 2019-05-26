@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    let arr = new Array();
+    arr.push({"id": "1", "info": "iiii"});
+    arr.push({"id": "2", "info": "ggggg"});
+    $.ajax({
+        url: "/ok/arr",
+        type: "post",
+        contentType: 'application/json',
+        data: JSON.stringify(arr),
+        success: function (e) {
+            console.log(e);
+        }
+    })
+</script>

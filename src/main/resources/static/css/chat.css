@@ -157,6 +157,18 @@
 .chat-people{
     float: left;
 }
+.add-friend-btn {
+    margin-top: 10px;
+    float: left;
+    margin-left: 10px;
+    width: 75px;
+    height: 55px;
+    line-height: 55px;
+    border-radius: 10px;
+}
+.add-friend-btn:hover {
+    background: #0188b7;
+}
 .chat-people>div{
     height: 55px;
     display: inline-block;

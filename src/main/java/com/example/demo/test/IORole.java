@@ -27,4 +27,9 @@ public class IORole {
         System.out.print(redisIO1.getInfo());
         return redisIO1;
     }
+
+    @RequestMapping("/ok/test/page/upload")
+    public String uploadPage() {
+        return "test/fileUpload";
+    }
 }

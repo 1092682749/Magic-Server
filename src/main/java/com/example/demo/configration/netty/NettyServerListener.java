@@ -3,6 +3,7 @@ package com.example.demo.configration.netty;
 import com.example.demo.configration.netty.androidServer.AndroidNettyServer;
 import com.example.demo.configration.netty.webServer.DiscardServer;
 import com.example.demo.configration.p2p.P2PServer;
+import com.example.demo.utils.uploadFile.UploadFileWriteAndSave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,7 @@ public class NettyServerListener implements ServletContextListener {
         Thread androidNetty = new Thread(new AndroidServerThread());
         androidNetty.start();
         Thread p2pThread = new Thread(p2PServer);
-        System.out.println("====================");
+        // System.out.println("====================");
         p2pThread.start();
     }
 

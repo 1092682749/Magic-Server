@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sun.misc.BASE64Decoder;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.*;
 import java.util.Base64;
 
 @Controller
+@SuppressWarnings("all")
 public class ImageFileController {
 
     @RequestMapping("/android/uploadImage")
@@ -38,6 +41,7 @@ public class ImageFileController {
             BASE64Decoder decoder = new BASE64Decoder();
             System.out.println(decoder.decodeBuffer(record.getContent()));
             byte[] b = decoder.decodeBuffer(record.getContent().split(",")[1]);
+
             bos.write(b);
         } else {
             // android数据
@@ -62,5 +66,11 @@ public class ImageFileController {
             responseResult.setData(path);
         }
         return responseResult;
+    }
+
+    @RequestMapping("/ok/newuploadTest")
+    public String newupload(String base64) throws UploadFileWriteAndSave.NotBase64Exception, IOException {
+        String name = UploadFileWriteAndSave.uploadImage(base64);
+        return name;
     }
 }

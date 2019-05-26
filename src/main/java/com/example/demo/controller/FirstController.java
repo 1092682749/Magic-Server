@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.RedisIO;
 import com.example.demo.model.User;
 import com.example.demo.service.ChatMsgRecordService;
 import com.example.demo.service.FirstServer;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,5 +143,35 @@ public class FirstController {
             }
         }
         return b;
+    }
+    @RequestMapping(value="/ok/arr", method=RequestMethod.POST)
+    public void arr(
+            //HttpServletRequest request,
+            //HttpServletResponse response
+            @RequestBody RedisIO[] redisIOS
+    ) throws IOException {
+//        InputStream is = request.getInputStream();
+//        byte[] bytes = new byte[1024];
+//        int len = is.read(bytes);
+//        StringBuilder sb = new StringBuilder();
+//        while (len > 0) {
+//            sb.append(new String(bytes));
+//            len = is.read(bytes);
+//        }
+//        System.out.println(sb.toString());
+        System.out.println(redisIOS.length);
+    }
+    @RequestMapping("/ok/arrPost")
+    public String arrPost(
+            Integer id
+    ) {
+        System.out.println("run");
+        return "arrPost";
+    }
+    @RequestMapping("/ok/path")
+    public @ResponseBody Map<String, String> path() {
+        Map<String, String> map = new HashMap<>();
+        map.put("path", "https://www.processon.com/view/link/5ce4f82ee4b0c7d0f4cf7d24");
+        return map;
     }
 }

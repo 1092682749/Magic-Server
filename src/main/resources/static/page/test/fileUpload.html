@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="file" id="uploadFile"/>
+</body>
+</html>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+
+    $('#uploadFile').change(function (e) {
+        console.log("change");
+        var reader = new FileReader;
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function (ev) {
+            console.log(ev);
+            $.ajax({
+                url: '/ok/newuploadTest',
+                data: {base64: ev.target.result},
+                type: 'post',
+                success: function (ee) {
+                    console.log(ee);
+                }
+            });
+        }
+    })
+</script>

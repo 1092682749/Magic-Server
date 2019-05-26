@@ -26,7 +26,7 @@ public class P2PServer implements Runnable {
         try {
             DatagramPacket datagramPacket = new DatagramPacket(new byte[1024], 1024);
             DatagramSocket serverDataSocket = new DatagramSocket(p2pServerPort);
-            System.out.println("p2pServer start!");
+            // System.out.println("p2pServer start!");
             while (true) {
 
                 serverDataSocket.receive(datagramPacket);
