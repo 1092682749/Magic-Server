@@ -178,4 +178,16 @@
       you_id = #{youId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <insert id="addFriendRelate" useGeneratedKeys="true">
+    insert into friend (me_id, you_id)
+    select #{id1}, #{id2} from dual
+    where not exists
+    (select * from friend where me_id = #{id1} and you_id = #{id2})
+  </insert>
+  <select id="findMyFriend" parameterType="int" resultType="com.example.demo.model.Friend">
+    select * from friend where me_id = #{id}
+  </select>
+  <select id="findMyAllFriend" parameterType="int" resultType="com.example.demo.model.User">
+    select * from User where id in (select you_id from friend where me_id = #{id})
+  </select>
 </mapper>

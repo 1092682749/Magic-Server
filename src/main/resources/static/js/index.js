@@ -404,6 +404,31 @@ $('#post-friend-btn').click(function (e) {
 $('#addFriendModal').on('hide.bs.modal', function (e) {
 
 });
-function addFriend() {
-    
+function handleFriendApplication(_this, state) {
+
+    let box = _this.parentNode.parentNode;
+    let destinationId = box.querySelector('[name=destination_id]')
+    let applicationId = box.querySelector('[name=application_id]');
+    let id = box.querySelector('[name=f_id]');
+    let application = {
+        id: id.value,
+        applicationId: applicationId.value,
+        destinationId: destinationId.value,
+        state: state,
+    };
+    console.log(application);
+    application.state = state;
+    $.ajax({
+        type: 'post',
+        url: '/handleFriendApplication',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(application),
+        success: function (e) {
+            console.log(e);
+            if (e.message == "ok") {
+                _this.display = "none";
+            }
+        }
+    })
 }

@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.FriendApplication;
 import com.example.demo.model.RedisIO;
 import com.example.demo.model.User;
-import com.example.demo.service.ChatMsgRecordService;
-import com.example.demo.service.FirstServer;
-import com.example.demo.service.UserService;
+import com.example.demo.service.*;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -21,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +35,10 @@ public class FirstController {
     ChatMsgRecordService chatMsgRecordService;
     @Resource
     RedisTemplate redisTemplate;
-
+    @Resource
+    FriendService friendService;
+    @Resource
+    FriendApplicationService friendApplicationService;
     @RequestMapping("/redPacket")
     public ModelAndView redPacket(@RequestParam(defaultValue = "1") Integer i){
         System.out.print("进来了");
@@ -98,10 +101,17 @@ public class FirstController {
     public ModelAndView index() throws Exception {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
+        // 查找好友
+        List<User> userList = friendService.findMyAllFriend();
         List<User> allUser = userService.findAll();
+        List<User> appliationUserList = new LinkedList<>();
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("user",user);
-        mav.addObject("allUser",allUser);
+        mav.addObject("allUser",userList);
+        // 查找好友申请
+        List<Map<String, Object>> applicationList = friendApplicationService.findFriendApplication(user.getId());
+        mav.addObject("friendApplicationList", applicationList);
+
         Map<String,Integer> unreadMap = new HashMap<>();
         for (User u : allUser) {
            Integer count = chatMsgRecordService.selectCountBySendName(u.getUsername(),user.getUsername());

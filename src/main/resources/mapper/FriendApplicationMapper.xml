@@ -206,4 +206,11 @@
    (select * from friend_application
     where application_id = #{applicationId} and destination_id = #{destinationId} and state != 2)
   </insert>
+    <select id="findFriendApplication" parameterType="int" resultType="map">
+        select  fa.id f_id, fa.application_id, fa.destination_id, fa.state, u.id u_id, u.username, u.password, u.nickName
+        from friend_application fa left join User u on fa.application_id = u.id where destination_id = #{id} and state = 0
+    </select>
+    <update id="handleFriendApplication" parameterType="com.example.demo.model.FriendApplication" useGeneratedKeys="true">
+        update friend_application set state = #{state} where id = #{id} and destination_id = #{destinationId}
+    </update>
 </mapper>

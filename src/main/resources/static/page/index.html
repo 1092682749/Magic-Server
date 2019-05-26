@@ -31,6 +31,10 @@
             background-color: #01aee0;
             opacity: 0.5;
         }
+        .btnColor {
+            border-color: #01aee0;
+            background-color: #01aee0;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -304,17 +308,34 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="notifyModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="notifyModalLabel">好友申请</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <!--申请列表-->
+                <div class="row" th:each="friendApplication : ${friendApplicationList}">
+                    <input name="application_id" th:value="${friendApplication.get('application_id')}"  hidden></input>
+                    <input name="f_id" th:value="${friendApplication.get('f_id')}"  hidden></input>
+                    <input name="destination_id" th:value="${friendApplication.get('destination_id')}"  hidden></input>
+                    <div class="col-7" style="margin-left: 5px; text-align: center; text-overflow: ellipsis;" th:text="${friendApplication.get('nickName')}">
+
+                    </div>
+                    <div class="col-2" style="margin-left: 5px">
+                        <button type="button" class="btn btn-danger" onclick="handleFriendApplication(this, 2)">拒绝</button>
+
+                    </div>
+                    <div class="col-2" style="margin-left: 5px">
+                        <button type="button" class="btn btn-success " onclick="handleFriendApplication(this, 1)">同意</button>
+                    </div>
+
+                </div>
+                <!--end-->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>-->
+                <button type="button" class="btn btn-primary btnColor" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>

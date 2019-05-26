@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sun.plugin.liveconnect.SecurityContextHelper;
@@ -47,5 +48,16 @@ public class FriendController {
             msg.put("msg", "申请失败!");
         }
         return new ResponseResult(msg);
+    }
+
+    @RequestMapping("/handleFriendApplication")
+    public @ResponseBody ResponseResult handleFriendApplication(@RequestBody FriendApplication friendApplication) {
+        int res = friendApplicationService.handleFriendApplication(friendApplication);
+        ResponseResult responseResult = new ResponseResult("error");
+        int res1 = friendService.addFriendRelate(friendApplication.getApplicationId(), friendApplication.getDestinationId());
+        if (res > 0 && res1 > 0) {
+            responseResult.setMessage("ok");
+        }
+        return responseResult;
     }
 }

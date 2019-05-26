@@ -3,6 +3,8 @@ package com.example.demo.dao;
 import com.example.demo.model.FriendApplication;
 import com.example.demo.model.FriendApplicationExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface FriendApplicationMapper {
@@ -28,4 +30,7 @@ public interface FriendApplicationMapper {
 
     int updateByPrimaryKey(FriendApplication record);
     void insertApplicationSingle(FriendApplication application);
+
+    List<Map<String, Object>> findFriendApplication(Integer id);
+    int handleFriendApplication(FriendApplication friendApplication);
 }
