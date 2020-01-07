@@ -10,6 +10,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.*;
 import java.net.*;
 import java.nio.CharBuffer;
+import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,8 +69,13 @@ public class GetMaoMi {
         in.close();
         System.out.println(content.toString());
     }
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
+
         GetMaoMi maoMi = new GetMaoMi();
+//        synchronized (maoMi) {
+//            maoMi.wait();
+//        }
+
         String content = maoMi.httpClientGetUrl("https://www.219tt.com/index/home.html");
         Pattern pattern = Pattern.compile("<a[^>]+?href=[\"']?([^\"']+)[\"']?[^>]*>([^<]+)</a>");
         Matcher matcher = pattern.matcher(content);

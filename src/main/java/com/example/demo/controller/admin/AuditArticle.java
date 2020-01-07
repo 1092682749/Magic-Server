@@ -35,4 +35,11 @@ public class AuditArticle {
         }
         return new ResponseResult().setMessage("失败");
     }
+
+    @RequestMapping("/find")
+    @ResponseBody
+    public List<Article> find(String title) {
+        return articleService.findByTitle(title);
+    }
+
 }

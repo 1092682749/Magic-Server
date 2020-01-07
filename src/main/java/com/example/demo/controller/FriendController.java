@@ -14,13 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/ok")
 public class FriendController {
     @Autowired
     FriendService friendService;
@@ -29,16 +31,23 @@ public class FriendController {
     @Autowired
     FriendApplicationService friendApplicationService;
     @RequestMapping("/addfriend")
-    public @ResponseBody ResponseResult addFriend(String destinationName) throws Exception {
-
+    public @ResponseBody ResponseResult addFriend(HttpServletRequest request) throws Exception {
+        String destinationName = request.getParameter("destinationName");
+        String applicationName = request.getParameter("applicationName");
         User user = userService.findByUsername(destinationName);
         Map<String, String> msg = new HashMap<>();
 
         if (user != null) { // 查询是否存在该用户
 
             FriendApplication friendApplication = new FriendApplication();
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User currentUser = userService.findByUsername(userDetails.getUsername());
+            User currentUser = null;
+            if (applicationName == null) {
+                UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                currentUser = userService.findByUsername(userDetails.getUsername());
+            } else {
+                currentUser = userService.findByUsername(applicationName);
+            }
+
             friendApplication.setApplicationId(currentUser.getId());
             friendApplication.setDestinationId(user.getId());
             friendApplication.setState(0);
@@ -59,5 +68,22 @@ public class FriendController {
             responseResult.setMessage("ok");
         }
         return responseResult;
+    }
+    @RequestMapping("/getFriendApplication")
+    public @ResponseBody List<Map<String, Object>> getFriendApplication(HttpServletRequest request) throws Exception {
+        String username = (String) request.getParameter("username");
+        System.out.println(username);
+        User user = null;
+
+        if (username != null) {
+            user = userService.findByUsername(username);
+        }
+        if (user == null) {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            user = userService.findByUsername(userDetails.getUsername());
+        }
+
+        List<Map<String, Object>> applicationList = friendApplicationService.findFriendApplication(user.getId());
+        return applicationList;
     }
 }

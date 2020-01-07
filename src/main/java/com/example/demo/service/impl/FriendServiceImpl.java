@@ -57,4 +57,10 @@ public class FriendServiceImpl implements FriendService {
         List<User> userList = friendMapper.findMyAllFriend(user.getId());
         return userList;
     }
+
+    @Override
+    public List<User> findMyAllFriend(User user) {
+        List<User> userList = friendMapper.findMyAllFriend(user.getId());
+        return userList;
+    }
 }

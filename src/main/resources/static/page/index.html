@@ -323,11 +323,11 @@
 
                     </div>
                     <div class="col-2" style="margin-left: 5px">
-                        <button type="button" class="btn btn-danger" onclick="handleFriendApplication(this, 2)">拒绝</button>
+                        <button type="button" class="btn btn-danger "  onclick="handleFriendApplication(this, 2)">拒绝</button>
 
                     </div>
                     <div class="col-2" style="margin-left: 5px">
-                        <button type="button" class="btn btn-success " onclick="handleFriendApplication(this, 1)">同意</button>
+                        <button type="button" class="btn btn-success btnColor" style="background-color: #01aee0; border-color: #01aee0;" onclick="handleFriendApplication(this, 1)">同意</button>
                     </div>
 
                 </div>
@@ -335,11 +335,32 @@
             </div>
             <div class="modal-footer">
                 <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>-->
-                <button type="button" class="btn btn-primary btnColor" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btnColor" style="background-color: #01aee0; border-color: #01aee0;" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
 </div>
+<!-- -&#45;&#45;-->
+<!--所有的消息提示-->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="msgBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--消息提示结束-->
 </body>
 </html>
 <script src="../js/jquery.min.js"></script>

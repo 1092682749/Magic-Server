@@ -14,4 +14,5 @@ public interface ArticleService {
     List<Article> findPass();
     List<Article> findByAdminCondition(Article article);
     int changeAuditState(Integer state, Integer aid);
+    List<Article> findByTitle(String title);
 }

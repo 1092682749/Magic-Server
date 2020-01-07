@@ -318,6 +318,7 @@
                 lastPageA.parentElement.insertBefore(a, lastPageA);
                 a.innerHTML = i + '';
                 a.setAttribute('href', '/articleList?pageNum=' + i + "&condition=" + condition);
+                a.setAttribute("style", "margin-left: 5px");
                 a.classList.add('btn');
                 if (i == pageInfo.pageNum) {
                     a.classList.add('active');

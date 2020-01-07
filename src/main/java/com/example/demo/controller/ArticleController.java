@@ -91,7 +91,6 @@ public class ArticleController {
 
         }
         if (0 < reviewService.save(review)) {
-
             return new ResponseResult().setMessage("评论成功");
         }
         return new ResponseResult().setMessage("评论失败");

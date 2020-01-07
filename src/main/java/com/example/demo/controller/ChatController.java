@@ -3,9 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.model.ChatMsg;
 import com.example.demo.model.ChatMsgRecord;
 import com.example.demo.model.User;
-import com.example.demo.service.ChatMsgRecordService;
-import com.example.demo.service.ChatMsgService;
-import com.example.demo.service.UserService;
+import com.example.demo.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.*;
 
@@ -26,6 +26,10 @@ public class ChatController {
     ChatMsgService chatMsgService;
     @Resource
     ChatMsgRecordService chatMsgRecordService;
+    @Resource
+    FriendApplicationService friendApplicationService;
+    @Resource
+    FriendService friendService;
     @RequestMapping("/page")
     public String registPage() {
         return "regist";
@@ -65,8 +69,13 @@ public class ChatController {
     }
 
     @RequestMapping("/getFriend")
-    public @ResponseBody List<User> getFriend() {
-       return userService.findAll();
+    public @ResponseBody List<User> getFriend(HttpServletRequest request) throws Exception {
+        String username = request.getParameter("username");
+        User user = userService.findByUsername(username);
+        if (user == null) {
+            return friendService.findMyAllFriend();
+        }
+       return friendService.findMyAllFriend(user);
     }
 
     @RequestMapping("/checkSession")

@@ -4,27 +4,139 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .box div{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .box span {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #0d90d1;
+        margin: 20px;
+    }
+</style>
 <body>
     <input type="file" id="uploadFile"/>
+<div class="box">
+    <div>
+        <span value="1"></span>
+        <span value="2"></span>
+        <span value="3"></span>
+        <span value="4"></span>
+        <span value="5"></span>
+    </div>
+    <div>
+        <span value="6"></span>
+        <span value="7"></span>
+        <span value="8"></span>
+        <span value="9"></span>
+        <span value="10"></span>
+        <span value="11"></span>
+        <span value="12"></span>
+    </div>
+    <div>
+        <span value="13"></span>
+        <span value="14"></span>
+        <span value="15"></span>
+        <span value="16"></span>
+        <span value="17"></span>
+        <span value="18"></span>
+        <span value="19"></span>
+        <span value="20"></span>
+        <span value="21"></span>
+    </div>
+    <div>
+        <span value="22"></span>
+        <span value="23"></span>
+        <span value="24"></span>
+        <span value="25"></span>
+        <span value="26"></span>
+        <span value="27"></span>
+        <span value="28"></span>
+    </div>
+    <div>
+        <span value="29"></span>
+        <span value="30"></span>
+        <span value="31"></span>
+        <span value="32"></span>
+        <span value="33"></span>
+    </div>
+</div>
 </body>
 </html>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script>
 
-    $('#uploadFile').change(function (e) {
-        console.log("change");
-        var reader = new FileReader;
-        reader.readAsDataURL(this.files[0]);
-        reader.onload = function (ev) {
-            console.log(ev);
-            $.ajax({
-                url: '/ok/newuploadTest',
-                data: {base64: ev.target.result},
-                type: 'post',
-                success: function (ee) {
-                    console.log(ee);
+    // $('#uploadFile').change(function (e) {
+    //     console.log("change");
+    //     var reader = new FileReader;
+    //     reader.readAsDataURL(this.files[0]);
+    //     reader.onload = function (ev) {
+    //         console.log(ev);
+    //         $.ajax({
+    //             url: '/ok/newuploadTest',
+    //             data: {base64: ev.target.result},
+    //             type: 'post',
+    //             success: function (ee) {
+    //                 console.log(ee);
+    //             }
+    //         });
+    //     }
+    // })
+    // setTimeout(function () {
+    //     console.log("A");
+    // }, 5000);
+    // console.log("VB");
+    // function onSelect() {
+    //     alert('select');
+    // }
+    // var obj = {
+    //     fun: function (e) {
+    //
+    //     },
+    //     fun1: function () {
+    //         this.fun("aaa");
+    //     }
+    // }
+    // obj.fun = function (e) {
+    //     console.log(e);
+    // }
+    // obj.fun1();
+    // $.extend(
+    //
+    // )
+
+    var arr = ["1", "2", "12"];
+    function changeColor() {
+        var spanArr = document.querySelectorAll(".box span");
+        spanArr.forEach(function (v, i, arr2) {
+            v.onclick = function () {
+                var  num = spanArr[i].getAttribute("value");
+                var location = arr.indexOf(num);
+                if (location == -1) {
+                    arr.push(num);
+                    v.setAttribute("style", "background-color: red;");
+                } else {
+                    arr.splice(location, 1);
+                    v.setAttribute("style", "background-color: #0d90d1;");
                 }
-            });
-        }
-    })
+
+            };
+        });
+        arr.forEach(function (v, i, arr1) {
+            console.log(arr1);
+
+            spanArr.forEach(function (v1, i, a) {
+                console.log(v1.getAttribute("value"));
+                if (v1.getAttribute("value") == v) {
+                    v1.setAttribute("style", "background-color: red;");
+                }
+            })
+        });
+    }
+    changeColor();
 </script>

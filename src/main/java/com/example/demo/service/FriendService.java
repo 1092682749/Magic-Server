@@ -11,4 +11,5 @@ public interface FriendService {
     int addFriendRelate(Integer id1, Integer id2);
     List<User> findMyFriend() throws Exception;
     List<User> findMyAllFriend() throws Exception;
+    List<User> findMyAllFriend(User user);
 }

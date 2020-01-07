@@ -57,4 +57,9 @@ public class ArticleServiceImpl implements ArticleService {
     public int changeAuditState(Integer state, Integer aid) {
         return articleMapper.changeAuditState(state, aid);
     }
+
+    @Override
+    public List<Article> findByTitle(String title) {
+        return articleMapper.findByTitle(title);
+    }
 }

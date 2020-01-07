@@ -421,7 +421,7 @@
     select * from article where aid = #{id}
   </select>
   <select id="findByAdminCondition" parameterType="com.example.demo.model.Article" resultType="com.example.demo.model.Article">
-     select atitle, brief from article where 1 = 1
+     select aid, atitle, brief from article where 1 = 1
     <trim>
       <if test="atitle != null and atitle != ''">
          and atitle like #{atitle}
@@ -440,4 +440,7 @@
     <update id="changeAuditState">
     update article set state = #{state} where aid = #{aid}
   </update>
+  <select id="findByTitle" resultType="com.example.demo.model.Article" parameterType="string">
+    select * from article where atitle = #{title}
+  </select>
 </mapper>

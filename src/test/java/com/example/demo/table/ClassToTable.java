@@ -11,12 +11,12 @@ public class ClassToTable {
     public static String create(Class<?> clazz) throws Exception {
         StringBuilder sql = new StringBuilder("CREATE TABLE ");
         String tableName = clazz.getSimpleName();
-        sql.append(tableName + "(\r\n");
+        sql.append(tableName.toLowerCase() + "(\r\n");
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             String fieldName = field.getName();
             Class<?> type = field.getType();
-            sql.append(fieldName);
+            sql.append(fieldName.toLowerCase());
             sql.append(convertJDBCType(type.getSimpleName()));
             if (fieldName.equals("id")) {
                 sql.append(" primary key not null auto_increment,\r\n");

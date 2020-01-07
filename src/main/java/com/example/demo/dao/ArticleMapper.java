@@ -42,4 +42,5 @@ public interface ArticleMapper {
     List<Article> findPass();
     List<Article> findByAdminCondition(Article article);
     int changeAuditState(@Param("state") Integer state, @Param("aid")Integer aid);
+    List<Article> findByTitle(@Param("title") String title);
 }

@@ -391,12 +391,13 @@ $('#post-friend-btn').click(function (e) {
     let addFriendName = $('#addusername')[0].value;
     console.log($('#addusername')[0].value);
     $.ajax({
-        url: '/addfriend',
+        url: '/ok/addfriend',
         data: {destinationName: addFriendName},
         dataType: 'json',
         success: function (e) {
             console.log("返回信息："+e);
-            alert(e.data.msg);
+            $('#msgBody').text(e.data.msg);
+            $('#messageModal').modal('show');
         }
     });
     $('#addFriendModal').modal('hide');
@@ -406,28 +407,30 @@ $('#addFriendModal').on('hide.bs.modal', function (e) {
 });
 function handleFriendApplication(_this, state) {
 
-    let box = _this.parentNode.parentNode;
-    let destinationId = box.querySelector('[name=destination_id]')
-    let applicationId = box.querySelector('[name=application_id]');
-    let id = box.querySelector('[name=f_id]');
+    let row = _this.parentNode.parentNode;
+    let destinationId = row.querySelector('[name=destination_id]')
+    let applicationId = row.querySelector('[name=application_id]');
+    let id = row.querySelector('[name=f_id]');
     let application = {
         id: id.value,
         applicationId: applicationId.value,
         destinationId: destinationId.value,
         state: state,
     };
-    console.log(application);
+    console.log(row);
     application.state = state;
     $.ajax({
         type: 'post',
-        url: '/handleFriendApplication',
+        url: '/ok/handleFriendApplication',
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(application),
         success: function (e) {
             console.log(e);
             if (e.message == "ok") {
-                _this.display = "none";
+                $('#msgBody').text('处理成功');
+                $('#messageModal').modal('show');
+                row.style.display = "none";
             }
         }
     })

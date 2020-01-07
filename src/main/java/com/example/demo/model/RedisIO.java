@@ -9,6 +9,16 @@ public class RedisIO implements Serializable {
 
     private String info;
 
+    private String TestInfo;
+
+    public String getTestInfo() {
+        return TestInfo;
+    }
+
+    public void setTestInfo(String testInfo) {
+        TestInfo = testInfo;
+    }
+
     public Integer getId() {
         return id;
     }
